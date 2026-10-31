@@ -1,0 +1,134 @@
+import React from 'react';
+import { useFlow } from '../../context/FlowContext';
+import { AnnotationBadge } from '../AnnotationBadge';
+import { VolumeX } from 'lucide-react';
+
+export const OriginalHome = () => {
+  const { handleLeftAction } = useFlow();
+
+  return (
+    <div className="relative flex flex-col h-full bg-black text-white justify-between select-none">
+      {/* Top Header */}
+      <div className="px-5 pt-2 flex items-center justify-between text-xs tracking-wider z-20">
+        <span
+          className="cursor-pointer font-bold font-mono text-xs text-neutral-300 hover:text-white"
+          onClick={() => handleLeftAction('navigate', 'menu')}
+          title="Mở Menu"
+        >
+          MENU ≡
+        </span>
+        <div className="flex items-center gap-3">
+          {/* Cryptic unlabelled search icon (Problem #9) */}
+          <button
+            onClick={() => handleLeftAction('navigate', 'search_typing')}
+            className="w-4 h-4 rounded-full border border-dotted border-neutral-400 hover:border-white transition-colors"
+            title="Search"
+          />
+          <span
+            onClick={() => handleLeftAction('navigate', 'lookbook')}
+            className="text-[11px] font-mono tracking-widest text-neutral-400 hover:text-white cursor-pointer"
+            title="Đổi hiển thị (Grid view)"
+          >
+            HIỂN THỊ 1
+          </span>
+        </div>
+      </div>
+
+      {/* Main Editorial Hero: Clean Campaign Photo without any phone frame */}
+      <div className="relative flex-1 flex flex-col justify-end px-5 pb-5 overflow-hidden">
+        <div
+          onClick={() => handleLeftAction('navigate', 'lookbook')}
+          className="absolute inset-0 z-0 cursor-pointer"
+          title="Chạm để xem Lookbook"
+        >
+          <img
+            src="/products/real_home_campaign.jpg"
+            alt="Zara Campaign"
+            className="w-full h-full object-cover object-center brightness-90 hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/30" />
+        </div>
+
+        {/* Video mute icon */}
+        <div className="absolute left-5 bottom-28 z-20">
+          <VolumeX className="w-4 h-4 text-white/70" />
+        </div>
+
+        {/* Audit Annotation 1: Missing Entry Points Flaw */}
+        <div className="relative z-20 mb-3">
+          <AnnotationBadge
+            id="home_pills"
+            number="1"
+            className="-top-3 right-4"
+            variant="red"
+          />
+
+          <div
+            onClick={() => handleLeftAction('navigate', 'lookbook')}
+            className="border border-red-500/80 p-3 bg-red-950/40 backdrop-blur-sm rounded cursor-pointer hover:bg-red-950/60 transition-colors"
+          >
+            <h1 className="zara-logo text-3xl font-black tracking-tight leading-none text-white uppercase mb-1">
+              TWILIGHT ROSES
+            </h1>
+            <p className="text-[10px] font-serif italic text-neutral-300 tracking-wide">
+              PHOTOGRAPHS BY Steven Meisel<br />
+              FILM BY Fabien Baron
+            </p>
+          </div>
+        </div>
+
+        {/* Lookbook banner link */}
+        <div
+          onClick={() => handleLeftAction('navigate', 'lookbook')}
+          className="relative z-20 cursor-pointer pt-2.5 pb-1 border-t border-white/20 flex items-center justify-between text-[11px] tracking-widest uppercase hover:text-neutral-300"
+        >
+          <span className="font-serif">LOOKBOOK · WOMEN'S WINTER 2026</span>
+          <span>→</span>
+        </div>
+      </div>
+
+      {/* Bottom Bar: Original 3-item navigation with flaw */}
+      <div className="relative border-t border-neutral-900 bg-black px-6 py-2.5 z-20">
+        <AnnotationBadge
+          id="home_navbar"
+          number="2"
+          className="-top-3 right-6"
+          variant="red"
+        />
+
+        <div className="flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-neutral-400">
+          <button
+            onClick={() => handleLeftAction('navigate', 'menu')}
+            className="flex flex-col items-center gap-1 hover:text-white transition-colors"
+          >
+            <span>DANH MỤC</span>
+            <div className="w-1 h-1 bg-white rounded-full" />
+          </button>
+
+          <button
+            onClick={() => handleLeftAction('navigate', 'search_typing')}
+            className="hover:text-white transition-colors flex items-center gap-1"
+            title="Tìm kiếm"
+          >
+            <span className="w-2.5 h-2.5 rounded-full border border-dotted border-neutral-400 inline-block" />
+            <span>TÌM KIẾM</span>
+          </button>
+
+          <button
+            onClick={() => handleLeftAction('navigate', 'account')}
+            className="hover:text-white transition-colors"
+          >
+            TÀI KHOẢN
+          </button>
+
+          <button
+            onClick={() => handleLeftAction('navigate', 'bag')}
+            className="hover:text-white transition-colors"
+          >
+            | 0 |
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

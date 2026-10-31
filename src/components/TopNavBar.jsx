@@ -1,0 +1,149 @@
+import React from 'react';
+import { useFlow, FLOWS } from '../context/FlowContext';
+import { Smartphone, RefreshCw, Eye, EyeOff, ZoomIn, Layers, Sparkles } from 'lucide-react';
+
+export const TopNavBar = () => {
+  const {
+    currentFlow,
+    navigateTo,
+    deviceType,
+    setDeviceType,
+    mirrorMode,
+    setMirrorMode,
+    showAnnotations,
+    setShowAnnotations,
+    scale,
+    setScale,
+  } = useFlow();
+
+  return (
+    <header className="w-full bg-[#111215]/95 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-50 px-4 py-2.5">
+      <div className="max-w-7xl mx-auto flex flex-col gap-2.5">
+        {/* Upper Row: Title & Global Control Toggles */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {/* Brand & Project Info */}
+          <div className="flex items-center gap-3">
+            <span className="zara-logo text-2xl font-black tracking-tighter text-white">
+              ZARA
+            </span>
+            <div className="h-5 w-px bg-neutral-700" />
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-neutral-200">
+                  Mobile App UI/UX Redesign
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-semibold border border-amber-500/20">
+                  Master BIS
+                </span>
+              </div>
+              <p className="text-[11px] text-neutral-400">
+                Interactive Dual-Screen Prototype · Original vs. Enhanced
+              </p>
+            </div>
+          </div>
+
+          {/* Action Toggles */}
+          <div className="flex items-center gap-2 text-xs">
+            {/* Device Switcher */}
+            <div className="flex items-center bg-neutral-800/80 rounded-lg p-0.5 border border-neutral-700">
+              <button
+                onClick={() => setDeviceType('iphone')}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md font-medium transition-all ${
+                  deviceType === 'iphone'
+                    ? 'bg-neutral-900 text-white shadow-sm ring-1 ring-neutral-600'
+                    : 'text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>iPhone</span>
+              </button>
+              <button
+                onClick={() => setDeviceType('android')}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md font-medium transition-all ${
+                  deviceType === 'android'
+                    ? 'bg-neutral-900 text-white shadow-sm ring-1 ring-neutral-600'
+                    : 'text-neutral-400 hover:text-neutral-200'
+                }`}
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Android</span>
+              </button>
+            </div>
+
+            {/* Mirroring Toggle */}
+            <button
+              onClick={() => setMirrorMode(!mirrorMode)}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-medium transition-all ${
+                mirrorMode
+                  ? 'bg-blue-950/60 text-blue-300 border-blue-700/80'
+                  : 'bg-neutral-800/80 text-neutral-400 border-neutral-700'
+              }`}
+              title="When ON, clicking either screen navigates both screens together"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${mirrorMode ? 'animate-spin-slow text-blue-400' : ''}`} />
+              <span>Mirror: {mirrorMode ? 'ON' : 'OFF'}</span>
+            </button>
+
+            {/* Audit Hotspots Toggle */}
+            <button
+              onClick={() => setShowAnnotations(!showAnnotations)}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-medium transition-all ${
+                showAnnotations
+                  ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/80'
+                  : 'bg-neutral-800/80 text-neutral-400 border-neutral-700'
+              }`}
+              title="Show numbered UX audit badges directly on the screens"
+            >
+              {showAnnotations ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+              <span>UX Badges</span>
+            </button>
+
+            {/* Scale Control */}
+            <div className="flex items-center gap-1 bg-neutral-800/80 rounded-lg px-2 py-1 border border-neutral-700 text-neutral-300">
+              <ZoomIn className="w-3.5 h-3.5 text-neutral-400" />
+              <select
+                value={scale}
+                onChange={(e) => setScale(parseFloat(e.target.value))}
+                className="bg-transparent text-xs text-neutral-200 focus:outline-none cursor-pointer"
+              >
+                <option value={0.75} className="bg-neutral-900">75% Zoom</option>
+                <option value={0.85} className="bg-neutral-900">85% Zoom</option>
+                <option value={1.0} className="bg-neutral-900">100% Zoom</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Lower Row: Flow Selection Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <span className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
+            <Layers className="w-3 h-3" /> Flows:
+          </span>
+          {FLOWS.map((flow) => {
+            const isActive = currentFlow === flow.id;
+            return (
+              <button
+                key={flow.id}
+                onClick={() => navigateTo(flow.id, 'nav')}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 border shrink-0 ${
+                  isActive
+                    ? 'bg-white text-black border-white shadow-md font-semibold'
+                    : 'bg-neutral-900 text-neutral-400 border-neutral-800 hover:border-neutral-600 hover:text-neutral-200'
+                }`}
+              >
+                <span>{flow.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    isActive ? 'bg-neutral-200 text-neutral-800 font-bold' : 'bg-neutral-800 text-neutral-400'
+                  }`}
+                >
+                  {flow.author}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </header>
+  );
+};
