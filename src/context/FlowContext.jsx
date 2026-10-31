@@ -208,7 +208,7 @@ export const FlowProvider = ({ children }) => {
         price: '2,599,000 VND',
         priceGbp: '79.99 GBP',
         priceNum: 2599000,
-        image: '/products/real_leather_jacket.jpg',
+        image: './products/real_leather_jacket.jpg',
         stock: 'available',
       }
     ]

@@ -73,7 +73,7 @@ export const EnhancedReturns = () => {
         <div className="bg-[#121214] border border-neutral-800 rounded-xl p-3 flex items-center gap-3">
           <div className="w-12 h-14 bg-neutral-900 rounded overflow-hidden shrink-0 border border-neutral-700">
             <img
-              src="/products/real_wool_coat.jpg"
+              src="./products/real_wool_coat.jpg"
               alt="Wool Blend Coat"
               className="w-full h-full object-cover object-top"
             />

@@ -11,7 +11,7 @@ export const EnhancedHome = () => {
       {/* Clean Campaign Editorial Background without any phone frame */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/products/real_home_campaign.jpg"
+          src="./products/real_home_campaign.jpg"
           alt="Zara AW 2026 Collection"
           className="w-full h-full object-cover object-center brightness-95"
         />

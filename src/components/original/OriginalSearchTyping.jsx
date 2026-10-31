@@ -89,7 +89,7 @@ export const OriginalSearchTyping = () => {
             className="bg-neutral-900 p-2 border border-neutral-800 cursor-pointer hover:border-neutral-500 rounded transition-colors"
           >
             <div className="h-20 bg-neutral-800 flex items-center justify-center text-xs overflow-hidden rounded">
-              <img src="/products/real_beaded_top.jpg" alt="Beaded Top" className="w-full h-full object-cover" />
+              <img src="./products/real_beaded_top.jpg" alt="Beaded Top" className="w-full h-full object-cover" />
             </div>
             <div className="text-[11px] font-bold uppercase text-neutral-200 mt-1">Beaded Top</div>
             <div className="text-[10px] text-neutral-400 font-mono">$ 65.95</div>
@@ -99,7 +99,7 @@ export const OriginalSearchTyping = () => {
             className="bg-neutral-900 p-2 border border-neutral-800 cursor-pointer hover:border-neutral-500 rounded transition-colors"
           >
             <div className="h-20 bg-neutral-800 flex items-center justify-center text-xs overflow-hidden rounded">
-              <img src="/products/real_beaded_bag.jpg" alt="Beaded Bag" className="w-full h-full object-cover" />
+              <img src="./products/real_beaded_bag.jpg" alt="Beaded Bag" className="w-full h-full object-cover" />
             </div>
             <div className="text-[11px] font-bold uppercase text-neutral-200 mt-1">Beaded Bag</div>
             <div className="text-[10px] text-neutral-400 font-mono">$ 139.00</div>

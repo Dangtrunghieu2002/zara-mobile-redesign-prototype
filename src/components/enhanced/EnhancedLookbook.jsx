@@ -66,7 +66,7 @@ export const EnhancedLookbook = () => {
           >
             <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
               <img
-                src="/products/real_lookbook_1.jpg"
+                src="./products/real_lookbook_1.jpg"
                 alt="Embroidered Cropped Jacket"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />
@@ -103,7 +103,7 @@ export const EnhancedLookbook = () => {
           >
             <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
               <img
-                src="/products/real_lookbook_2.jpg"
+                src="./products/real_lookbook_2.jpg"
                 alt="Oversized Tweed Coat"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />
@@ -139,7 +139,7 @@ export const EnhancedLookbook = () => {
           >
             <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
               <img
-                src="/products/real_lookbook_3.jpg"
+                src="./products/real_lookbook_3.jpg"
                 alt="Satin Halter Dress"
                 className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />
@@ -160,7 +160,7 @@ export const EnhancedLookbook = () => {
           >
             <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
               <img
-                src="/products/real_lookbook_4.jpg"
+                src="./products/real_lookbook_4.jpg"
                 alt="Padded Silk Scarf Jacket"
                 className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />

@@ -2,6 +2,10 @@
 > **Master BIS (Business Information Systems) - UI/UX Design Course Project**  
 > *Interactive Dual-Device Comparative Prototype: Original vs. Enhanced Experience*
 
+[![Deploy Prototype to GitHub Pages](https://github.com/Dangtrunghieu2002/zara-mobile-redesign-prototype/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dangtrunghieu2002/zara-mobile-redesign-prototype/actions/workflows/deploy.yml)
+
+🌐 **Live Demo Website**: [https://dangtrunghieu2002.github.io/zara-mobile-redesign-prototype/](https://dangtrunghieu2002.github.io/zara-mobile-redesign-prototype/)
+
 ---
 
 ## 📱 Project Overview

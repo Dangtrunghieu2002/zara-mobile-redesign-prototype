@@ -55,7 +55,7 @@ export const OriginalLookbook = () => {
               title="Xem Lookbook 1"
             >
               <img
-                src="/products/real_lookbook_1.jpg"
+                src="./products/real_lookbook_1.jpg"
                 alt="Product 1"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform"
               />
@@ -66,7 +66,7 @@ export const OriginalLookbook = () => {
               title="Xem Lookbook 2"
             >
               <img
-                src="/products/real_lookbook_2.jpg"
+                src="./products/real_lookbook_2.jpg"
                 alt="Product 2"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform"
               />
@@ -77,7 +77,7 @@ export const OriginalLookbook = () => {
               title="Xem Lookbook 3"
             >
               <img
-                src="/products/real_lookbook_3.jpg"
+                src="./products/real_lookbook_3.jpg"
                 alt="Product 3"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform"
               />
@@ -88,7 +88,7 @@ export const OriginalLookbook = () => {
               title="Xem Lookbook 4"
             >
               <img
-                src="/products/real_lookbook_4.jpg"
+                src="./products/real_lookbook_4.jpg"
                 alt="Product 4"
                 className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform"
               />

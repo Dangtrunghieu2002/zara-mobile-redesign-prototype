@@ -57,7 +57,7 @@ export const OriginalSearchResults = () => {
           >
             <div className="relative h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
               <img
-                src="/products/real_embroidered_top.jpg"
+                src="./products/real_embroidered_top.jpg"
                 alt="Embroidered Top"
                 className="w-full h-full object-contain bg-white"
               />
@@ -89,7 +89,7 @@ export const OriginalSearchResults = () => {
           >
             <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
               <img
-                src="/products/real_beaded_bag.jpg"
+                src="./products/real_beaded_bag.jpg"
                 alt="Beaded Shoulder Bag"
                 className="w-full h-full object-contain bg-neutral-100"
               />
@@ -118,7 +118,7 @@ export const OriginalSearchResults = () => {
           >
             <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
               <img
-                src="/products/real_beaded_top.jpg"
+                src="./products/real_beaded_top.jpg"
                 alt="Beaded Ribbed Top"
                 className="w-full h-full object-contain bg-white"
               />
@@ -147,7 +147,7 @@ export const OriginalSearchResults = () => {
           >
             <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
               <img
-                src="/products/real_beaded_dress.jpg"
+                src="./products/real_beaded_dress.jpg"
                 alt="Beaded Bandeau Dress"
                 className="w-full h-full object-contain bg-white"
               />

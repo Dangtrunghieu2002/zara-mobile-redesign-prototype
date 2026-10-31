@@ -51,7 +51,7 @@ export const OriginalProductDetail = () => {
           />
 
           <img
-            src={product.image || "/products/real_wool_coat.jpg"}
+            src={product.image || "./products/real_wool_coat.jpg"}
             alt={product.name}
             className="w-full h-full object-cover object-top"
           />
@@ -123,7 +123,7 @@ export const OriginalProductDetail = () => {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="w-10 h-14 bg-neutral-200 shrink-0 border border-neutral-300 rounded overflow-hidden">
                 <img
-                  src={product.image || "/products/real_wool_coat.jpg"}
+                  src={product.image || "./products/real_wool_coat.jpg"}
                   alt={`Thumbnail ${i}`}
                   className="w-full h-full object-cover"
                 />

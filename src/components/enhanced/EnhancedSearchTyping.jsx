@@ -83,7 +83,7 @@ export const EnhancedSearchTyping = () => {
             >
               <div className="h-16 bg-neutral-900 rounded mb-1.5 overflow-hidden flex items-center justify-center">
                 <img
-                  src="/products/real_beaded_top.jpg"
+                  src="./products/real_beaded_top.jpg"
                   alt="Beaded Top"
                   className="h-full w-full object-cover"
                 />
@@ -114,7 +114,7 @@ export const EnhancedSearchTyping = () => {
             >
               <div className="h-16 bg-neutral-900 rounded mb-1.5 overflow-hidden flex items-center justify-center">
                 <img
-                  src="/products/real_beaded_bag.jpg"
+                  src="./products/real_beaded_bag.jpg"
                   alt="Beaded Shoulder Bag"
                   className="h-full w-full object-cover"
                 />

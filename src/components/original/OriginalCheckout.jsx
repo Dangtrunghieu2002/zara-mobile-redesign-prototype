@@ -10,7 +10,7 @@ export const OriginalCheckout = () => {
     price: '2,599,000 VND',
     size: 'M',
     color: 'BLACK',
-    image: '/products/real_leather_jacket.jpg',
+    image: './products/real_leather_jacket.jpg',
   };
 
   return (
@@ -50,7 +50,7 @@ export const OriginalCheckout = () => {
         <div className="flex gap-3 items-center bg-neutral-50 p-2 rounded border border-neutral-200">
           <div className="w-14 h-16 bg-neutral-50 rounded overflow-hidden shrink-0 p-1 flex items-center justify-center">
             <img
-              src={currentItem.image || "/products/real_leather_jacket.jpg"}
+              src={currentItem.image || "./products/real_leather_jacket.jpg"}
               alt={currentItem.name}
               className="w-full h-full object-contain"
             />

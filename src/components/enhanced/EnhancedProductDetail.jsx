@@ -79,7 +79,7 @@ export const EnhancedProductDetail = () => {
           {/* 32% Height Photo with Zoom Controls */}
           <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200">
             <img
-              src={product.image || "/products/real_wool_coat.jpg"}
+              src={product.image || "./products/real_wool_coat.jpg"}
               alt={product.name}
               style={{ transform: `scale(${zoomLevel})` }}
               className="w-full h-full object-cover object-top transition-transform duration-200"

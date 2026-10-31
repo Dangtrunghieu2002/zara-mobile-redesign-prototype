@@ -10,7 +10,7 @@ export const EnhancedBag = () => {
     price: '2,599,000 VND',
     size: 'M',
     color: 'BLACK',
-    image: '/products/real_leather_jacket.jpg',
+    image: './products/real_leather_jacket.jpg',
   };
   const [selectedSize, setSelectedSize] = useState(currentItem.size || 'M');
   const [tempSize, setTempSize] = useState(currentItem.size || 'M');
@@ -54,7 +54,7 @@ export const EnhancedBag = () => {
         <div className="flex gap-4 border-b border-neutral-200 pb-5">
           <div className="w-24 h-32 bg-neutral-50 shrink-0 overflow-hidden rounded border border-neutral-200 flex items-center justify-center p-1">
             <img
-              src={currentItem.image || "/products/real_leather_jacket.jpg"}
+              src={currentItem.image || "./products/real_leather_jacket.jpg"}
               alt={currentItem.name}
               className="w-full h-full object-contain"
             />
@@ -114,9 +114,9 @@ export const EnhancedBag = () => {
           </h4>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: 'trench_coat', name: 'Faux Trench', price: '1,999,000 VND', img: '/products/real_trench_coat.jpg' },
-              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '999,000 VND', img: '/products/real_knit_cardigan.jpg' },
-              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '1,299,000 VND', img: '/products/real_pleated_skirt.jpg' },
+              { id: 'trench_coat', name: 'Faux Trench', price: '1,999,000 VND', img: './products/real_trench_coat.jpg' },
+              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '999,000 VND', img: './products/real_knit_cardigan.jpg' },
+              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '1,299,000 VND', img: './products/real_pleated_skirt.jpg' },
             ].map((item) => (
               <div
                 key={item.id}

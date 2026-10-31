@@ -42,7 +42,7 @@ export const OriginalHome = () => {
           title="Chạm để xem Lookbook"
         >
           <img
-            src="/products/real_home_campaign.jpg"
+            src="./products/real_home_campaign.jpg"
             alt="Zara Campaign"
             className="w-full h-full object-cover object-center brightness-90 hover:scale-105 transition-transform duration-500"
           />

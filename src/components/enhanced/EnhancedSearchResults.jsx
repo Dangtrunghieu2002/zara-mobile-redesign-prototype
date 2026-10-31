@@ -14,7 +14,7 @@ export const EnhancedSearchResults = () => {
       name: 'BEADED SHOULDER BAG',
       price: '$ 139.00',
       matchType: 'Exact Name Match',
-      image: '/products/real_beaded_bag.jpg',
+      image: './products/real_beaded_bag.jpg',
     },
     {
       id: 'beaded_top',
@@ -22,7 +22,7 @@ export const EnhancedSearchResults = () => {
       name: 'BEADED RIBBED TOP',
       price: '$ 59.95',
       matchType: 'Exact Name Match',
-      image: '/products/real_beaded_top.jpg',
+      image: './products/real_beaded_top.jpg',
     },
     {
       id: 'beaded_dress',
@@ -30,7 +30,7 @@ export const EnhancedSearchResults = () => {
       name: 'BEADED BANDEAU DRESS',
       price: '$ 185.00',
       matchType: 'Category Match',
-      image: '/products/real_beaded_dress.jpg',
+      image: './products/real_beaded_dress.jpg',
     },
     {
       id: 'pleated_skirt',
@@ -38,7 +38,7 @@ export const EnhancedSearchResults = () => {
       name: 'SATIN PLEATED SKIRT',
       price: '$ 89.95',
       matchType: 'Attribute Match',
-      image: '/products/real_pleated_skirt.jpg',
+      image: './products/real_pleated_skirt.jpg',
     },
   ];
 

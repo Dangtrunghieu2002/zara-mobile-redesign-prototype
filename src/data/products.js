@@ -6,7 +6,7 @@ export const PRODUCTS = {
     priceVnd: '3,299,000 VND',
     priceForeign: '99.99 GBP',
     priceNum: 3299000,
-    image: '/products/real_wool_coat.jpg',
+    image: './products/real_wool_coat.jpg',
     color: 'Taupe grey',
     colorHex: '#8b857b',
     availableColors: [
@@ -27,7 +27,7 @@ export const PRODUCTS = {
     priceVnd: '2,599,000 VND',
     priceForeign: '79.99 GBP',
     priceNum: 2599000,
-    image: '/products/real_leather_jacket.jpg',
+    image: './products/real_leather_jacket.jpg',
     color: 'Black',
     colorHex: '#111111',
     availableColors: [
@@ -48,7 +48,7 @@ export const PRODUCTS = {
     priceVnd: '1,499,000 VND',
     priceForeign: '$ 139.00',
     priceNum: 1499000,
-    image: '/products/real_beaded_bag.jpg',
+    image: './products/real_beaded_bag.jpg',
     color: 'Pearl white / Black',
     colorHex: '#e5e5e0',
     availableColors: [
@@ -69,7 +69,7 @@ export const PRODUCTS = {
     priceVnd: '899,000 VND',
     priceForeign: '$ 65.95',
     priceNum: 899000,
-    image: '/products/real_beaded_top.jpg',
+    image: './products/real_beaded_top.jpg',
     color: 'Black',
     colorHex: '#111111',
     availableColors: [
@@ -90,7 +90,7 @@ export const PRODUCTS = {
     priceVnd: '1,899,000 VND',
     priceForeign: '$ 89.90',
     priceNum: 1899000,
-    image: '/products/real_beaded_dress.jpg',
+    image: './products/real_beaded_dress.jpg',
     color: 'Champagne gold',
     colorHex: '#d8c29d',
     availableColors: [
@@ -111,7 +111,7 @@ export const PRODUCTS = {
     priceVnd: '1,299,000 VND',
     priceForeign: '$ 65.95',
     priceNum: 1299000,
-    image: '/products/real_embroidered_top.jpg',
+    image: './products/real_embroidered_top.jpg',
     color: 'Off-white',
     colorHex: '#fcfbf7',
     availableColors: [
@@ -132,7 +132,7 @@ export const PRODUCTS = {
     priceVnd: '1,999,000 VND',
     priceForeign: '89.99 GBP',
     priceNum: 1999000,
-    image: '/products/real_trench_coat.jpg',
+    image: './products/real_trench_coat.jpg',
     color: 'Camel beige',
     colorHex: '#c49e75',
     availableColors: [
@@ -153,7 +153,7 @@ export const PRODUCTS = {
     priceVnd: '999,000 VND',
     priceForeign: '$ 49.90',
     priceNum: 999000,
-    image: '/products/real_knit_cardigan.jpg',
+    image: './products/real_knit_cardigan.jpg',
     color: 'Oatmeal cream',
     colorHex: '#ded5c5',
     availableColors: [
@@ -174,7 +174,7 @@ export const PRODUCTS = {
     priceVnd: '1,299,000 VND',
     priceForeign: '$ 59.90',
     priceNum: 1299000,
-    image: '/products/real_pleated_skirt.jpg',
+    image: './products/real_pleated_skirt.jpg',
     color: 'Midnight black',
     colorHex: '#111111',
     availableColors: [
@@ -195,7 +195,7 @@ export const PRODUCTS = {
     priceVnd: '2,199,000 VND',
     priceForeign: '79.99 GBP',
     priceNum: 2199000,
-    image: '/products/real_lookbook_1.jpg',
+    image: './products/real_lookbook_1.jpg',
     color: 'Monochrome houndstooth',
     colorHex: '#3a3a3a',
     availableColors: [
@@ -215,7 +215,7 @@ export const PRODUCTS = {
     priceVnd: '2,499,000 VND',
     priceForeign: '89.99 GBP',
     priceNum: 2499000,
-    image: '/products/real_lookbook_2.jpg',
+    image: './products/real_lookbook_2.jpg',
     color: 'Deep charcoal',
     colorHex: '#252629',
     availableColors: [
@@ -235,7 +235,7 @@ export const PRODUCTS = {
     priceVnd: '1,699,000 VND',
     priceForeign: '65.99 GBP',
     priceNum: 1699000,
-    image: '/products/real_lookbook_3.jpg',
+    image: './products/real_lookbook_3.jpg',
     color: 'Burgundy red',
     colorHex: '#581825',
     availableColors: [
@@ -255,7 +255,7 @@ export const PRODUCTS = {
     priceVnd: '3,499,000 VND',
     priceForeign: '119.99 GBP',
     priceNum: 3499000,
-    image: '/products/real_lookbook_4.jpg',
+    image: './products/real_lookbook_4.jpg',
     color: 'Dark camel',
     colorHex: '#8b6f4e',
     availableColors: [
