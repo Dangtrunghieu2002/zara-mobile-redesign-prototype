@@ -9,9 +9,10 @@ export const OriginalSearchResults = () => {
     handleLeftAction,
     searchQuery,
     selectedDepartment,
+    getFilteredProducts,
   } = useFlow();
 
-  let deptItems = selectedDepartment === 'sale' ? getSaleProducts() : getProductsByDepartment(selectedDepartment);
+  let deptItems = getFilteredProducts();
   if (deptItems.length === 0) deptItems = Object.values(PRODUCTS).slice(0, 4);
 
   return (

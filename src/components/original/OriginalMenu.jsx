@@ -10,9 +10,9 @@ export const OriginalMenu = () => {
       {/* Category Tabs at Top & Close */}
       <div className="border-b border-neutral-200 px-4 pt-3 pb-2 flex items-center justify-between text-xs tracking-widest font-mono">
         <div className="flex items-center gap-3">
-          <span onClick={() => handleLeftAction('navigate', 'search_results')} className="text-neutral-400 hover:text-black cursor-pointer">WOMAN</span>
-          <span onClick={() => handleLeftAction('navigate', 'search_results')} className="font-bold underline decoration-2 cursor-pointer">MAN</span>
-          <span onClick={() => handleLeftAction('navigate', 'search_results')} className="text-neutral-400 hover:text-black cursor-pointer">KIDS</span>
+          <span onClick={() => { handleLeftAction('selectDepartment', 'woman'); handleLeftAction('navigate', 'search_results'); }} className="text-neutral-400 hover:text-black cursor-pointer">WOMAN</span>
+          <span onClick={() => { handleLeftAction('selectDepartment', 'man'); handleLeftAction('navigate', 'search_results'); }} className="text-neutral-700 hover:text-black cursor-pointer">MAN</span>
+          <span onClick={() => { handleLeftAction('selectDepartment', 'kids'); handleLeftAction('navigate', 'search_results'); }} className="text-neutral-400 hover:text-black cursor-pointer">KIDS</span>
         </div>
         <button
           onClick={() => handleLeftAction('navigate', 'home')}

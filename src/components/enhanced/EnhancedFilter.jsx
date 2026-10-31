@@ -2,15 +2,40 @@ import React, { useState } from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 import { X, ChevronDown, ChevronRight, Check } from 'lucide-react';
+import { FILTER_CATEGORIES, FILTER_COLORS } from '../../data/products';
 
 export const EnhancedFilter = () => {
-  const { handleRightAction } = useFlow();
-  const [openSection, setOpenSection] = useState('collection'); // 'sort', 'collection', 'colour', 'size'
-  const [activeChips, setActiveChips] = useState(['Price: Low to High', 'Knitwear', 'Animal print']);
+  const {
+    handleRightAction,
+    filterState,
+    toggleCategoryFilter,
+    toggleColorFilter,
+    setSortFilter,
+    setOnlySaleFilter,
+    clearAllFilters,
+    getFilteredProducts,
+  } = useFlow();
 
-  const removeChip = (chip) => {
-    setActiveChips(activeChips.filter(c => c !== chip));
-  };
+  const [openSection, setOpenSection] = useState('collection'); // 'sort', 'collection', 'colour', 'offers'
+
+  const matchingProducts = getFilteredProducts();
+
+  // Build active chips list
+  const activeChips = [];
+  if (filterState.selectedSort === 'price_asc') {
+    activeChips.push({ label: 'Price: Low to High', onRemove: () => setSortFilter('relevance') });
+  } else if (filterState.selectedSort === 'price_desc') {
+    activeChips.push({ label: 'Price: High to Low', onRemove: () => setSortFilter('relevance') });
+  }
+  filterState.selectedCategories.forEach(cat => {
+    activeChips.push({ label: cat, onRemove: () => toggleCategoryFilter(cat) });
+  });
+  filterState.selectedColors.forEach(col => {
+    activeChips.push({ label: col, onRemove: () => toggleColorFilter(col) });
+  });
+  if (filterState.onlySale) {
+    activeChips.push({ label: 'Discounted / Sale', onRemove: () => setOnlySaleFilter(false) });
+  }
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative font-sans text-xs">
@@ -19,13 +44,14 @@ export const EnhancedFilter = () => {
         <button
           onClick={() => handleRightAction('navigate', 'search_results')}
           className="text-neutral-400 hover:text-white p-1"
+          title="Đóng bộ lọc"
         >
           <X className="w-4 h-4" />
         </button>
         <span className="text-xs font-bold uppercase tracking-wider text-white">Filters</span>
         <button
-          onClick={() => setActiveChips([])}
-          className="text-[11px] text-neutral-400 hover:text-white"
+          onClick={clearAllFilters}
+          className="text-[11px] text-neutral-400 hover:text-white transition-colors"
         >
           Clear all
         </button>
@@ -40,20 +66,24 @@ export const EnhancedFilter = () => {
           variant="emerald"
         />
 
-        <div className="flex flex-wrap gap-1.5 items-center">
-          {activeChips.map((chip) => (
-            <span
-              key={chip}
-              onClick={() => removeChip(chip)}
-              className="bg-[#242426] hover:bg-[#323234] text-neutral-200 text-[10px] px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-neutral-700 cursor-pointer transition-colors"
-            >
-              <span>{chip}</span>
-              <X className="w-2.5 h-2.5 text-neutral-400" />
-            </span>
-          ))}
+        <div className="flex flex-wrap gap-1.5 items-center min-h-[26px]">
+          {activeChips.length === 0 ? (
+            <span className="text-[11px] text-neutral-500 italic">No filters applied (showing all department products)</span>
+          ) : (
+            activeChips.map((chip, idx) => (
+              <span
+                key={idx}
+                onClick={chip.onRemove}
+                className="bg-[#242426] hover:bg-[#323234] text-neutral-200 text-[10px] px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-neutral-700 cursor-pointer transition-colors"
+              >
+                <span>{chip.label}</span>
+                <X className="w-2.5 h-2.5 text-neutral-400 hover:text-white" />
+              </span>
+            ))
+          )}
           {activeChips.length > 0 && (
-            <span className="text-[10px] text-neutral-400 font-mono pl-1">
-              {activeChips.length} filters selected
+            <span className="text-[10px] text-emerald-400 font-mono pl-1">
+              {activeChips.length} selected
             </span>
           )}
         </div>
@@ -74,48 +104,70 @@ export const EnhancedFilter = () => {
             onClick={() => setOpenSection(openSection === 'sort' ? '' : 'sort')}
             className="w-full px-3 py-2.5 flex items-center justify-between text-xs font-semibold hover:bg-neutral-900 transition-colors"
           >
-            <span>Sort by</span>
+            <span>Sort by {filterState.selectedSort !== 'relevance' && <span className="text-emerald-400 font-normal">●</span>}</span>
             {openSection === 'sort' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
           {openSection === 'sort' && (
             <div className="px-3 pb-3 space-y-2 border-t border-neutral-800 pt-2 text-neutral-300">
               <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="radio" name="sort" defaultChecked className="accent-white" />
-                <span>Ascending price</span>
+                <input
+                  type="radio"
+                  name="sort"
+                  checked={filterState.selectedSort === 'relevance'}
+                  onChange={() => setSortFilter('relevance')}
+                  className="accent-white"
+                />
+                <span>Relevance / New</span>
               </label>
               <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="radio" name="sort" className="accent-white" />
-                <span>Descending price</span>
+                <input
+                  type="radio"
+                  name="sort"
+                  checked={filterState.selectedSort === 'price_asc'}
+                  onChange={() => setSortFilter('price_asc')}
+                  className="accent-white"
+                />
+                <span>Ascending price (Low to High)</span>
               </label>
               <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="radio" name="sort" className="accent-white" />
-                <span>New</span>
+                <input
+                  type="radio"
+                  name="sort"
+                  checked={filterState.selectedSort === 'price_desc'}
+                  onChange={() => setSortFilter('price_desc')}
+                  className="accent-white"
+                />
+                <span>Descending price (High to Low)</span>
               </label>
             </div>
           )}
         </div>
 
-        {/* Section: Collection */}
+        {/* Section: Categories */}
         <div className="border border-neutral-800 rounded-lg overflow-hidden bg-[#121214]">
           <button
             onClick={() => setOpenSection(openSection === 'collection' ? '' : 'collection')}
             className="w-full px-3 py-2.5 flex items-center justify-between text-xs font-semibold hover:bg-neutral-900 transition-colors"
           >
-            <span>Collection</span>
+            <span>Categories {filterState.selectedCategories.length > 0 && <span className="text-emerald-400 font-normal">({filterState.selectedCategories.length})</span>}</span>
             {openSection === 'collection' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
           {openSection === 'collection' && (
             <div className="px-3 pb-3 space-y-2 border-t border-neutral-800 pt-2 text-neutral-300">
-              {['Basic', 'CRLR', 'Knitwear', 'Lingerie', 'SRPLS', 'TRF', 'Woman'].map((item) => (
-                <label key={item} className="flex items-center gap-2.5 cursor-pointer text-xs">
-                  <input
-                    type="checkbox"
-                    defaultChecked={item === 'Knitwear'}
-                    className="accent-white rounded"
-                  />
-                  <span>{item}</span>
-                </label>
-              ))}
+              {FILTER_CATEGORIES.map((cat) => {
+                const isChecked = filterState.selectedCategories.includes(cat);
+                return (
+                  <label key={cat} className="flex items-center gap-2.5 cursor-pointer text-xs hover:text-white">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => toggleCategoryFilter(cat)}
+                      className="accent-white rounded cursor-pointer"
+                    />
+                    <span className={isChecked ? 'text-white font-bold' : 'text-neutral-300'}>{cat}</span>
+                  </label>
+                );
+              })}
             </div>
           )}
         </div>
@@ -126,44 +178,55 @@ export const EnhancedFilter = () => {
             onClick={() => setOpenSection(openSection === 'colour' ? '' : 'colour')}
             className="w-full px-3 py-2.5 flex items-center justify-between text-xs font-semibold hover:bg-neutral-900 transition-colors"
           >
-            <span>Colour</span>
+            <span>Colour {filterState.selectedColors.length > 0 && <span className="text-emerald-400 font-normal">({filterState.selectedColors.length})</span>}</span>
             {openSection === 'colour' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
           {openSection === 'colour' && (
             <div className="px-3 pb-3 space-y-2 border-t border-neutral-800 pt-2 text-neutral-300">
-              <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" defaultChecked className="accent-white rounded" />
-                <span className="w-3.5 h-3.5 bg-amber-700 rounded-sm inline-block" />
-                <span>Animal print</span>
-              </label>
-              <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" className="accent-white rounded" />
-                <span className="w-3.5 h-3.5 bg-[#e8d8c8] rounded-sm inline-block" />
-                <span>Beige</span>
-              </label>
-              <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" className="accent-white rounded" />
-                <span className="w-3.5 h-3.5 bg-black border border-neutral-700 rounded-sm inline-block" />
-                <span>Black</span>
-              </label>
-              <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" className="accent-white rounded" />
-                <span className="w-3.5 h-3.5 bg-blue-700 rounded-sm inline-block" />
-                <span>Blue</span>
-              </label>
+              {FILTER_COLORS.map((col) => {
+                const isChecked = filterState.selectedColors.includes(col.name);
+                return (
+                  <label key={col.name} className="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => toggleColorFilter(col.name)}
+                      className="accent-white rounded cursor-pointer"
+                    />
+                    <span
+                      style={{ backgroundColor: col.hex }}
+                      className="w-3.5 h-3.5 rounded-sm inline-block border border-neutral-700"
+                    />
+                    <span className={isChecked ? 'text-white font-bold' : 'text-neutral-300'}>{col.name}</span>
+                  </label>
+                );
+              })}
             </div>
           )}
         </div>
 
-        {/* Section: Size (Collapsed) */}
+        {/* Section: Special Offers & Sale */}
         <div className="border border-neutral-800 rounded-lg overflow-hidden bg-[#121214]">
           <button
-            onClick={() => setOpenSection(openSection === 'size' ? '' : 'size')}
+            onClick={() => setOpenSection(openSection === 'offers' ? '' : 'offers')}
             className="w-full px-3 py-2.5 flex items-center justify-between text-xs font-semibold hover:bg-neutral-900 transition-colors"
           >
-            <span>Size</span>
-            <ChevronRight className="w-4 h-4 text-neutral-500" />
+            <span>Special Offers {filterState.onlySale && <span className="text-amber-400 font-bold">● SALE</span>}</span>
+            {openSection === 'offers' ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
+          {openSection === 'offers' && (
+            <div className="px-3 pb-3 space-y-2 border-t border-neutral-800 pt-2 text-neutral-300">
+              <label className="flex items-center gap-2.5 cursor-pointer hover:text-white">
+                <input
+                  type="checkbox"
+                  checked={filterState.onlySale}
+                  onChange={(e) => setOnlySaleFilter(e.target.checked)}
+                  className="accent-amber-400 rounded cursor-pointer"
+                />
+                <span className="text-amber-300 font-medium">Chỉ hiện sản phẩm đang giảm giá (Sale %)</span>
+              </label>
+            </div>
+          )}
         </div>
       </div>
 
@@ -180,9 +243,10 @@ export const EnhancedFilter = () => {
           onClick={() => handleRightAction('navigate', 'search_results')}
           className="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-wider rounded shadow-md hover:bg-neutral-200 transition-all flex items-center justify-center gap-2"
         >
-          <span>VIEW 125 RESULTS</span>
+          <span>VIEW {matchingProducts.length} RESULTS</span>
         </button>
       </div>
     </div>
   );
 };
+

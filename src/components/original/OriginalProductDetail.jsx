@@ -51,10 +51,13 @@ export const OriginalProductDetail = () => {
           />
 
           <img
-            key={pdpState.selectedImage || product.image}
-            src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
+            src={product.image || "./products/real_wool_coat.jpg"}
             alt={product.name}
-            className="w-full h-full object-cover object-top animate-in fade-in duration-200"
+            style={{
+              filter: pdpState.colorFilterStyle || 'none',
+              transition: 'filter 0.4s ease-in-out'
+            }}
+            className="w-full h-full object-cover object-top"
           />
 
           {/* Dotted unlabelled expand icon flaw */}

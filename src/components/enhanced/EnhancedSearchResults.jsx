@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 import { ArrowLeft, X, Plus, ChevronDown, SlidersHorizontal, Home, Menu, Search, Bookmark, ShoppingBag, Check } from 'lucide-react';
-import { PRODUCTS, getProductsByDepartment, getSaleProducts } from '../../data/products';
 
 export const EnhancedSearchResults = () => {
   const {
@@ -10,46 +9,36 @@ export const EnhancedSearchResults = () => {
     searchQuery,
     setSearchQuery,
     selectedDepartment,
+    filterState,
+    setSortFilter,
+    toggleCategoryFilter,
+    toggleColorFilter,
+    setOnlySaleFilter,
+    clearAllFilters,
+    getFilteredProducts,
   } = useFlow();
+
   const [viewCols, setViewCols] = useState(2); // 1, 2, or 3
-  const [sortOption, setSortOption] = useState('relevance'); // relevance | price_asc | price_desc
   const [showSortMenu, setShowSortMenu] = useState(false);
 
-  // Derive products list based on department and search query
-  let items = [];
-  if (selectedDepartment === 'sale') {
-    items = getSaleProducts();
-  } else {
-    items = getProductsByDepartment(selectedDepartment);
-  }
+  // Derive products list directly from central filter engine
+  const items = getFilteredProducts();
 
-  // Filter by query if query exists and is not just "bead" default when looking at other depts
-  if (searchQuery && searchQuery.trim().length > 0) {
-    const q = searchQuery.toLowerCase().trim();
-    const queryMatches = items.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q) ||
-      p.color.toLowerCase().includes(q)
-    );
-    if (queryMatches.length > 0) {
-      items = queryMatches;
-    } else {
-      // If none match in current dept, check all products
-      const globalMatches = Object.values(PRODUCTS).filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-      );
-      if (globalMatches.length > 0) {
-        items = globalMatches;
-      }
-    }
+  // Active filter chips
+  const activeChips = [];
+  if (filterState.selectedSort === 'price_asc') {
+    activeChips.push({ label: 'Giá: Thấp -> Cao', onRemove: () => setSortFilter('relevance') });
+  } else if (filterState.selectedSort === 'price_desc') {
+    activeChips.push({ label: 'Giá: Cao -> Thấp', onRemove: () => setSortFilter('relevance') });
   }
-
-  // Sort
-  if (sortOption === 'price_asc') {
-    items = [...items].sort((a, b) => a.priceNum - b.priceNum);
-  } else if (sortOption === 'price_desc') {
-    items = [...items].sort((a, b) => b.priceNum - a.priceNum);
+  filterState.selectedCategories.forEach(cat => {
+    activeChips.push({ label: cat, onRemove: () => toggleCategoryFilter(cat) });
+  });
+  filterState.selectedColors.forEach(col => {
+    activeChips.push({ label: col, onRemove: () => toggleColorFilter(col) });
+  });
+  if (filterState.onlySale) {
+    activeChips.push({ label: 'Sale %', onRemove: () => setOnlySaleFilter(false) });
   }
 
   return (
@@ -84,35 +73,39 @@ export const EnhancedSearchResults = () => {
           {showSortMenu && (
             <div className="absolute top-8 right-16 bg-[#1c1c1e] border border-neutral-700 rounded-lg shadow-2xl py-1 z-50 w-36 text-xs font-mono">
               <button
-                onClick={() => { setSortOption('relevance'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${sortOption === 'relevance' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                onClick={() => { setSortFilter('relevance'); setShowSortMenu(false); }}
+                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'relevance' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
                 <span>Phù hợp nhất</span>
-                {sortOption === 'relevance' && <Check className="w-3 h-3 text-white" />}
+                {filterState.selectedSort === 'relevance' && <Check className="w-3 h-3 text-white" />}
               </button>
               <button
-                onClick={() => { setSortOption('price_asc'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${sortOption === 'price_asc' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                onClick={() => { setSortFilter('price_asc'); setShowSortMenu(false); }}
+                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_asc' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
                 <span>Giá tăng dần</span>
-                {sortOption === 'price_asc' && <Check className="w-3 h-3 text-white" />}
+                {filterState.selectedSort === 'price_asc' && <Check className="w-3 h-3 text-white" />}
               </button>
               <button
-                onClick={() => { setSortOption('price_desc'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${sortOption === 'price_desc' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                onClick={() => { setSortFilter('price_desc'); setShowSortMenu(false); }}
+                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_desc' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
                 <span>Giá giảm dần</span>
-                {sortOption === 'price_desc' && <Check className="w-3 h-3 text-white" />}
+                {filterState.selectedSort === 'price_desc' && <Check className="w-3 h-3 text-white" />}
               </button>
             </div>
           )}
 
           <button
             onClick={() => handleRightAction('navigate', 'filter')}
-            className="flex items-center gap-1 bg-[#1c1c1e] text-[11px] font-mono px-3 py-1 rounded-full text-neutral-200 border border-neutral-700 hover:border-neutral-500"
+            className={`flex items-center gap-1 text-[11px] font-mono px-3 py-1 rounded-full border transition-colors ${
+              activeChips.length > 0
+                ? 'bg-emerald-950 text-emerald-300 border-emerald-600 font-bold'
+                : 'bg-[#1c1c1e] text-neutral-200 border-neutral-700 hover:border-neutral-500'
+            }`}
           >
             <SlidersHorizontal className="w-3 h-3 text-neutral-400" />
-            <span>FILTERS</span>
+            <span>FILTERS {activeChips.length > 0 && `(${activeChips.length})`}</span>
           </button>
         </div>
       </div>
@@ -193,64 +186,99 @@ export const EnhancedSearchResults = () => {
         </div>
       </div>
 
+      {/* Active Filter Chips Strip (if any active) */}
+      {activeChips.length > 0 && (
+        <div className="px-4 py-1.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar border-b border-neutral-900 bg-[#121214]">
+          <span className="text-[9px] font-mono text-neutral-500 shrink-0 uppercase">Lọc:</span>
+          {activeChips.map((chip, idx) => (
+            <span
+              key={idx}
+              onClick={chip.onRemove}
+              className="bg-[#242426] hover:bg-[#323234] text-neutral-200 text-[9px] px-2 py-0.5 rounded-full flex items-center gap-1 border border-neutral-700 cursor-pointer shrink-0 transition-colors"
+            >
+              <span>{chip.label}</span>
+              <X className="w-2.5 h-2.5 text-neutral-400 hover:text-white" />
+            </span>
+          ))}
+          <button
+            onClick={clearAllFilters}
+            className="text-[9px] font-mono text-emerald-400 hover:underline shrink-0 ml-1"
+          >
+            Xoá hết
+          </button>
+        </div>
+      )}
+
       {/* Relevant Products Grid */}
       <div className="relative flex-1 overflow-y-auto p-3 device-scroll">
         <div className="flex justify-between items-center mb-2 px-1 text-[10px] font-mono text-neutral-400">
           <span>{items.length} SẢN PHẨM ({selectedDepartment.toUpperCase()})</span>
-          <span className="text-emerald-400 font-bold">✓ Tên khớp chính xác</span>
+          <span className="text-emerald-400 font-bold">✓ Tự động cập nhật</span>
         </div>
 
-        <div className={`grid gap-2.5 ${viewCols === 1 ? 'grid-cols-1' : viewCols === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
-          {items.map((p) => (
-            <div
-              key={p.id}
-              onClick={() => handleRightAction('viewProduct', p.id)}
-              className="flex flex-col cursor-pointer bg-[#141416] p-1.5 rounded-lg border border-neutral-800 hover:border-neutral-600 transition-all group"
+        {items.length === 0 ? (
+          <div className="py-12 px-4 text-center">
+            <p className="text-neutral-400 text-xs mb-3 font-mono">Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại.</p>
+            <button
+              onClick={clearAllFilters}
+              className="px-4 py-2 bg-white text-black font-bold text-xs rounded uppercase tracking-wider hover:bg-neutral-200 transition-colors"
             >
-              <div className={`relative bg-neutral-900 overflow-hidden mb-1.5 rounded ${viewCols === 1 ? 'h-64' : viewCols === 3 ? 'h-32' : 'h-44'}`}>
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-                {p.onSale ? (
-                  <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded font-mono shadow-md">
-                    -{p.discountPercent}%
-                  </span>
-                ) : (
-                  <span className="absolute top-1 left-1 bg-black/60 backdrop-blur-sm text-neutral-300 text-[8px] px-1 py-0.5 rounded font-mono border border-white/10">
-                    {p.availableColors ? `${p.availableColors.length} màu` : '1 màu'}
-                  </span>
-                )}
-              </div>
-              <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-200 leading-tight truncate">
-                {p.name}
-              </p>
-              <div className="flex justify-between items-center mt-1">
-                <div>
-                  <span className="text-[10px] font-mono text-white font-bold block">
-                    {p.priceForeign || p.priceVnd}
-                  </span>
-                  {p.onSale && (
-                    <span className="text-[9px] font-mono text-neutral-500 line-through">
-                      {p.originalPriceForeign || p.originalPriceVnd}
+              Xoá tất cả bộ lọc
+            </button>
+          </div>
+        ) : (
+          <div className={`grid gap-2.5 ${viewCols === 1 ? 'grid-cols-1' : viewCols === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+            {items.map((p) => (
+              <div
+                key={p.id}
+                onClick={() => handleRightAction('viewProduct', p.id)}
+                className="flex flex-col cursor-pointer bg-[#141416] p-1.5 rounded-lg border border-neutral-800 hover:border-neutral-600 transition-all group"
+              >
+                <div className={`relative bg-neutral-900 overflow-hidden mb-1.5 rounded ${viewCols === 1 ? 'h-64' : viewCols === 3 ? 'h-32' : 'h-44'}`}>
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {p.onSale ? (
+                    <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded font-mono shadow-md">
+                      -{p.discountPercent}%
+                    </span>
+                  ) : (
+                    <span className="absolute top-1 left-1 bg-black/60 backdrop-blur-sm text-neutral-300 text-[8px] px-1 py-0.5 rounded font-mono border border-white/10">
+                      {p.availableColors ? `${p.availableColors.length} màu` : '1 màu'}
                     </span>
                   )}
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRightAction('addToBag', { product: p.id });
-                  }}
-                  className="p-1 rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors"
-                  title="Thêm nhanh vào giỏ"
-                >
-                  <Plus className="w-3 h-3" />
-                </button>
+                <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-200 leading-tight truncate">
+                  {p.name}
+                </p>
+                <div className="flex justify-between items-center mt-1">
+                  <div>
+                    <span className="text-[10px] font-mono text-white font-bold block">
+                      {p.priceForeign || p.priceVnd}
+                    </span>
+                    {p.onSale && (
+                      <span className="text-[9px] font-mono text-neutral-500 line-through">
+                        {p.originalPriceForeign || p.originalPriceVnd}
+                      </span>
+                    )}
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRightAction('addToBag', { product: p.id });
+                    }}
+                    className="p-1 rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors"
+                    title="Thêm nhanh vào giỏ"
+                  >
+                    <Plus className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Bottom 5-Tab Bar */}

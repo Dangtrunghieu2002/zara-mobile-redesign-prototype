@@ -79,11 +79,14 @@ export const EnhancedProductDetail = () => {
           {/* 32% Height Photo with Zoom Controls */}
           <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200">
             <img
-              key={pdpState.selectedImage || product.image}
-              src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
+              src={product.image || "./products/real_wool_coat.jpg"}
               alt={product.name}
-              style={{ transform: `scale(${zoomLevel})` }}
-              className="w-full h-full object-cover object-top transition-transform duration-200 animate-in fade-in duration-200"
+              style={{
+                transform: `scale(${zoomLevel})`,
+                filter: pdpState.colorFilterStyle || 'none',
+                transition: 'filter 0.4s ease-in-out, transform 0.2s ease-out'
+              }}
+              className="w-full h-full object-cover object-top"
             />
 
             {/* Pinch to zoom pill */}

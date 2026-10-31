@@ -1,11 +1,11 @@
 export const PRODUCTS = {
   // ==========================================
-  // WOMEN'S DEPARTMENT (WOMAN)
+  // WOMEN'S DEPARTMENT (WOMAN) - 11 ITEMS
   // ==========================================
   wool_coat: {
     id: 'wool_coat',
     name: 'RELAXED FIT HIGH NECK COAT',
-    category: 'Coats & Trench',
+    category: 'Coats & Jackets',
     department: 'woman',
     onSale: false,
     priceVnd: '3,299,000 VND',
@@ -15,8 +15,9 @@ export const PRODUCTS = {
     color: 'Taupe grey',
     colorHex: '#8b857b',
     availableColors: [
-      { name: 'Taupe grey', hex: '#8b857b', image: './products/real_wool_coat.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/wool_coat_black.jpg' }
+      { name: 'Taupe grey', hex: '#8b857b', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.6) contrast(1.25) saturate(0.2)' },
+      { name: 'Midnight Navy', hex: '#1b2838', filterStyle: 'hue-rotate(190deg) saturate(1.3) brightness(0.85)' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -28,7 +29,7 @@ export const PRODUCTS = {
   leather_jacket: {
     id: 'leather_jacket',
     name: 'LEATHER EFFECT JACKET',
-    category: 'Jackets & Outerwear',
+    category: 'Coats & Jackets',
     department: 'woman',
     onSale: true,
     discountPercent: 30,
@@ -41,8 +42,9 @@ export const PRODUCTS = {
     color: 'Black',
     colorHex: '#111111',
     availableColors: [
-      { name: 'Black', hex: '#111111', image: './products/real_leather_jacket.jpg' },
-      { name: 'Dark Brown', hex: '#3d2b1f', image: './products/leather_jacket_brown.jpg' }
+      { name: 'Black', hex: '#111111', filterStyle: 'none' },
+      { name: 'Dark Brown', hex: '#3d2b1f', filterStyle: 'sepia(0.65) hue-rotate(330deg) brightness(0.85)' },
+      { name: 'Olive Green', hex: '#4b5320', filterStyle: 'hue-rotate(75deg) brightness(0.9) saturate(0.9)' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -51,28 +53,55 @@ export const PRODUCTS = {
     composition: 'Base fabric: 100% polyester. Coating: 100% polyurethane. Lining: 100% polyester.',
     ref: 'Ref. 3427/410/800',
   },
-  beaded_bag: {
-    id: 'beaded_bag',
-    name: 'BEADED SHOULDER BAG',
-    category: 'Bags & Accessories',
+  trench_coat: {
+    id: 'trench_coat',
+    name: 'FAUX LEATHER TRENCH COAT',
+    category: 'Coats & Jackets',
+    department: 'woman',
+    onSale: true,
+    discountPercent: 50,
+    originalPriceVnd: '3,999,000 VND',
+    originalPriceForeign: '$ 258.00',
+    priceVnd: '1,999,000 VND',
+    priceForeign: '$ 129.00',
+    priceNum: 1999000,
+    image: './products/real_trench_coat.jpg',
+    color: 'Camel Brown',
+    colorHex: '#b2875b',
+    availableColors: [
+      { name: 'Camel Brown', hex: '#b2875b', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.2)' },
+      { name: 'Sage Green', hex: '#879685', filterStyle: 'hue-rotate(80deg) saturate(0.7)' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    defaultSize: 'M',
+    modelFit: '180 cm · Size M',
+    description: 'Double-breasted trench coat with lapel collar and adjustable belted cuffs. Self-fabric buckle belt. Storm flap at back. Side welt pockets.',
+    composition: '100% polyurethane faux leather, satin interior lining.',
+    ref: 'Ref. 4369/240/704',
+  },
+  woman_blazer: {
+    id: 'woman_blazer',
+    name: 'OVERSIZED DOUBLE BREASTED BLAZER',
+    category: 'Blazers & Suits',
     department: 'woman',
     onSale: false,
-    priceVnd: '1,499,000 VND',
-    priceForeign: '$ 139.00',
-    priceNum: 1499000,
-    image: './products/real_beaded_bag.jpg',
-    color: 'Pearl white',
-    colorHex: '#e5e5e0',
+    priceVnd: '2,499,000 VND',
+    priceForeign: '79.99 GBP',
+    priceNum: 2499000,
+    image: './products/woman_blazer.jpg',
+    color: 'Ecru Tailored',
+    colorHex: '#e8e2d5',
     availableColors: [
-      { name: 'Pearl white', hex: '#f0ede6', image: './products/real_beaded_bag.jpg' },
-      { name: 'Onyx black', hex: '#151515', image: './products/beaded_bag_black.jpg' }
+      { name: 'Ecru Tailored', hex: '#e8e2d5', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.3) saturate(0.1)' }
     ],
-    sizes: ['ONE SIZE'],
-    defaultSize: 'ONE SIZE',
-    modelFit: 'Dimensions: 16 x 24 x 6 cm',
-    description: 'Handcrafted evening shoulder bag embellished with geometric glass beads. Fixed metallic chain shoulder strap with gold-tone hardware. Magnetic closure.',
-    composition: 'Main material: 100% glass beads, metal alloy chain. Lining: 100% polyester satin.',
-    ref: 'Ref. 6219/014/001',
+    sizes: ['XS', 'S', 'M', 'L'],
+    defaultSize: 'M',
+    modelFit: '177 cm · Size S',
+    description: 'Blazer featuring peaked lapels and long sleeves with shoulder pads. Front flap pockets and welt chest pocket. Double-breasted button fastening at the front.',
+    composition: '70% polyester, 28% viscose, 2% elastane.',
+    ref: 'Ref. 2753/132/712',
   },
   beaded_top: {
     id: 'beaded_top',
@@ -90,8 +119,8 @@ export const PRODUCTS = {
     color: 'Black',
     colorHex: '#111111',
     availableColors: [
-      { name: 'Black', hex: '#111111', image: './products/real_beaded_top.jpg' },
-      { name: 'Ecru Cream', hex: '#f4f0ea', image: './products/beaded_top_ecru.jpg' }
+      { name: 'Black', hex: '#111111', filterStyle: 'none' },
+      { name: 'Ecru Cream', hex: '#f4f0ea', filterStyle: 'invert(0.85) hue-rotate(180deg) brightness(1.2) contrast(0.9)' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'S',
@@ -99,77 +128,6 @@ export const PRODUCTS = {
     description: 'Fitted stretch ribbed top featuring shimmering bead embroidery along the rounded neckline. Long sleeves and finely finished straight hem.',
     composition: '82% eco-viscose, 18% polyamide knit.',
     ref: 'Ref. 4391/105/800',
-  },
-  beaded_dress: {
-    id: 'beaded_dress',
-    name: 'BEADED BANDEAU DRESS',
-    category: 'Dresses',
-    department: 'woman',
-    onSale: false,
-    priceVnd: '1,899,000 VND',
-    priceForeign: '$ 89.90',
-    priceNum: 1899000,
-    image: './products/real_beaded_dress.jpg',
-    color: 'Champagne gold',
-    colorHex: '#d8c29d',
-    availableColors: [
-      { name: 'Champagne gold', hex: '#d8c29d', image: './products/real_beaded_dress.jpg' },
-      { name: 'Classic black', hex: '#111111', image: './products/beaded_dress_black.jpg' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    defaultSize: 'S',
-    modelFit: '178 cm · Size S',
-    description: 'Bandeau neckline midi dress with internal silicone grip. All-over sequin and bead embellishment. Invisible back zip closure. Vent at hem.',
-    composition: '95% polyester, 5% elastane. Hand-embroidered glass sequins.',
-    ref: 'Ref. 2194/050/305',
-  },
-  embroidered_top: {
-    id: 'embroidered_top',
-    name: 'EMBROIDERED LINEN TOP',
-    category: 'Tops & Shirts',
-    department: 'woman',
-    onSale: false,
-    priceVnd: '1,299,000 VND',
-    priceForeign: '$ 65.95',
-    priceNum: 1299000,
-    image: './products/real_embroidered_top.jpg',
-    color: 'White / Multicolour',
-    colorHex: '#ffffff',
-    availableColors: [
-      { name: 'White / Multi', hex: '#ffffff', image: './products/real_embroidered_top.jpg' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    defaultSize: 'M',
-    modelFit: '175 cm · Size S',
-    description: 'V-neck linen top with delicate floral thread embroidery. 3/4 puffed sleeves with elastic trim. Front loop button fastening.',
-    composition: '100% European Flax certified linen.',
-    ref: 'Ref. 5536/020/250',
-  },
-  trench_coat: {
-    id: 'trench_coat',
-    name: 'FAUX LEATHER TRENCH COAT',
-    category: 'Coats & Trench',
-    department: 'woman',
-    onSale: true,
-    discountPercent: 50,
-    originalPriceVnd: '3,999,000 VND',
-    originalPriceForeign: '$ 258.00',
-    priceVnd: '1,999,000 VND',
-    priceForeign: '$ 129.00',
-    priceNum: 1999000,
-    image: './products/real_trench_coat.jpg',
-    color: 'Camel Brown',
-    colorHex: '#b2875b',
-    availableColors: [
-      { name: 'Camel Brown', hex: '#b2875b', image: './products/real_trench_coat.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/wool_coat_black.jpg' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L'],
-    defaultSize: 'M',
-    modelFit: '180 cm · Size M',
-    description: 'Double-breasted trench coat with lapel collar and adjustable belted cuffs. Self-fabric buckle belt. Storm flap at back. Side welt pockets.',
-    composition: '100% polyurethane faux leather, satin interior lining.',
-    ref: 'Ref. 4369/240/704',
   },
   knit_cardigan: {
     id: 'knit_cardigan',
@@ -184,8 +142,8 @@ export const PRODUCTS = {
     color: 'Cream White',
     colorHex: '#f6f4ee',
     availableColors: [
-      { name: 'Cream White', hex: '#f6f4ee', image: './products/real_knit_cardigan.jpg' },
-      { name: 'Dark Brown', hex: '#3d2b1f', image: './products/leather_jacket_brown.jpg' }
+      { name: 'Cream White', hex: '#f6f4ee', filterStyle: 'none' },
+      { name: 'Mocha Brown', hex: '#4a3728', filterStyle: 'sepia(0.8) hue-rotate(330deg) brightness(0.65)' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'S',
@@ -194,10 +152,80 @@ export const PRODUCTS = {
     composition: '50% recycled wool, 30% polyamide, 20% alpaca yarn.',
     ref: 'Ref. 3841/110/712',
   },
+  embroidered_top: {
+    id: 'embroidered_top',
+    name: 'EMBROIDERED LINEN TOP',
+    category: 'Tops & Knitwear',
+    department: 'woman',
+    onSale: false,
+    priceVnd: '1,299,000 VND',
+    priceForeign: '$ 65.95',
+    priceNum: 1299000,
+    image: './products/real_embroidered_top.jpg',
+    color: 'White / Multicolour',
+    colorHex: '#ffffff',
+    availableColors: [
+      { name: 'White / Multi', hex: '#ffffff', filterStyle: 'none' },
+      { name: 'Sky Tint', hex: '#c5d8e8', filterStyle: 'hue-rotate(185deg) saturate(1.2)' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    defaultSize: 'M',
+    modelFit: '175 cm · Size S',
+    description: 'V-neck linen top with delicate floral thread embroidery. 3/4 puffed sleeves with elastic trim. Front loop button fastening.',
+    composition: '100% European Flax certified linen.',
+    ref: 'Ref. 5536/020/250',
+  },
+  woman_shirt: {
+    id: 'woman_shirt',
+    name: 'POPLIN OVERSIZED SHIRT',
+    category: 'Tops & Knitwear',
+    department: 'woman',
+    onSale: false,
+    priceVnd: '1,199,000 VND',
+    priceForeign: '39.95 GBP',
+    priceNum: 1199000,
+    image: './products/woman_shirt.jpg',
+    color: 'Crisp White',
+    colorHex: '#ffffff',
+    availableColors: [
+      { name: 'Crisp White', hex: '#ffffff', filterStyle: 'none' },
+      { name: 'Stripe Blue', hex: '#9ab3c9', filterStyle: 'hue-rotate(190deg) saturate(1.3) brightness(0.95)' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    defaultSize: 'M',
+    modelFit: '178 cm · Size S',
+    description: 'Collared shirt made of 100% crisp organic cotton poplin. Long sleeves with cuffs. Asymmetric hem with side vents. Front button closure.',
+    composition: '100% organic cotton.',
+    ref: 'Ref. 6895/042/250',
+  },
+  beaded_dress: {
+    id: 'beaded_dress',
+    name: 'BEADED BANDEAU DRESS',
+    category: 'Dresses & Skirts',
+    department: 'woman',
+    onSale: false,
+    priceVnd: '1,899,000 VND',
+    priceForeign: '$ 89.90',
+    priceNum: 1899000,
+    image: './products/real_beaded_dress.jpg',
+    color: 'Champagne gold',
+    colorHex: '#d8c29d',
+    availableColors: [
+      { name: 'Champagne gold', hex: '#d8c29d', filterStyle: 'none' },
+      { name: 'Classic black', hex: '#111111', filterStyle: 'brightness(0.38) contrast(1.3) grayscale(0.9)' },
+      { name: 'Ruby Wine', hex: '#8b1c28', filterStyle: 'hue-rotate(315deg) saturate(1.6) brightness(0.85)' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L'],
+    defaultSize: 'S',
+    modelFit: '178 cm · Size S',
+    description: 'Bandeau neckline midi dress with internal silicone grip. All-over sequin and bead embellishment. Invisible back zip closure. Vent at hem.',
+    composition: '95% polyester, 5% elastane. Hand-embroidered glass sequins.',
+    ref: 'Ref. 2194/050/305',
+  },
   pleated_skirt: {
     id: 'pleated_skirt',
     name: 'SATIN PLEATED MIDI SKIRT',
-    category: 'Skirts',
+    category: 'Dresses & Skirts',
     department: 'woman',
     onSale: true,
     discountPercent: 35,
@@ -210,8 +238,9 @@ export const PRODUCTS = {
     color: 'Deep Navy',
     colorHex: '#1e2838',
     availableColors: [
-      { name: 'Deep Navy', hex: '#1e2838', image: './products/real_pleated_skirt.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/beaded_dress_black.jpg' }
+      { name: 'Deep Navy', hex: '#1e2838', filterStyle: 'none' },
+      { name: 'Onyx Noir', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.1)' },
+      { name: 'Bronze Olive', hex: '#595133', filterStyle: 'hue-rotate(100deg) saturate(0.8)' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -220,9 +249,84 @@ export const PRODUCTS = {
     composition: '100% recycled polyester satin.',
     ref: 'Ref. 9120/830/401',
   },
+  woman_jeans: {
+    id: 'woman_jeans',
+    name: 'Z1975 HIGH WAIST WIDE LEG JEANS',
+    category: 'Trousers & Jeans',
+    department: 'woman',
+    onSale: true,
+    discountPercent: 30,
+    originalPriceVnd: '2,140,000 VND',
+    originalPriceForeign: '69.95 GBP',
+    priceVnd: '1,499,000 VND',
+    priceForeign: '49.95 GBP',
+    priceNum: 1499000,
+    image: './products/woman_jeans.jpg',
+    color: 'Vintage Mid Blue',
+    colorHex: '#5d7f9e',
+    availableColors: [
+      { name: 'Vintage Mid Blue', hex: '#5d7f9e', filterStyle: 'none' },
+      { name: 'Washed Black', hex: '#222222', filterStyle: 'brightness(0.4) contrast(1.2) grayscale(0.9)' }
+    ],
+    sizes: ['34 (XS)', '36 (S)', '38 (M)', '40 (L)'],
+    defaultSize: '36 (S)',
+    modelFit: '177 cm · Size 36',
+    description: 'High-waist five-pocket jeans with wide full-length legs. Rigid cotton denim with authentic vintage wash effect. Front metallic zip and button fastening.',
+    composition: '100% cotton denim.',
+    ref: 'Ref. 4365/028/406',
+  },
+  beaded_bag: {
+    id: 'beaded_bag',
+    name: 'BEADED SHOULDER BAG',
+    category: 'Bags & Shoes',
+    department: 'woman',
+    onSale: false,
+    priceVnd: '1,499,000 VND',
+    priceForeign: '$ 139.00',
+    priceNum: 1499000,
+    image: './products/real_beaded_bag.jpg',
+    color: 'Pearl white',
+    colorHex: '#e5e5e0',
+    availableColors: [
+      { name: 'Pearl white', hex: '#f0ede6', filterStyle: 'none' },
+      { name: 'Onyx black', hex: '#151515', filterStyle: 'brightness(0.35) contrast(1.4) grayscale(0.8)' }
+    ],
+    sizes: ['ONE SIZE'],
+    defaultSize: 'ONE SIZE',
+    modelFit: 'Dimensions: 16 x 24 x 6 cm',
+    description: 'Handcrafted evening shoulder bag embellished with geometric glass beads. Fixed metallic chain shoulder strap with gold-tone hardware. Magnetic closure.',
+    composition: 'Main material: 100% glass beads, metal alloy chain. Lining: 100% polyester satin.',
+    ref: 'Ref. 6219/014/001',
+  },
+  woman_boots: {
+    id: 'woman_boots',
+    name: 'LEATHER KNEE-HIGH BOOTS',
+    category: 'Bags & Shoes',
+    department: 'woman',
+    onSale: true,
+    discountPercent: 40,
+    originalPriceVnd: '4,999,000 VND',
+    originalPriceForeign: '169.00 GBP',
+    priceVnd: '2,999,000 VND',
+    priceForeign: '109.00 GBP',
+    priceNum: 2999000,
+    image: './products/woman_boots.jpg',
+    color: 'Black Leather',
+    colorHex: '#111111',
+    availableColors: [
+      { name: 'Black Leather', hex: '#111111', filterStyle: 'none' },
+      { name: 'Burgundy Red', hex: '#5b1e28', filterStyle: 'sepia(0.6) hue-rotate(300deg) brightness(0.8)' }
+    ],
+    sizes: ['36', '37', '38', '39', '40'],
+    defaultSize: '38',
+    modelFit: 'Heel height: 6.5 cm',
+    description: 'Knee-high boots made of 100% cow leather. Pointed toe silhouette and comfortable block heel. Inside zip closure with cushioned insole.',
+    composition: 'Upper: 100% cow leather. Sole: 100% vulcanized rubber.',
+    ref: 'Ref. 1290/310/800',
+  },
 
   // ==========================================
-  // MEN'S DEPARTMENT (MAN)
+  // MEN'S DEPARTMENT (MAN) - 8 ITEMS
   // ==========================================
   man_blazer: {
     id: 'man_blazer',
@@ -237,8 +341,9 @@ export const PRODUCTS = {
     color: 'Charcoal Grey',
     colorHex: '#4a4d52',
     availableColors: [
-      { name: 'Charcoal Grey', hex: '#4a4d52', image: './products/man_blazer.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/man_blazer_black.jpg' }
+      { name: 'Charcoal Grey', hex: '#4a4d52', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.2)' },
+      { name: 'Deep Navy', hex: '#1b2838', filterStyle: 'hue-rotate(200deg) saturate(1.2) brightness(0.85)' }
     ],
     sizes: ['46 (S)', '48 (M)', '50 (L)', '52 (XL)'],
     defaultSize: '48 (M)',
@@ -247,10 +352,36 @@ export const PRODUCTS = {
     composition: 'Outer: 68% polyester, 30% viscose, 2% elastane. Lining: 100% acetate.',
     ref: 'Ref. 1564/420/802',
   },
+  man_overcoat: {
+    id: 'man_overcoat',
+    name: 'WOOL BLEND TAILORED OVERCOAT',
+    category: 'Coats & Jackets',
+    department: 'man',
+    onSale: true,
+    discountPercent: 35,
+    originalPriceVnd: '5,380,000 VND',
+    originalPriceForeign: '185.00 GBP',
+    priceVnd: '3,499,000 VND',
+    priceForeign: '119.00 GBP',
+    priceNum: 3499000,
+    image: './products/man_overcoat.jpg',
+    color: 'Camel Brown',
+    colorHex: '#997352',
+    availableColors: [
+      { name: 'Camel Brown', hex: '#997352', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.45) contrast(1.3) saturate(0.2)' }
+    ],
+    sizes: ['48 (M)', '50 (L)', '52 (XL)'],
+    defaultSize: '50 (L)',
+    modelFit: '188 cm · Size 50',
+    description: 'Long tailored coat made of rich Italian wool blend. Peaked lapels, double-breasted horn button closure, front welt pockets and center back vent.',
+    composition: '75% recycled wool, 25% polyamide.',
+    ref: 'Ref. 3411/400/705',
+  },
   man_bomber: {
     id: 'man_bomber',
     name: 'FAUX LEATHER BOMBER JACKET',
-    category: 'Jackets & Coats',
+    category: 'Coats & Jackets',
     department: 'man',
     onSale: true,
     discountPercent: 40,
@@ -263,8 +394,8 @@ export const PRODUCTS = {
     color: 'Dark Chocolate',
     colorHex: '#2c1e18',
     availableColors: [
-      { name: 'Dark Chocolate', hex: '#2c1e18', image: './products/man_bomber.jpg' },
-      { name: 'Vintage Black', hex: '#1c1c1c', image: './products/man_blazer_black.jpg' }
+      { name: 'Dark Chocolate', hex: '#2c1e18', filterStyle: 'none' },
+      { name: 'Washed Black', hex: '#1c1c1c', filterStyle: 'brightness(0.6) saturate(0.1)' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'L',
@@ -276,7 +407,7 @@ export const PRODUCTS = {
   man_shirt: {
     id: 'man_shirt',
     name: 'REGULAR FIT POPLIN SHIRT',
-    category: 'Shirts',
+    category: 'Tops & Knitwear',
     department: 'man',
     onSale: false,
     priceVnd: '1,199,000 VND',
@@ -286,8 +417,8 @@ export const PRODUCTS = {
     color: 'Optic White',
     colorHex: '#f8f8f8',
     availableColors: [
-      { name: 'Optic White', hex: '#f8f8f8', image: './products/man_shirt.jpg' },
-      { name: 'Sky Blue', hex: '#a8c5db', image: './products/man_shirt_blue.jpg' }
+      { name: 'Optic White', hex: '#f8f8f8', filterStyle: 'none' },
+      { name: 'Sky Blue', hex: '#a8c5db', filterStyle: 'hue-rotate(190deg) saturate(1.4) brightness(0.95)' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -296,10 +427,59 @@ export const PRODUCTS = {
     composition: '100% organic cotton.',
     ref: 'Ref. 7545/100/250',
   },
+  man_sweater: {
+    id: 'man_sweater',
+    name: 'CHUNKY RIBBED TURTLENECK SWEATER',
+    category: 'Tops & Knitwear',
+    department: 'man',
+    onSale: false,
+    priceVnd: '1,699,000 VND',
+    priceForeign: '55.00 GBP',
+    priceNum: 1699000,
+    image: './products/man_sweater.jpg',
+    color: 'Ecru Off-White',
+    colorHex: '#f2eee6',
+    availableColors: [
+      { name: 'Ecru Off-White', hex: '#f2eee6', filterStyle: 'none' },
+      { name: 'Charcoal Black', hex: '#222222', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.8)' }
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    defaultSize: 'L',
+    modelFit: '187 cm · Size L',
+    description: 'Heavyweight knit sweater crafted from soft merino wool blend. Ribbed high roll neck collar, raglan sleeves and straight hem.',
+    composition: '60% merino wool, 40% organic cotton.',
+    ref: 'Ref. 4821/305/710',
+  },
+  man_polo: {
+    id: 'man_polo',
+    name: 'KNITTED STRUCTURED POLO SHIRT',
+    category: 'Tops & Knitwear',
+    department: 'man',
+    onSale: true,
+    discountPercent: 30,
+    originalPriceVnd: '1,850,000 VND',
+    originalPriceForeign: '60.00 GBP',
+    priceVnd: '1,299,000 VND',
+    priceForeign: '42.00 GBP',
+    priceNum: 1299000,
+    image: './products/man_polo.jpg',
+    color: 'Olive Khaki',
+    colorHex: '#5e6848',
+    availableColors: [
+      { name: 'Olive Khaki', hex: '#5e6848', filterStyle: 'none' },
+      { name: 'Onyx Noir', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.1)' }
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    defaultSize: 'M',
+    modelFit: '185 cm · Size M',
+    description: 'Fine-gauge knit polo shirt with open Johnny collar and short sleeves. Textured chevron knit body with ribbed hems.',
+    composition: '100% long-staple pima cotton.',
+    ref: 'Ref. 9104/412/502',
+  },
   man_trousers: {
     id: 'man_trousers',
     name: 'STRAIGHT FIT PLEATED TROUSERS',
-    category: 'Trousers',
+    category: 'Trousers & Jeans',
     department: 'man',
     onSale: true,
     discountPercent: 30,
@@ -312,8 +492,8 @@ export const PRODUCTS = {
     color: 'Camel Beige',
     colorHex: '#c2a688',
     availableColors: [
-      { name: 'Camel Beige', hex: '#c2a688', image: './products/man_trousers.jpg' },
-      { name: 'Charcoal Black', hex: '#222222', image: './products/man_blazer_black.jpg' }
+      { name: 'Camel Beige', hex: '#c2a688', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.2)' }
     ],
     sizes: ['38', '40', '42', '44'],
     defaultSize: '40',
@@ -322,14 +502,37 @@ export const PRODUCTS = {
     composition: '74% polyester, 22% rayon, 4% spandex.',
     ref: 'Ref. 8011/440/710',
   },
+  man_chelsea: {
+    id: 'man_chelsea',
+    name: 'LEATHER CHELSEA ANKLE BOOTS',
+    category: 'Bags & Shoes',
+    department: 'man',
+    onSale: false,
+    priceVnd: '2,999,000 VND',
+    priceForeign: '99.00 GBP',
+    priceNum: 2999000,
+    image: './products/man_chelsea.jpg',
+    color: 'Tobacco Suede',
+    colorHex: '#845738',
+    availableColors: [
+      { name: 'Tobacco Suede', hex: '#845738', filterStyle: 'none' },
+      { name: 'Black Leather', hex: '#111111', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.9)' }
+    ],
+    sizes: ['40', '41', '42', '43', '44'],
+    defaultSize: '42',
+    modelFit: 'True to size',
+    description: 'Classic Chelsea boots crafted from calfskin suede. Elastic side gores and fabric pull tabs for easy entry. Durable crepe rubber sole.',
+    composition: '100% calfskin leather upper, rubber sole.',
+    ref: 'Ref. 2098/510/705',
+  },
 
   // ==========================================
-  // KIDS' DEPARTMENT (KIDS)
+  // KIDS' DEPARTMENT (KIDS) - 6 ITEMS
   // ==========================================
   kids_puffer: {
     id: 'kids_puffer',
     name: 'WATER REPELLENT HOODED PUFFER',
-    category: 'Outerwear',
+    category: 'Coats & Jackets',
     department: 'kids',
     onSale: false,
     priceVnd: '1,199,000 VND',
@@ -339,8 +542,9 @@ export const PRODUCTS = {
     color: 'Mustard Yellow',
     colorHex: '#e0a93b',
     availableColors: [
-      { name: 'Mustard Yellow', hex: '#e0a93b', image: './products/kids_puffer.jpg' },
-      { name: 'Deep Navy', hex: '#1b2838', image: './products/kids_puffer_blue.jpg' }
+      { name: 'Mustard Yellow', hex: '#e0a93b', filterStyle: 'none' },
+      { name: 'Deep Navy', hex: '#1b2838', filterStyle: 'hue-rotate(190deg) saturate(1.4) brightness(0.7)' },
+      { name: 'Berry Red', hex: '#d62828', filterStyle: 'hue-rotate(325deg) saturate(1.6)' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -352,7 +556,7 @@ export const PRODUCTS = {
   kids_sweatshirt: {
     id: 'kids_sweatshirt',
     name: 'EMBROIDERED COTTON SWEATSHIRT',
-    category: 'Sweatshirts',
+    category: 'Tops & Knitwear',
     department: 'kids',
     onSale: true,
     discountPercent: 35,
@@ -365,8 +569,8 @@ export const PRODUCTS = {
     color: 'Cream Ecru',
     colorHex: '#f5f0e6',
     availableColors: [
-      { name: 'Cream Ecru', hex: '#f5f0e6', image: './products/kids_sweatshirt.jpg' },
-      { name: 'Deep Mustard', hex: '#e0a93b', image: './products/kids_puffer.jpg' }
+      { name: 'Cream Ecru', hex: '#f5f0e6', filterStyle: 'none' },
+      { name: 'Sage Green', hex: '#73867b', filterStyle: 'hue-rotate(90deg) saturate(0.8)' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -374,6 +578,55 @@ export const PRODUCTS = {
     description: 'Organic brushed cotton fleece sweatshirt with tonal Zara Atelier typography embroidery. Ribbed collar, hem, and cuffs.',
     composition: '100% organic cotton.',
     ref: 'Ref. 2314/610/050',
+  },
+  kids_cardigan: {
+    id: 'kids_cardigan',
+    name: 'JACQUARD KNIT CARDIGAN',
+    category: 'Tops & Knitwear',
+    department: 'kids',
+    onSale: false,
+    priceVnd: '799,000 VND',
+    priceForeign: '29.90 GBP',
+    priceNum: 799000,
+    image: './products/kids_cardigan.jpg',
+    color: 'Oatmeal Heather',
+    colorHex: '#dcd3c3',
+    availableColors: [
+      { name: 'Oatmeal Heather', hex: '#dcd3c3', filterStyle: 'none' },
+      { name: 'Navy Nordic', hex: '#21334a', filterStyle: 'hue-rotate(200deg) saturate(1.3) brightness(0.7)' }
+    ],
+    sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS'],
+    defaultSize: '8-9 YRS',
+    modelFit: 'Height 128 cm · Size 8-9 YRS',
+    description: 'Cozy knitted cardigan with subtle Nordic geometric pattern. Contrast wooden buttons and ribbed trims.',
+    composition: '70% cotton, 30% recycled acrylic.',
+    ref: 'Ref. 7210/505/110',
+  },
+  kids_dress: {
+    id: 'kids_dress',
+    name: 'FLORAL TULLE PARTY DRESS',
+    category: 'Dresses & Skirts',
+    department: 'kids',
+    onSale: true,
+    discountPercent: 40,
+    originalPriceVnd: '1,665,000 VND',
+    originalPriceForeign: '59.90 GBP',
+    priceVnd: '999,000 VND',
+    priceForeign: '35.90 GBP',
+    priceNum: 999000,
+    image: './products/kids_dress.jpg',
+    color: 'Dusty Rose Pink',
+    colorHex: '#d8a4a6',
+    availableColors: [
+      { name: 'Dusty Rose Pink', hex: '#d8a4a6', filterStyle: 'none' },
+      { name: 'Ivory Cloud', hex: '#fffaf0', filterStyle: 'brightness(1.2) saturate(0.3)' }
+    ],
+    sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
+    defaultSize: '8-9 YRS',
+    modelFit: 'Height 131 cm · Size 8-9 YRS',
+    description: 'Special occasion dress featuring multi-layered soft tulle skirt and delicate floral sequin embroidery on bodice. Buttoned back teardrop closure.',
+    composition: '100% polyester, cotton lining.',
+    ref: 'Ref. 8923/450/615',
   },
   kids_denim: {
     id: 'kids_denim',
@@ -388,8 +641,8 @@ export const PRODUCTS = {
     color: 'Light Vintage Blue',
     colorHex: '#8ba9c4',
     availableColors: [
-      { name: 'Light Vintage Blue', hex: '#8ba9c4', image: './products/kids_denim.jpg' },
-      { name: 'Dark Navy', hex: '#1b2838', image: './products/kids_puffer_blue.jpg' }
+      { name: 'Light Vintage Blue', hex: '#8ba9c4', filterStyle: 'none' },
+      { name: 'Washed Grey', hex: '#636569', filterStyle: 'grayscale(0.8) brightness(0.8)' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -398,14 +651,40 @@ export const PRODUCTS = {
     composition: '100% durable cotton denim.',
     ref: 'Ref. 4108/650/400',
   },
+  kids_boots: {
+    id: 'kids_boots',
+    name: 'LACE-UP LEATHER ANKLE BOOTS',
+    category: 'Bags & Shoes',
+    department: 'kids',
+    onSale: true,
+    discountPercent: 35,
+    originalPriceVnd: '1,999,000 VND',
+    originalPriceForeign: '70.00 GBP',
+    priceVnd: '1,299,000 VND',
+    priceForeign: '45.90 GBP',
+    priceNum: 1299000,
+    image: './products/kids_boots.jpg',
+    color: 'Cognac Amber',
+    colorHex: '#9e623a',
+    availableColors: [
+      { name: 'Cognac Amber', hex: '#9e623a', filterStyle: 'none' },
+      { name: 'Midnight Black', hex: '#111111', filterStyle: 'brightness(0.35) grayscale(0.9)' }
+    ],
+    sizes: ['30', '31', '32', '33', '34', '35'],
+    defaultSize: '32',
+    modelFit: 'Easy zip entry',
+    description: 'Sturdy leather boots with front lace-up and inside zip fastening for easy on and off. Flexible non-slip rubber lug sole with cushioned memory foam insole.',
+    composition: '100% cowhide leather upper, rubber sole.',
+    ref: 'Ref. 6140/220/702',
+  },
 
   // ==========================================
-  // EDITORIAL LOOKBOOK SETS
+  // EDITORIAL LOOKBOOK SETS (WOMAN)
   // ==========================================
   lookbook_1: {
     id: 'lookbook_1',
     name: 'OVERSIZED TAILORED SUIT',
-    category: 'Editorial Lookbook Set 1',
+    category: 'Blazers & Suits',
     department: 'woman',
     onSale: false,
     priceVnd: '4,599,000 VND',
@@ -415,8 +694,8 @@ export const PRODUCTS = {
     color: 'Stone Grey',
     colorHex: '#9e9e9e',
     availableColors: [
-      { name: 'Stone Grey', hex: '#9e9e9e', image: './products/real_lookbook_1.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/wool_coat_black.jpg' }
+      { name: 'Stone Grey', hex: '#9e9e9e', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.1)' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'M',
@@ -428,7 +707,7 @@ export const PRODUCTS = {
   lookbook_2: {
     id: 'lookbook_2',
     name: 'DRAPED SATIN COCKTAIL DRESS',
-    category: 'Editorial Lookbook Set 2',
+    category: 'Dresses & Skirts',
     department: 'woman',
     onSale: true,
     discountPercent: 45,
@@ -441,8 +720,8 @@ export const PRODUCTS = {
     color: 'Ivory Cream',
     colorHex: '#fdfbf7',
     availableColors: [
-      { name: 'Ivory Cream', hex: '#fdfbf7', image: './products/real_lookbook_2.jpg' },
-      { name: 'Midnight Black', hex: '#111111', image: './products/beaded_dress_black.jpg' }
+      { name: 'Ivory Cream', hex: '#fdfbf7', filterStyle: 'none' },
+      { name: 'Midnight Noir', hex: '#111111', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.9)' }
     ],
     sizes: ['XS', 'S', 'M'],
     defaultSize: 'S',
@@ -454,7 +733,7 @@ export const PRODUCTS = {
   lookbook_3: {
     id: 'lookbook_3',
     name: 'MINIMALIST WOOL OVERCOAT',
-    category: 'Editorial Lookbook Set 3',
+    category: 'Coats & Jackets',
     department: 'woman',
     onSale: false,
     priceVnd: '3,899,000 VND',
@@ -464,8 +743,8 @@ export const PRODUCTS = {
     color: 'Camel Warm',
     colorHex: '#a07855',
     availableColors: [
-      { name: 'Camel Warm', hex: '#a07855', image: './products/real_lookbook_3.jpg' },
-      { name: 'Onyx Black', hex: '#111111', image: './products/wool_coat_black.jpg' }
+      { name: 'Camel Warm', hex: '#a07855', filterStyle: 'none' },
+      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.45) contrast(1.2) saturate(0.2)' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -477,7 +756,7 @@ export const PRODUCTS = {
   lookbook_4: {
     id: 'lookbook_4',
     name: 'LEATHER STATEMENT TRENCH',
-    category: 'Editorial Lookbook Set 4',
+    category: 'Coats & Jackets',
     department: 'woman',
     onSale: true,
     discountPercent: 30,
@@ -490,8 +769,8 @@ export const PRODUCTS = {
     color: 'Onyx Noir',
     colorHex: '#141414',
     availableColors: [
-      { name: 'Onyx Noir', hex: '#141414', image: './products/real_lookbook_4.jpg' },
-      { name: 'Dark Brown', hex: '#3d2b1f', image: './products/leather_jacket_brown.jpg' }
+      { name: 'Onyx Noir', hex: '#141414', filterStyle: 'none' },
+      { name: 'Dark Cognac', hex: '#4a2c1b', filterStyle: 'sepia(0.7) hue-rotate(330deg) brightness(0.9)' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'M',
@@ -549,6 +828,24 @@ export const DEPARTMENT_CAMPAIGNS = {
     authorFilm: 'Special Prices Team',
   },
 };
+
+export const FILTER_CATEGORIES = [
+  'Coats & Jackets',
+  'Blazers & Suits',
+  'Tops & Knitwear',
+  'Dresses & Skirts',
+  'Trousers & Jeans',
+  'Bags & Shoes'
+];
+
+export const FILTER_COLORS = [
+  { name: 'Black', hex: '#111111' },
+  { name: 'White / Ecru', hex: '#f5f0e6' },
+  { name: 'Camel / Brown', hex: '#8c6239' },
+  { name: 'Grey', hex: '#777777' },
+  { name: 'Navy Blue', hex: '#1b2838' },
+  { name: 'Yellow / Gold', hex: '#d4af37' }
+];
 
 export const getProductsByDepartment = (dept = 'woman') => {
   if (dept === 'sale') {

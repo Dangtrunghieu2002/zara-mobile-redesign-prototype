@@ -2,9 +2,17 @@ import React from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 import { ArrowLeft } from 'lucide-react';
+import { FILTER_CATEGORIES, FILTER_COLORS } from '../../data/products';
 
 export const OriginalFilter = () => {
-  const { handleLeftAction } = useFlow();
+  const {
+    handleLeftAction,
+    filterState,
+    setSortFilter,
+    toggleCategoryFilter,
+    toggleColorFilter,
+    clearAllFilters
+  } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative font-mono text-xs">
@@ -16,7 +24,7 @@ export const OriginalFilter = () => {
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <span className="text-[10px] text-neutral-400">VIEW 2 &nbsp; FILTERS 3 &nbsp; IN STORE</span>
+        <span className="text-[10px] text-neutral-400">VIEW 2 &nbsp; FILTERS &nbsp; IN STORE</span>
       </div>
 
       {/* Filter Body: All Sections Permanently Expanded */}
@@ -43,25 +51,45 @@ export const OriginalFilter = () => {
             |01| SORT BY
           </div>
           <div className="pl-4 space-y-2 text-neutral-400">
-            <div className="text-white font-bold">ASCENDING PRICE</div>
-            <div>DESCENDING PRICE</div>
-            <div>NEW</div>
+            <div
+              onClick={() => setSortFilter('relevance')}
+              className={`cursor-pointer hover:text-white ${filterState.selectedSort === 'relevance' ? 'text-white font-bold' : ''}`}
+            >
+              RELEVANCE / NEW {filterState.selectedSort === 'relevance' && '✓'}
+            </div>
+            <div
+              onClick={() => setSortFilter('price_asc')}
+              className={`cursor-pointer hover:text-white ${filterState.selectedSort === 'price_asc' ? 'text-white font-bold' : ''}`}
+            >
+              ASCENDING PRICE {filterState.selectedSort === 'price_asc' && '✓'}
+            </div>
+            <div
+              onClick={() => setSortFilter('price_desc')}
+              className={`cursor-pointer hover:text-white ${filterState.selectedSort === 'price_desc' ? 'text-white font-bold' : ''}`}
+            >
+              DESCENDING PRICE {filterState.selectedSort === 'price_desc' && '✓'}
+            </div>
           </div>
         </div>
 
         {/* Section 02: Collection */}
         <div>
           <div className="text-neutral-500 mb-2 font-bold tracking-wider">
-            |02| COLLECTION
+            |02| CATEGORIES
           </div>
           <div className="pl-4 space-y-2 text-neutral-400">
-            <div>BASIC</div>
-            <div>CRLR</div>
-            <div className="text-white font-bold">KNITWEAR</div>
-            <div>LINGERIE</div>
-            <div>SRPLS</div>
-            <div>TRF</div>
-            <div>WOMAN</div>
+            {FILTER_CATEGORIES.map(cat => {
+              const isSelected = filterState.selectedCategories.includes(cat);
+              return (
+                <div
+                  key={cat}
+                  onClick={() => toggleCategoryFilter(cat)}
+                  className={`cursor-pointer uppercase hover:text-white ${isSelected ? 'text-white font-bold' : ''}`}
+                >
+                  {cat} {isSelected && '✓'}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -71,22 +99,22 @@ export const OriginalFilter = () => {
             |03| COLOUR
           </div>
           <div className="pl-4 space-y-2 text-neutral-400">
-            <div className="flex items-center gap-2 text-white font-bold">
-              <span className="w-3 h-3 bg-amber-700 inline-block" />
-              <span>ANIMAL PRINT</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 bg-[#e8d8c8] inline-block" />
-              <span>BEIGE</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 bg-black border border-neutral-700 inline-block" />
-              <span>BLACK</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 bg-blue-700 inline-block" />
-              <span>BLUE</span>
-            </div>
+            {FILTER_COLORS.map(col => {
+              const isSelected = filterState.selectedColors.includes(col.name);
+              return (
+                <div
+                  key={col.name}
+                  onClick={() => toggleColorFilter(col.name)}
+                  className={`flex items-center gap-2 cursor-pointer uppercase hover:text-white ${isSelected ? 'text-white font-bold' : ''}`}
+                >
+                  <span
+                    style={{ backgroundColor: col.hex }}
+                    className="w-3 h-3 inline-block border border-neutral-700"
+                  />
+                  <span>{col.name} {isSelected && '✓'}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -108,7 +136,7 @@ export const OriginalFilter = () => {
         </button>
 
         <button
-          onClick={() => handleLeftAction('navigate', 'search_results')}
+          onClick={clearAllFilters}
           className="w-full py-1 text-center text-[10px] text-neutral-500 tracking-wider hover:text-neutral-300"
         >
           CLEAR FILTERS
@@ -117,3 +145,4 @@ export const OriginalFilter = () => {
     </div>
   );
 };
+

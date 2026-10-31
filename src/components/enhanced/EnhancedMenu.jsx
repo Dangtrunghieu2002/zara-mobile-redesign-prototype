@@ -4,26 +4,42 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { Home, Menu, Search, Bookmark, ShoppingBag, ChevronRight } from 'lucide-react';
 
 export const EnhancedMenu = () => {
-  const { handleRightAction } = useFlow();
-  const [activeDept, setActiveDept] = React.useState('MAN');
+  const { handleRightAction, selectedDepartment, setFilterState } = useFlow();
+  const [activeDept, setActiveDept] = React.useState(selectedDepartment.toUpperCase());
+
+  const selectCategoryAndGo = (categoryName) => {
+    setFilterState(prev => ({
+      ...prev,
+      selectedCategories: [categoryName]
+    }));
+    handleRightAction('navigate', 'search_results');
+  };
 
   return (
     <div className="flex flex-col h-full bg-white text-black justify-between select-none">
       {/* Category Tabs at Top */}
       <div className="border-b border-neutral-200 px-5 pt-3 pb-2 flex items-center justify-between text-xs tracking-widest font-mono">
-        {['WOMAN', 'MAN', 'KIDS', 'ZARA HOME'].map((dept) => (
-          <span
-            key={dept}
-            onClick={() => setActiveDept(dept)}
-            className={`cursor-pointer transition-colors ${
-              activeDept === dept
-                ? 'font-bold border-b-2 border-black pb-1 text-black'
-                : 'text-neutral-400 hover:text-black'
-            }`}
-          >
-            {dept}
-          </span>
-        ))}
+        {['WOMAN', 'MAN', 'KIDS', 'SALE %'].map((dept) => {
+          const deptKey = dept === 'SALE %' ? 'sale' : dept.toLowerCase();
+          const isActive = selectedDepartment === deptKey;
+          return (
+            <span
+              key={dept}
+              onClick={() => {
+                setActiveDept(dept);
+                handleRightAction('selectDepartment', deptKey);
+                handleRightAction('navigate', 'search_results');
+              }}
+              className={`cursor-pointer transition-colors ${
+                isActive
+                  ? 'font-bold border-b-2 border-black pb-1 text-black'
+                  : 'text-neutral-400 hover:text-black'
+              }`}
+            >
+              {dept}
+            </span>
+          );
+        })}
       </div>
 
       {/* Main Content: Functional-First Garment Taxonomy */}
@@ -70,49 +86,52 @@ export const EnhancedMenu = () => {
 
           <div className="space-y-2 text-xs font-bold tracking-wider uppercase text-neutral-900">
             <div
-              onClick={() => handleRightAction('viewProduct', 'leather_jacket')}
+              onClick={() => selectCategoryAndGo('Coats & Jackets')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center text-black"
-              title="Xem Áo khoác da"
+              title="Lọc Áo khoác & Măng tô"
             >
               <span>JACKETS & OUTERWEAR</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(142)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Coats & Jackets</span>
             </div>
             <div
-              onClick={() => handleRightAction('viewProduct', 'wool_coat')}
+              onClick={() => selectCategoryAndGo('Coats & Jackets')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Xem Áo măng tô dạ"
+              title="Lọc Áo măng tô dạ"
             >
               <span>COATS & TRENCH</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(68)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Coats & Jackets</span>
             </div>
             <div
-              onClick={() => handleRightAction('navigate', 'search_results')}
+              onClick={() => selectCategoryAndGo('Blazers & Suits')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
+              title="Lọc Blazers & Suits"
             >
               <span>BLAZERS & SUITS</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(45)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Blazers & Suits</span>
             </div>
             <div
-              onClick={() => handleRightAction('navigate', 'search_results')}
+              onClick={() => selectCategoryAndGo('Tops & Knitwear')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
+              title="Lọc Áo sơ mi & Len"
             >
               <span>SHIRTS & OVERSHIRTS</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(89)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Tops & Knitwear</span>
             </div>
             <div
-              onClick={() => handleRightAction('navigate', 'search_results')}
+              onClick={() => selectCategoryAndGo('Trousers & Jeans')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
+              title="Lọc Quần tây & Jeans"
             >
               <span>TROUSERS & JEANS</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(112)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Trousers & Jeans</span>
             </div>
             <div
-              onClick={() => handleRightAction('viewProduct', 'knit_cardigan')}
+              onClick={() => selectCategoryAndGo('Tops & Knitwear')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Xem Áo dệt kim cardigan"
+              title="Lọc Áo dệt kim cardigan"
             >
               <span>KNITWEAR & SWEATERS</span>
-              <span className="text-neutral-500 font-mono text-[11px] font-normal">(54)</span>
+              <span className="text-neutral-500 font-mono text-[11px] font-normal">Tops & Knitwear</span>
             </div>
             <div
               onClick={() => handleRightAction('navigate', 'search_results')}

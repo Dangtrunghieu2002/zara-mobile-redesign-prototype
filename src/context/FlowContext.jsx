@@ -192,6 +192,7 @@ export const FlowProvider = ({ children }) => {
   const [pdpState, setPdpState] = useState({
     selectedSize: 'M',
     selectedColor: 'Taupe grey',
+    colorFilterStyle: 'none',
     selectedImage: './products/real_wool_coat.jpg',
     zoomLevel: 1,
     openAccordion: 'description',
@@ -226,10 +227,10 @@ export const FlowProvider = ({ children }) => {
 
   const [filterState, setFilterState] = useState({
     isOpen: false,
-    selectedSort: 'price_asc',
-    selectedCollections: ['Knitwear'],
-    selectedColors: ['Animal print'],
-    totalMatches: 125,
+    selectedSort: 'relevance', // 'relevance' | 'price_asc' | 'price_desc'
+    selectedCategories: [], // array of category names
+    selectedColors: [], // array of color names
+    onlySale: false,
   });
 
   const [cookieState, setCookieState] = useState({
@@ -379,9 +380,104 @@ export const FlowProvider = ({ children }) => {
       setPdpState(prev => ({
         ...prev,
         selectedColor: match.name,
-        selectedImage: match.image || prev.selectedImage,
+        colorFilterStyle: match.filterStyle || 'none',
+        selectedImage: selectedProduct.image, // SAME model image!
       }));
     }
+  };
+
+  const toggleCategoryFilter = (cat) => {
+    setFilterState(prev => {
+      const exists = prev.selectedCategories.includes(cat);
+      return {
+        ...prev,
+        selectedCategories: exists
+          ? prev.selectedCategories.filter(c => c !== cat)
+          : [...prev.selectedCategories, cat]
+      };
+    });
+  };
+
+  const toggleColorFilter = (colName) => {
+    setFilterState(prev => {
+      const exists = prev.selectedColors.includes(colName);
+      return {
+        ...prev,
+        selectedColors: exists
+          ? prev.selectedColors.filter(c => c !== colName)
+          : [...prev.selectedColors, colName]
+      };
+    });
+  };
+
+  const setSortFilter = (sortOption) => {
+    setFilterState(prev => ({ ...prev, selectedSort: sortOption }));
+  };
+
+  const setOnlySaleFilter = (boolVal) => {
+    setFilterState(prev => ({ ...prev, onlySale: boolVal }));
+  };
+
+  const clearAllFilters = () => {
+    setFilterState({
+      isOpen: false,
+      selectedSort: 'relevance',
+      selectedCategories: [],
+      selectedColors: [],
+      onlySale: false,
+    });
+  };
+
+  const getFilteredProducts = (overrideDept = null) => {
+    const dept = overrideDept || selectedDepartment;
+    let list = [];
+    if (dept === 'sale') {
+      list = Object.values(PRODUCTS).filter(p => p.onSale);
+    } else {
+      list = Object.values(PRODUCTS).filter(p => p.department === dept);
+    }
+
+    // Filter by search query if any
+    if (searchQuery && searchQuery.trim().length > 0) {
+      const q = searchQuery.toLowerCase().trim();
+      const matched = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.color.toLowerCase().includes(q)
+      );
+      if (matched.length > 0) {
+        list = matched;
+      }
+    }
+
+    // Filter by selectedCategories
+    if (filterState.selectedCategories && filterState.selectedCategories.length > 0) {
+      list = list.filter(p => filterState.selectedCategories.includes(p.category));
+    }
+
+    // Filter by selectedColors
+    if (filterState.selectedColors && filterState.selectedColors.length > 0) {
+      list = list.filter(p => {
+        const pColors = p.availableColors ? p.availableColors.map(c => c.name.toLowerCase()) : [p.color.toLowerCase()];
+        return filterState.selectedColors.some(filterCol =>
+          pColors.some(cName => cName.includes(filterCol.toLowerCase()) || filterCol.toLowerCase().includes(cName))
+        );
+      });
+    }
+
+    // Filter by onlySale
+    if (filterState.onlySale) {
+      list = list.filter(p => p.onSale);
+    }
+
+    // Apply sorting
+    if (filterState.selectedSort === 'price_asc') {
+      list = [...list].sort((a, b) => a.priceNum - b.priceNum);
+    } else if (filterState.selectedSort === 'price_desc') {
+      list = [...list].sort((a, b) => b.priceNum - a.priceNum);
+    }
+
+    return list;
   };
 
   const handleVirtualKeyPress = (key, side = 'right') => {
@@ -402,12 +498,13 @@ export const FlowProvider = ({ children }) => {
     const prod = PRODUCTS[productId] || PRODUCTS.wool_coat;
     setSelectedProduct(prod);
     const defaultColor = prod.availableColors?.[0]?.name || prod.color;
-    const defaultImage = prod.availableColors?.[0]?.image || prod.image;
+    const defaultFilter = prod.availableColors?.[0]?.filterStyle || 'none';
     setPdpState(prev => ({
       ...prev,
       selectedSize: prod.defaultSize || 'M',
       selectedColor: defaultColor,
-      selectedImage: defaultImage,
+      colorFilterStyle: defaultFilter,
+      selectedImage: prod.image,
       zoomLevel: 1,
     }));
     navigateTo('pdp', side);
@@ -513,6 +610,13 @@ export const FlowProvider = ({ children }) => {
         setSearchQuery,
         handleVirtualKeyPress,
         selectPdpColor,
+        // Filter actions & helpers
+        toggleCategoryFilter,
+        toggleColorFilter,
+        setSortFilter,
+        setOnlySaleFilter,
+        clearAllFilters,
+        getFilteredProducts,
         // Micro states
         pdpState,
         setPdpState,
