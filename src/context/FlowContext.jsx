@@ -184,12 +184,15 @@ export const FlowProvider = ({ children }) => {
   const [activeAnnotationId, setActiveAnnotationId] = useState(null);
   const [scale, setScale] = useState(0.85);
 
-  // Dynamic Selected Product for PDP & Cart
   const [selectedProduct, setSelectedProduct] = useState(PRODUCTS.wool_coat);
+  const [selectedDepartment, setSelectedDepartment] = useState('woman'); // 'woman' | 'man' | 'kids' | 'sale'
+  const [searchQuery, setSearchQuery] = useState('bead');
 
   // Micro-states across flows
   const [pdpState, setPdpState] = useState({
     selectedSize: 'M',
+    selectedColor: 'Taupe grey',
+    selectedImage: './products/real_wool_coat.jpg',
     zoomLevel: 1,
     openAccordion: 'description',
   });
@@ -365,31 +368,67 @@ export const FlowProvider = ({ children }) => {
     }
   };
 
+  const selectDepartment = (dept, side = 'system') => {
+    setSelectedDepartment(dept);
+  };
+
+  const selectPdpColor = (colorName) => {
+    if (!selectedProduct?.availableColors) return;
+    const match = selectedProduct.availableColors.find(c => c.name === colorName);
+    if (match) {
+      setPdpState(prev => ({
+        ...prev,
+        selectedColor: match.name,
+        selectedImage: match.image || prev.selectedImage,
+      }));
+    }
+  };
+
+  const handleVirtualKeyPress = (key, side = 'right') => {
+    if (key === 'BACKSPACE' || key === '⌫') {
+      setSearchQuery(prev => prev.slice(0, -1));
+    } else if (key === 'SPACE') {
+      setSearchQuery(prev => prev + ' ');
+    } else if (key === 'CLEAR') {
+      setSearchQuery('');
+    } else if (key === 'SEARCH') {
+      navigateTo('search_results', side);
+    } else {
+      setSearchQuery(prev => prev + key.toLowerCase());
+    }
+  };
+
   const viewProduct = (productId, side = 'left') => {
     const prod = PRODUCTS[productId] || PRODUCTS.wool_coat;
     setSelectedProduct(prod);
+    const defaultColor = prod.availableColors?.[0]?.name || prod.color;
+    const defaultImage = prod.availableColors?.[0]?.image || prod.image;
     setPdpState(prev => ({
       ...prev,
       selectedSize: prod.defaultSize || 'M',
+      selectedColor: defaultColor,
+      selectedImage: defaultImage,
       zoomLevel: 1,
     }));
     navigateTo('pdp', side);
   };
 
-  const addToBag = (product = selectedProduct, size = null, side = 'left') => {
+  const addToBag = (product = selectedProduct, size = null, color = null, side = 'left') => {
     const chosenProduct = typeof product === 'string' ? (PRODUCTS[product] || selectedProduct) : (product || selectedProduct);
     const chosenSize = size || pdpState.selectedSize || chosenProduct.defaultSize || 'M';
+    const chosenColor = color || pdpState.selectedColor || chosenProduct.color;
+    const chosenImage = pdpState.selectedImage || chosenProduct.image;
     setBagState(prev => {
       const newItem = {
         id: `${chosenProduct.id}_${Date.now()}`,
         productId: chosenProduct.id,
         name: chosenProduct.name,
-        color: chosenProduct.color,
+        color: chosenColor,
         size: chosenSize,
         price: chosenProduct.priceVnd,
         priceGbp: chosenProduct.priceForeign,
         priceNum: chosenProduct.priceNum || 2599000,
-        image: chosenProduct.image,
+        image: chosenImage,
         stock: 'available',
       };
       return {
@@ -408,7 +447,11 @@ export const FlowProvider = ({ children }) => {
     } else if (actionType === 'viewProduct') {
       viewProduct(payload, 'left');
     } else if (actionType === 'addToBag') {
-      addToBag(payload?.product || payload, payload?.size, 'left');
+      addToBag(payload?.product || payload, payload?.size, payload?.color, 'left');
+    } else if (actionType === 'selectColor') {
+      selectPdpColor(payload);
+    } else if (actionType === 'selectDepartment') {
+      selectDepartment(payload, 'left');
     } else if (actionType === 'back') {
       return goBack('left');
     } else if (actionType === 'home') {
@@ -422,7 +465,13 @@ export const FlowProvider = ({ children }) => {
     } else if (actionType === 'viewProduct') {
       viewProduct(payload, 'right');
     } else if (actionType === 'addToBag') {
-      addToBag(payload?.product || payload, payload?.size, 'right');
+      addToBag(payload?.product || payload, payload?.size, payload?.color, 'right');
+    } else if (actionType === 'selectColor') {
+      selectPdpColor(payload);
+    } else if (actionType === 'selectDepartment') {
+      selectDepartment(payload, 'right');
+    } else if (actionType === 'virtualKey') {
+      handleVirtualKeyPress(payload, 'right');
     } else if (actionType === 'back') {
       return goBack('right');
     } else if (actionType === 'home') {
@@ -456,6 +505,14 @@ export const FlowProvider = ({ children }) => {
         activeAnnotation: AUDIT_ANNOTATIONS[activeAnnotationId] || null,
         scale,
         setScale,
+        // New dynamic interactivity states
+        selectedDepartment,
+        setSelectedDepartment,
+        selectDepartment,
+        searchQuery,
+        setSearchQuery,
+        handleVirtualKeyPress,
+        selectPdpColor,
         // Micro states
         pdpState,
         setPdpState,

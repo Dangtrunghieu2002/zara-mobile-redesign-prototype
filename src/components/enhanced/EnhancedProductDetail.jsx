@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { X, Bookmark, Share2, ShoppingBag, Plus, Minus, ChevronDown, ChevronUp, MessageSquare } from 'lucide-react';
 
 export const EnhancedProductDetail = () => {
-  const { handleRightAction, selectedProduct, PRODUCTS } = useFlow();
+  const { handleRightAction, selectedProduct, PRODUCTS, pdpState } = useFlow();
   const product = selectedProduct || PRODUCTS.wool_coat;
   const [zoomLevel, setZoomLevel] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.defaultSize || 'M');
@@ -79,10 +79,11 @@ export const EnhancedProductDetail = () => {
           {/* 32% Height Photo with Zoom Controls */}
           <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200">
             <img
-              src={product.image || "./products/real_wool_coat.jpg"}
+              key={pdpState.selectedImage || product.image}
+              src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
               alt={product.name}
               style={{ transform: `scale(${zoomLevel})` }}
-              className="w-full h-full object-cover object-top transition-transform duration-200"
+              className="w-full h-full object-cover object-top transition-transform duration-200 animate-in fade-in duration-200"
             />
 
             {/* Pinch to zoom pill */}
@@ -122,17 +123,25 @@ export const EnhancedProductDetail = () => {
 
             <div className="space-y-1.5">
               <span className="text-[10px] font-mono text-neutral-500 uppercase">
-                COLOR: <strong className="text-black">{product.color}</strong>
+                COLOR: <strong className="text-black">{pdpState.selectedColor || product.color}</strong>
               </span>
               <div className="flex items-center gap-2">
-                {(product.availableColors || [{ name: product.color, hex: product.colorHex || '#111' }]).map((c, idx) => (
-                  <span
-                    key={idx}
-                    title={c.name}
-                    style={{ backgroundColor: c.hex }}
-                    className={`w-6 h-6 rounded-md inline-block cursor-pointer ${idx === 0 ? 'ring-2 ring-black ring-offset-1' : ''}`}
-                  />
-                ))}
+                {(product.availableColors || [{ name: product.color, hex: product.colorHex || '#111', image: product.image }]).map((c, idx) => {
+                  const isSelected = (pdpState.selectedColor || product.color) === c.name;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleRightAction('selectColor', c.name)}
+                      title={`Đổi sang màu: ${c.name}`}
+                      style={{ backgroundColor: c.hex }}
+                      className={`w-6 h-6 rounded-md inline-block cursor-pointer transition-all ${
+                        isSelected
+                          ? 'ring-2 ring-black ring-offset-2 scale-110 shadow-md'
+                          : 'border border-neutral-300 opacity-75 hover:opacity-100 hover:scale-105'
+                      }`}
+                    />
+                  );
+                })}
               </div>
               <p className="text-[9px] text-neutral-500 font-sans leading-tight mt-1">
                 {product.modelFit || 'Model is 188 cm and wears size L'}
@@ -184,7 +193,7 @@ export const EnhancedProductDetail = () => {
           />
 
           <button
-            onClick={() => handleRightAction('addToBag', { product, size: selectedSize })}
+            onClick={() => handleRightAction('addToBag', { product, size: selectedSize, color: pdpState.selectedColor })}
             className="w-full h-12 bg-black text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-2"
           >
             <span>ADD TO BAG · {selectedSize}</span>

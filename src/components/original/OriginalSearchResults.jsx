@@ -2,9 +2,17 @@ import React from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 import { ArrowLeft, X, Plus } from 'lucide-react';
+import { PRODUCTS, getProductsByDepartment, getSaleProducts } from '../../data/products';
 
 export const OriginalSearchResults = () => {
-  const { handleLeftAction } = useFlow();
+  const {
+    handleLeftAction,
+    searchQuery,
+    selectedDepartment,
+  } = useFlow();
+
+  let deptItems = selectedDepartment === 'sale' ? getSaleProducts() : getProductsByDepartment(selectedDepartment);
+  if (deptItems.length === 0) deptItems = Object.values(PRODUCTS).slice(0, 4);
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between select-none font-sans">
@@ -29,15 +37,35 @@ export const OriginalSearchResults = () => {
 
       {/* Search Input Bar */}
       <div className="px-5 pt-3 pb-2 flex items-center justify-between border-b border-neutral-900">
-        <span className="text-xs font-mono tracking-widest text-white">BEAD</span>
-        <X className="w-3.5 h-3.5 text-neutral-500 cursor-pointer" />
+        <span className="text-xs font-mono tracking-widest text-white">
+          {(searchQuery || 'BEAD').toUpperCase()}
+        </span>
+        <X
+          onClick={() => handleLeftAction('navigate', 'search_typing')}
+          className="w-3.5 h-3.5 text-neutral-500 cursor-pointer"
+        />
       </div>
 
       {/* Tabs */}
       <div className="px-5 pt-2 flex gap-6 text-[11px] font-semibold tracking-wider text-neutral-400">
-        <span className="text-white border-b-2 border-white pb-1">WOMAN</span>
-        <span>MAN</span>
-        <span>KIDS</span>
+        {[
+          { id: 'woman', label: 'WOMAN' },
+          { id: 'man', label: 'MAN' },
+          { id: 'kids', label: 'KIDS' },
+          { id: 'sale', label: 'SALE %' },
+        ].map(dept => (
+          <span
+            key={dept.id}
+            onClick={() => handleLeftAction('selectDepartment', dept.id)}
+            className={`cursor-pointer pb-1 transition-colors ${
+              selectedDepartment === dept.id
+                ? 'text-white border-b-2 border-white font-bold'
+                : 'hover:text-white'
+            }`}
+          >
+            {dept.label}
+          </span>
+        ))}
       </div>
 
       {/* Product Results Grid: Irrelevance Flaw (Problem #11) */}
@@ -50,149 +78,75 @@ export const OriginalSearchResults = () => {
         />
 
         <div className="grid grid-cols-2 gap-3">
-          {/* Product 1: Irrelevant First Result */}
-          <div
-            onClick={() => handleLeftAction('viewProduct', 'embroidered_top')}
-            className="flex flex-col cursor-pointer border border-red-500/80 p-1 bg-red-950/20 rounded"
-          >
-            <div className="relative h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
-              <img
-                src="./products/real_embroidered_top.jpg"
-                alt="Embroidered Top"
-                className="w-full h-full object-contain bg-white"
-              />
-              <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] px-1 font-mono font-bold">
-                NO "BEAD" MATCH
-              </span>
+          {deptItems.map((p, index) => (
+            <div
+              key={p.id}
+              onClick={() => handleLeftAction('viewProduct', p.id)}
+              className={`flex flex-col cursor-pointer p-1 rounded transition-colors ${
+                index === 0
+                  ? 'border border-red-500/80 bg-red-950/20'
+                  : 'bg-neutral-950 hover:bg-neutral-900/50'
+              }`}
+            >
+              <div className="relative h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="w-full h-full object-cover object-top"
+                />
+                {index === 0 && (
+                  <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] px-1 font-mono font-bold">
+                    UNRANKED MATCH
+                  </span>
+                )}
+                {p.onSale && (
+                  <span className="absolute bottom-1 right-1 bg-amber-400 text-black text-[8px] font-black px-1 font-mono">
+                    SALE
+                  </span>
+                )}
+              </div>
+              <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-300 leading-tight truncate">
+                {p.name}
+              </p>
+              <div className="flex justify-between items-center mt-1">
+                <span className="text-[10px] font-mono text-neutral-400">
+                  {p.priceForeign || p.priceVnd}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLeftAction('addToBag', { product: p.id });
+                  }}
+                  className="p-1 hover:text-white"
+                >
+                  <Plus className="w-3 h-3 text-neutral-500" />
+                </button>
+              </div>
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-300 leading-tight">
-              EMBROIDERED LINEN TOP
-            </p>
-            <div className="flex justify-between items-center mt-1">
-              <span className="text-[10px] font-mono text-neutral-400">$ 65.95</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleLeftAction('addToBag', { product: 'embroidered_top' });
-                }}
-                className="p-1 hover:text-white"
-              >
-                <Plus className="w-3 h-3 text-neutral-500" />
-              </button>
-            </div>
-          </div>
-
-          {/* Product 2 */}
-          <div
-            onClick={() => handleLeftAction('viewProduct', 'beaded_bag')}
-            className="flex flex-col cursor-pointer bg-neutral-950 p-1 hover:bg-neutral-900/50 rounded transition-colors"
-          >
-            <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
-              <img
-                src="./products/real_beaded_bag.jpg"
-                alt="Beaded Shoulder Bag"
-                className="w-full h-full object-contain bg-neutral-100"
-              />
-            </div>
-            <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-300 leading-tight">
-              BEADED SHOULDER BAG
-            </p>
-            <div className="flex justify-between items-center mt-1">
-              <span className="text-[10px] font-mono text-neutral-400">$ 139.00</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleLeftAction('addToBag', { product: 'beaded_bag' });
-                }}
-                className="p-1 hover:text-white"
-              >
-                <Plus className="w-3 h-3 text-neutral-500" />
-              </button>
-            </div>
-          </div>
-
-          {/* Product 3 */}
-          <div
-            onClick={() => handleLeftAction('viewProduct', 'beaded_top')}
-            className="flex flex-col cursor-pointer bg-neutral-950 p-1 hover:bg-neutral-900/50 rounded transition-colors"
-          >
-            <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
-              <img
-                src="./products/real_beaded_top.jpg"
-                alt="Beaded Ribbed Top"
-                className="w-full h-full object-contain bg-white"
-              />
-            </div>
-            <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-300 leading-tight">
-              BEADED RIBBED TOP
-            </p>
-            <div className="flex justify-between items-center mt-1">
-              <span className="text-[10px] font-mono text-neutral-400">$ 59.95</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleLeftAction('addToBag', { product: 'beaded_top' });
-                }}
-                className="p-1 hover:text-white"
-              >
-                <Plus className="w-3 h-3 text-neutral-500" />
-              </button>
-            </div>
-          </div>
-
-          {/* Product 4 */}
-          <div
-            onClick={() => handleLeftAction('viewProduct', 'beaded_dress')}
-            className="flex flex-col cursor-pointer bg-neutral-950 p-1 hover:bg-neutral-900/50 rounded transition-colors"
-          >
-            <div className="h-44 bg-neutral-900 overflow-hidden mb-1.5 rounded-sm">
-              <img
-                src="./products/real_beaded_dress.jpg"
-                alt="Beaded Bandeau Dress"
-                className="w-full h-full object-contain bg-white"
-              />
-            </div>
-            <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-300 leading-tight">
-              BEADED BANDEAU DRESS
-            </p>
-            <div className="flex justify-between items-center mt-1">
-              <span className="text-[10px] font-mono text-neutral-400">$ 185.00</span>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleLeftAction('addToBag', { product: 'beaded_dress' });
-                }}
-                className="p-1 hover:text-white"
-              >
-                <Plus className="w-3 h-3 text-neutral-500" />
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
       {/* Bottom Bar: Original 3-item navigation */}
-      <div className="border-t border-neutral-900 bg-black px-6 py-2.5">
-        <div className="flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-neutral-400">
-          <button
-            onClick={() => handleLeftAction('navigate', 'menu')}
-            className="hover:text-white transition-colors"
-          >
-            DANH MỤC
-          </button>
-          <button
-            onClick={() => handleLeftAction('navigate', 'account')}
-            className="hover:text-white transition-colors"
-          >
-            TÀI KHOẢN
-          </button>
-          <button
-            onClick={() => handleLeftAction('navigate', 'bag')}
-            className="hover:text-white transition-colors"
-          >
-            | 0 |
-          </button>
-        </div>
+      <div className="border-t border-neutral-900 bg-black px-6 py-2.5 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-neutral-400">
+        <button
+          onClick={() => handleLeftAction('navigate', 'home')}
+          className="hover:text-white"
+        >
+          DANH MỤC
+        </button>
+        <button
+          onClick={() => handleLeftAction('navigate', 'account')}
+          className="hover:text-white"
+        >
+          TÀI KHOẢN
+        </button>
+        <button
+          onClick={() => handleLeftAction('navigate', 'bag')}
+          className="hover:text-white"
+        >
+          | 0 |
+        </button>
       </div>
     </div>
   );

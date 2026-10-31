@@ -1,10 +1,12 @@
 import React from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
+import { DEPARTMENT_CAMPAIGNS } from '../../data/products';
 import { VolumeX } from 'lucide-react';
 
 export const OriginalHome = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, selectedDepartment } = useFlow();
+  const campaign = DEPARTMENT_CAMPAIGNS[selectedDepartment] || DEPARTMENT_CAMPAIGNS.woman;
 
   return (
     <div className="relative flex flex-col h-full bg-black text-white justify-between select-none">
@@ -42,8 +44,9 @@ export const OriginalHome = () => {
           title="Chạm để xem Lookbook"
         >
           <img
-            src="./products/real_home_campaign.jpg"
-            alt="Zara Campaign"
+            key={campaign.image}
+            src={campaign.image}
+            alt={campaign.collection}
             className="w-full h-full object-cover object-center brightness-90 hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/30" />
@@ -68,11 +71,11 @@ export const OriginalHome = () => {
             className="border border-red-500/80 p-3 bg-red-950/40 backdrop-blur-sm rounded cursor-pointer hover:bg-red-950/60 transition-colors"
           >
             <h1 className="zara-logo text-3xl font-black tracking-tight leading-none text-white uppercase mb-1">
-              TWILIGHT ROSES
+              {campaign.heroTitle}
             </h1>
             <p className="text-[10px] font-serif italic text-neutral-300 tracking-wide">
-              PHOTOGRAPHS BY Steven Meisel<br />
-              FILM BY Fabien Baron
+              PHOTOGRAPHS BY {campaign.authorPhotographer}<br />
+              FILM BY {campaign.authorFilm}
             </p>
           </div>
         </div>
@@ -82,7 +85,7 @@ export const OriginalHome = () => {
           onClick={() => handleLeftAction('navigate', 'lookbook')}
           className="relative z-20 cursor-pointer pt-2.5 pb-1 border-t border-white/20 flex items-center justify-between text-[11px] tracking-widest uppercase hover:text-neutral-300"
         >
-          <span className="font-serif">LOOKBOOK · WOMEN'S WINTER 2026</span>
+          <span className="font-serif">{campaign.heroSubtitle}</span>
           <span>→</span>
         </div>
       </div>

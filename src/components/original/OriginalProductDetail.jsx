@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { X, Bookmark, Share2 } from 'lucide-react';
 
 export const OriginalProductDetail = () => {
-  const { handleLeftAction, selectedProduct, PRODUCTS } = useFlow();
+  const { handleLeftAction, selectedProduct, PRODUCTS, pdpState } = useFlow();
   const product = selectedProduct || PRODUCTS.wool_coat;
   const [showSizeSheet, setShowSizeSheet] = useState(false);
 
@@ -51,9 +51,10 @@ export const OriginalProductDetail = () => {
           />
 
           <img
-            src={product.image || "./products/real_wool_coat.jpg"}
+            key={pdpState.selectedImage || product.image}
+            src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
             alt={product.name}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top animate-in fade-in duration-200"
           />
 
           {/* Dotted unlabelled expand icon flaw */}
@@ -77,18 +78,27 @@ export const OriginalProductDetail = () => {
               <p className="text-sm font-bold text-neutral-900 mt-1 font-mono">
                 {product.priceForeign || product.priceVnd}
               </p>
+              <p className="text-[10px] text-neutral-500 font-mono mt-0.5 uppercase">
+                Màu: {pdpState.selectedColor || product.color}
+              </p>
             </div>
 
             {/* Color swatches */}
             <div className="flex items-center gap-1.5 pt-1">
-              {(product.availableColors || [{ name: product.color, hex: product.colorHex || '#111' }]).map((c, idx) => (
-                <span
-                  key={idx}
-                  title={c.name}
-                  style={{ backgroundColor: c.hex }}
-                  className={`w-4 h-4 inline-block ${idx === 0 ? 'ring-1 ring-black ring-offset-1' : ''}`}
-                />
-              ))}
+              {(product.availableColors || [{ name: product.color, hex: product.colorHex || '#111', image: product.image }]).map((c, idx) => {
+                const isSelected = (pdpState.selectedColor || product.color) === c.name;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => handleLeftAction('selectColor', c.name)}
+                    title={c.name}
+                    style={{ backgroundColor: c.hex }}
+                    className={`w-5 h-5 rounded-full inline-block cursor-pointer transition-all ${
+                      isSelected ? 'ring-2 ring-black ring-offset-1 scale-110' : 'border border-neutral-300 opacity-80 hover:opacity-100'
+                    }`}
+                  />
+                );
+              })}
             </div>
           </div>
 

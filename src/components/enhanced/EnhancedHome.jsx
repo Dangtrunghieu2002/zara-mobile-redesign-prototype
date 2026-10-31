@@ -1,19 +1,32 @@
 import React from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
-import { Home, Menu, Search, Bookmark, ShoppingBag, LayoutGrid } from 'lucide-react';
+import { DEPARTMENT_CAMPAIGNS } from '../../data/products';
+import { Home, Menu, Search, Bookmark, ShoppingBag, LayoutGrid, ArrowRight } from 'lucide-react';
 
 export const EnhancedHome = () => {
-  const { handleRightAction } = useFlow();
+  const { handleRightAction, selectedDepartment } = useFlow();
+
+  const campaign = DEPARTMENT_CAMPAIGNS[selectedDepartment] || DEPARTMENT_CAMPAIGNS.woman;
+
+  const handlePillClick = (dept) => {
+    if (selectedDepartment === dept) {
+      // Already selected, navigate into search results / catalog
+      handleRightAction('navigate', 'search_results');
+    } else {
+      handleRightAction('selectDepartment', dept);
+    }
+  };
 
   return (
     <div className="relative flex flex-col h-full bg-black text-white justify-between select-none">
-      {/* Clean Campaign Editorial Background without any phone frame */}
-      <div className="absolute inset-0 z-0">
+      {/* Dynamic Editorial Campaign Background */}
+      <div className="absolute inset-0 z-0 transition-opacity duration-300">
         <img
-          src="./products/real_home_campaign.jpg"
-          alt="Zara AW 2026 Collection"
-          className="w-full h-full object-cover object-center brightness-95"
+          key={campaign.image}
+          src={campaign.image}
+          alt={campaign.collection}
+          className="w-full h-full object-cover object-center brightness-95 animate-in fade-in duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/50" />
       </div>
@@ -32,18 +45,22 @@ export const EnhancedHome = () => {
         </button>
       </div>
 
-      {/* Middle Hero Title */}
+      {/* Middle Hero Title with Dynamic Campaign Metadata */}
       <div
-        onClick={() => handleRightAction('navigate', 'lookbook')}
-        className="relative px-5 z-20 mt-auto mb-6 text-center cursor-pointer hover:opacity-90 transition-opacity"
-        title="Chạm để khám phá Lookbook"
+        onClick={() => handleRightAction('navigate', 'search_results')}
+        className="relative px-5 z-20 mt-auto mb-5 text-center cursor-pointer hover:opacity-95 transition-opacity group"
+        title={`Chạm để khám phá danh mục ${campaign.label}`}
       >
-        <p className="text-[10px] uppercase font-mono tracking-[0.25em] text-neutral-300 mb-1">
-          AW 2026 STUDIO COLLECTION
-        </p>
-        <h2 className="text-xl font-serif tracking-widest text-white uppercase font-light">
-          NOW AVAILABLE
+        <span className="inline-block text-[9px] uppercase font-mono tracking-[0.25em] text-neutral-300 mb-1 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/15">
+          {campaign.collection}
+        </span>
+        <h2 className="text-2xl font-serif tracking-widest text-white uppercase font-light drop-shadow-md">
+          {campaign.heroTitle}
         </h2>
+        <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono tracking-wider text-amber-300 mt-1">
+          <span>{campaign.statusTag}</span>
+          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+        </div>
       </div>
 
       {/* Bottom Area: Floating Category Quick-Pills + 5-Tab Bar */}
@@ -57,34 +74,35 @@ export const EnhancedHome = () => {
             variant="emerald"
           />
 
-          <div className="bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-1 flex items-center justify-between shadow-2xl">
-            <button
-              onClick={() => handleRightAction('navigate', 'search_results')}
-              className="flex-1 py-1.5 text-center text-[10px] font-semibold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/10 rounded-full transition-all"
-            >
-              WOMAN
-            </button>
-            <button
-              onClick={() => handleRightAction('navigate', 'search_results')}
-              className="flex-1 py-1.5 text-center text-[10px] font-bold uppercase tracking-wider bg-white text-black rounded-full shadow-md transition-all"
-            >
-              MAN
-            </button>
-            <button
-              onClick={() => handleRightAction('navigate', 'search_results')}
-              className="flex-1 py-1.5 text-center text-[10px] font-semibold uppercase tracking-wider text-neutral-300 hover:text-white hover:bg-white/10 rounded-full transition-all"
-            >
-              KIDS
-            </button>
-            <button
-              onClick={() => handleRightAction('navigate', 'search_results')}
-              className="flex-1 py-1.5 text-center text-[10px] font-bold uppercase tracking-wider text-amber-300 hover:text-amber-200 hover:bg-white/10 rounded-full transition-all"
-            >
-              SALE %
-            </button>
+          <div className="bg-black/70 backdrop-blur-md border border-white/25 rounded-full p-1 flex items-center justify-between shadow-2xl">
+            {[
+              { id: 'woman', label: 'WOMAN', isSale: false },
+              { id: 'man', label: 'MAN', isSale: false },
+              { id: 'kids', label: 'KIDS', isSale: false },
+              { id: 'sale', label: 'SALE %', isSale: true },
+            ].map((tab) => {
+              const isActive = selectedDepartment === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handlePillClick(tab.id)}
+                  className={`flex-1 py-1.5 text-center text-[10px] uppercase tracking-wider rounded-full transition-all ${
+                    isActive
+                      ? tab.isSale
+                        ? 'bg-amber-400 text-black font-black shadow-lg scale-105'
+                        : 'bg-white text-black font-black shadow-lg scale-105'
+                      : tab.isSale
+                      ? 'text-amber-300 font-bold hover:text-amber-100 hover:bg-white/10'
+                      : 'text-neutral-300 font-semibold hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
           <p className="text-[9px] text-center text-neutral-400 mt-1">
-            Tap directly to explore department in 1-tap
+            Chạm đổi danh mục · Chạm lần nữa để xem sản phẩm {campaign.label}
           </p>
         </div>
 
