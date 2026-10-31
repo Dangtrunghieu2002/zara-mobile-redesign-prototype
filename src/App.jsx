@@ -104,51 +104,9 @@ const PrototypeCanvas = () => {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-start p-4 sm:p-6 overflow-x-auto min-w-full">
-      {/* Current Flow Banner with Step Navigation */}
-      <div className="mb-4 max-w-3xl w-full px-3 py-2 bg-neutral-900/90 backdrop-blur-md border border-neutral-800 rounded-2xl flex items-center justify-between gap-3 text-xs shadow-xl">
-        <button
-          onClick={goToPrevFlow}
-          disabled={currentIndex === 0}
-          className="px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-25 disabled:cursor-not-allowed text-neutral-300 hover:text-white font-medium flex items-center gap-1 transition-all shrink-0 cursor-pointer"
-          title="Màn hình trước (Phím mũi tên trái ←)"
-        >
-          <span className="text-sm font-bold">‹</span>
-          <span className="hidden sm:inline text-[11px]">Trước</span>
-        </button>
-
-        <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 text-center overflow-hidden">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shrink-0" />
-            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest bg-neutral-800/90 px-2 py-0.5 rounded shrink-0">
-              {currentFlowMeta.part}
-            </span>
-            <span className="font-bold text-white uppercase tracking-wider font-mono text-xs truncate">
-              {currentFlowMeta.label}
-            </span>
-          </div>
-          <div className="flex items-center gap-2 text-[11px] text-neutral-400">
-            <span className="hidden sm:inline text-neutral-600">|</span>
-            <span>Thành viên: <strong className="text-neutral-200">{currentFlowMeta.author}</strong></span>
-            <span className="text-[10px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-800/80 shrink-0">
-              {currentFlowMeta.tag}
-            </span>
-          </div>
-        </div>
-
-        <button
-          onClick={goToNextFlow}
-          disabled={currentIndex === FLOWS.length - 1}
-          className="px-3 py-1.5 rounded-lg bg-blue-900/40 hover:bg-blue-800/60 border border-blue-700/60 disabled:opacity-25 disabled:cursor-not-allowed text-blue-200 hover:text-white font-medium flex items-center gap-1 transition-all shrink-0 cursor-pointer"
-          title="Màn hình tiếp theo (Phím mũi tên phải →)"
-        >
-          <span className="hidden sm:inline text-[11px]">Tiếp</span>
-          <span className="text-sm font-bold">›</span>
-        </button>
-      </div>
-
       {/* Side-by-Side Dual Phone Layout */}
       <div
-        className="flex items-start justify-center gap-8 md:gap-14 transition-transform duration-200 origin-top pb-12"
+        className="flex items-start justify-center gap-8 md:gap-14 transition-transform duration-200 origin-top pb-12 mt-2"
         style={{ transform: `scale(${scale})` }}
       >
         {/* Left Device: Original (Baseline) */}

@@ -100,7 +100,7 @@ export const OriginalBag = () => {
                 key={item.id}
                 onClick={() => handleLeftAction('viewProduct', item.id)}
                 className="flex flex-col bg-neutral-50 p-1.5 border border-neutral-200 rounded group hover:border-black transition-colors cursor-pointer"
-                title="Xem chi tiết sản phẩm"
+                title="View product details"
               >
                 <div className="h-20 bg-white mb-1.5 rounded-sm overflow-hidden flex items-center justify-center border border-neutral-100">
                   <img

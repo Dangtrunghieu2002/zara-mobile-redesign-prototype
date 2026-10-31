@@ -30,7 +30,7 @@ export const OriginalLookbook = () => {
         </div>
 
         <span className="text-[10px] font-mono tracking-widest text-neutral-500">
-          HIỂN THỊ 1
+          VIEW 1
         </span>
       </div>
 
@@ -52,7 +52,7 @@ export const OriginalLookbook = () => {
             <div
               onClick={() => handleLeftAction('viewProduct', 'lookbook_1')}
               className="bg-neutral-100 cursor-pointer overflow-hidden border border-neutral-200 group"
-              title="Xem Lookbook 1"
+              title="View Lookbook Item 1"
             >
               <img
                 src="./products/real_lookbook_1.jpg"
@@ -63,7 +63,7 @@ export const OriginalLookbook = () => {
             <div
               onClick={() => handleLeftAction('viewProduct', 'lookbook_2')}
               className="bg-neutral-100 cursor-pointer overflow-hidden border border-neutral-200 group"
-              title="Xem Lookbook 2"
+              title="View Lookbook Item 2"
             >
               <img
                 src="./products/real_lookbook_2.jpg"
@@ -74,7 +74,7 @@ export const OriginalLookbook = () => {
             <div
               onClick={() => handleLeftAction('viewProduct', 'lookbook_3')}
               className="bg-neutral-100 cursor-pointer overflow-hidden border border-neutral-200 group"
-              title="Xem Lookbook 3"
+              title="View Lookbook Item 3"
             >
               <img
                 src="./products/real_lookbook_3.jpg"
@@ -85,7 +85,7 @@ export const OriginalLookbook = () => {
             <div
               onClick={() => handleLeftAction('viewProduct', 'lookbook_4')}
               className="bg-neutral-100 cursor-pointer overflow-hidden border border-neutral-200 group"
-              title="Xem Lookbook 4"
+              title="View Lookbook Item 4"
             >
               <img
                 src="./products/real_lookbook_4.jpg"
@@ -104,13 +104,13 @@ export const OriginalLookbook = () => {
             onClick={() => handleLeftAction('navigate', 'menu')}
             className="hover:text-black transition-colors"
           >
-            DANH MỤC
+            CATALOG
           </button>
           <button
             onClick={() => handleLeftAction('navigate', 'account')}
             className="hover:text-black transition-colors"
           >
-            TÀI KHOẢN
+            ACCOUNT
           </button>
           <button
             onClick={() => handleLeftAction('navigate', 'bag')}

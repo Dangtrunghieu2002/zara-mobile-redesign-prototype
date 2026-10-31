@@ -40,7 +40,7 @@ export const EnhancedLookbook = () => {
               className="flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-neutral-300 hover:border-black transition-colors"
             >
               <SlidersHorizontal className="w-3 h-3" />
-              <span>Bộ lọc (2)</span>
+              <span>Filters (2)</span>
             </button>
             <button className="p-1 rounded hover:bg-neutral-100">
               <LayoutGrid className="w-3.5 h-3.5" />
@@ -85,7 +85,7 @@ export const EnhancedLookbook = () => {
               EMBROIDERED CROPPED JACKET
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">2.990.000 đ</span>
+              <span className="text-[11px] font-semibold text-neutral-900">2,990,000 VND</span>
               <span className="text-[10px] text-neutral-400 font-mono">($129)</span>
             </div>
             {/* Colorway swatches */}
@@ -122,7 +122,7 @@ export const EnhancedLookbook = () => {
               OVERSIZED TWEED COAT
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">3.490.000 đ</span>
+              <span className="text-[11px] font-semibold text-neutral-900">3,490,000 VND</span>
               <span className="text-[10px] text-neutral-400 font-mono">($149)</span>
             </div>
             {/* Colorway swatches */}
@@ -148,7 +148,7 @@ export const EnhancedLookbook = () => {
               SATIN HALTER DRESS
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">2.290.000 đ</span>
+              <span className="text-[11px] font-semibold text-neutral-900">2,290,000 VND</span>
               <span className="text-[10px] text-neutral-400 font-mono">($99)</span>
             </div>
           </div>
@@ -169,7 +169,7 @@ export const EnhancedLookbook = () => {
               PADDED SILK SCARF JACKET
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">3.190.000 đ</span>
+              <span className="text-[11px] font-semibold text-neutral-900">3,190,000 VND</span>
               <span className="text-[10px] text-neutral-400 font-mono">($139)</span>
             </div>
           </div>

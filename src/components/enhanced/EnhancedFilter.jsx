@@ -44,7 +44,7 @@ export const EnhancedFilter = () => {
         <button
           onClick={() => handleRightAction('navigate', 'search_results')}
           className="text-neutral-400 hover:text-white p-1"
-          title="Đóng bộ lọc"
+          title="Close filters"
         >
           <X className="w-4 h-4" />
         </button>
@@ -223,7 +223,7 @@ export const EnhancedFilter = () => {
                   onChange={(e) => setOnlySaleFilter(e.target.checked)}
                   className="accent-amber-400 rounded cursor-pointer"
                 />
-                <span className="text-amber-300 font-medium">Chỉ hiện sản phẩm đang giảm giá (Sale %)</span>
+                <span className="text-amber-300 font-medium">Only show discounted items (Sale %)</span>
               </label>
             </div>
           )}

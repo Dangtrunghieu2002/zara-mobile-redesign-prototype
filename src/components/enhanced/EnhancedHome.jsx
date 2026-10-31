@@ -49,7 +49,7 @@ export const EnhancedHome = () => {
       <div
         onClick={() => handleRightAction('navigate', 'search_results')}
         className="relative px-5 z-20 mt-auto mb-5 text-center cursor-pointer hover:opacity-95 transition-opacity group"
-        title={`Chạm để khám phá danh mục ${campaign.label}`}
+        title={`Tap to explore ${campaign.label} department`}
       >
         <span className="inline-block text-[9px] uppercase font-mono tracking-[0.25em] text-neutral-300 mb-1 px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/15">
           {campaign.collection}
@@ -102,7 +102,7 @@ export const EnhancedHome = () => {
             })}
           </div>
           <p className="text-[9px] text-center text-neutral-400 mt-1">
-            Chạm đổi danh mục · Chạm lần nữa để xem sản phẩm {campaign.label}
+            Tap to switch department · Tap again to browse {campaign.label}
           </p>
         </div>
 

@@ -52,7 +52,7 @@ export const DeviceFrame = ({
     }
     const result = handleAction('back');
     if (result && result.isAtRoot) {
-      showToast('Đang ở màn hình chính (Home)');
+      showToast('Already on Home screen');
     }
   };
 
@@ -135,9 +135,11 @@ export const DeviceFrame = ({
             </div>
           </div>
 
-          {/* Interactive Screen Body */}
+          {/* Interactive Screen Body with Fluid Transition */}
           <div className="relative flex-1 w-full overflow-y-auto overflow-x-hidden device-scroll bg-black text-neutral-100 flex flex-col">
-            {children}
+            <div key={currentScreenFlow} className="w-full h-full flex flex-col flex-1 animate-screen-fade">
+              {children}
+            </div>
 
             {/* Android Recents / Multitasking Overview Overlay */}
             {deviceType === 'android' && isRecentsOpen && (
@@ -150,12 +152,12 @@ export const DeviceFrame = ({
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-white tracking-wide">ZARA VN</span>
+                        <span className="text-xs font-bold text-white tracking-wide">ZARA GLOBAL</span>
                         <span className="text-[9px] px-1.5 py-0.2 rounded bg-neutral-800 text-neutral-400 font-mono">
                           Recent Apps
                         </span>
                       </div>
-                      <span className="text-[10px] text-neutral-400">Chọn màn hình kiểm thử nhanh</span>
+                      <span className="text-[10px] text-neutral-400">Select screen for rapid preview</span>
                     </div>
                   </div>
                   <button
@@ -196,7 +198,7 @@ export const DeviceFrame = ({
                           </div>
                           {isActive ? (
                             <span className="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40">
-                              ĐANG XEM
+                              ACTIVE
                             </span>
                           ) : (
                             <span className="text-[9px] font-mono text-neutral-500">
@@ -205,9 +207,9 @@ export const DeviceFrame = ({
                           )}
                         </div>
                         <div className="flex items-center justify-between text-[11px] text-neutral-400 mt-1">
-                          <span className="text-[10px] text-neutral-400 font-mono">Nhóm BIS: {flow.author}</span>
+                          <span className="text-[10px] text-neutral-400 font-mono">Author: {flow.author}</span>
                           <span className="text-neutral-500 text-[10px] group-hover:text-neutral-200 flex items-center gap-0.5">
-                            Chạm để mở <ArrowRight className="w-2.5 h-2.5 inline" />
+                            Tap to open <ArrowRight className="w-2.5 h-2.5 inline" />
                           </span>
                         </div>
                       </div>
@@ -224,13 +226,13 @@ export const DeviceFrame = ({
                     }}
                     className="flex-1 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-xs font-medium text-neutral-300 hover:text-white transition-all active:scale-95 border border-neutral-700 text-center cursor-pointer"
                   >
-                    Về màn hình chính (Home)
+                    Return to Home Screen
                   </button>
                   <button
                     onClick={() => setIsRecentsOpen(false)}
                     className="px-3 py-1.5 rounded-lg bg-blue-950/60 hover:bg-blue-900/60 text-xs font-medium text-blue-300 hover:text-blue-200 transition-all active:scale-95 border border-blue-800/80 cursor-pointer"
                   >
-                    Đóng
+                    Close
                   </button>
                 </div>
               </div>
@@ -250,7 +252,7 @@ export const DeviceFrame = ({
             <div
               className="w-full shrink-0 h-6 flex items-center justify-center bg-black/90 backdrop-blur-sm z-30 cursor-pointer group"
               onClick={handleHomeClick}
-              title="iPhone Home Bar - Chạm để về Home"
+              title="iPhone Home Bar - Tap to return Home"
               aria-label="Home"
             >
               <div className="w-32 h-1 bg-white/70 group-hover:bg-white group-active:scale-95 transition-all rounded-full" />
@@ -266,7 +268,7 @@ export const DeviceFrame = ({
                     ? 'bg-white/20 text-white ring-1 ring-white/30'
                     : 'hover:bg-white/10 hover:text-white text-neutral-400'
                 }`}
-                title="Trình đa nhiệm / Recent Apps (≡)"
+                title="Recent Apps (≡)"
                 aria-label="Recent Apps"
               >
                 <AndroidMenu className="w-4 h-4" />
@@ -277,7 +279,7 @@ export const DeviceFrame = ({
                 type="button"
                 onClick={handleHomeClick}
                 className="w-14 h-7 flex items-center justify-center rounded-lg hover:bg-white/10 hover:text-white active:bg-white/25 active:scale-90 transition-all duration-150 text-neutral-400 cursor-pointer"
-                title="Màn hình chính / Home (○)"
+                title="Home (○)"
                 aria-label="Home"
               >
                 <Circle className="w-3.5 h-3.5" />
@@ -288,7 +290,7 @@ export const DeviceFrame = ({
                 type="button"
                 onClick={handleBackClick}
                 className="w-14 h-7 flex items-center justify-center rounded-lg hover:bg-white/10 hover:text-white active:bg-white/25 active:scale-90 transition-all duration-150 text-neutral-400 cursor-pointer"
-                title="Quay lại / Back (<)"
+                title="Back (<)"
                 aria-label="Back"
               >
                 <ChevronLeft className="w-4 h-4" />

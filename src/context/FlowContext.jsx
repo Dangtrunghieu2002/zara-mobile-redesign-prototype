@@ -33,40 +33,40 @@ export const AUDIT_ANNOTATIONS = {
     title: 'Floating Category Quick-Pills',
     author: 'Tran Thi Bao Khuong (20225027)',
     heuristic: 'Nielsen #1 (Visibility of System Status) & #6 (Recognition over Recall)',
-    problem: 'Bản gốc: 100% video lookbook choán hết trang mở đầu, không có bất kỳ điểm truy cập mua sắm nào khiến người dùng bối rối (cognitive freeze) phải mất ~45 giây mới tìm được đồ nam.',
-    solution: 'Bản cải tiến: Đặt các pill danh mục nổi bật [WOMAN] [MAN] [KIDS] [SALE %] hiệu ứng kính mờ (frosted-glass) ngay trên landing, giúp vào thẳng ngành hàng chỉ trong 1 chạm (8 giây).'
+    problem: 'Baseline: 100% full-screen editorial video monopolizes the opening view with zero shopping access points, causing cognitive freeze (~45s to locate men\'s apparel).',
+    solution: 'Enhanced: Frosted-glass category pills [WOMAN] [MAN] [KIDS] [SALE %] allow direct 1-tap department entry in under 8 seconds.'
   },
   'home_navbar': {
     id: 'home_navbar',
     title: '5-Tab Standardized Navigation Bar',
     author: 'Tran Thi Bao Khuong (20225027)',
     heuristic: 'Apple HIG & Nielsen #7 (Flexibility and Efficiency of Use)',
-    problem: 'Bản gốc: Thanh tab bar đáy chỉ có 3 mục lệch lạc (DANH MỤC, TÀI KHOẢN, |0|), dấu chấm định vị đè lên chữ, thiếu icon Home và Search trực tiếp.',
-    solution: 'Bản cải tiến: Chuẩn hóa 5 tab rõ ràng [Home, Menu, Search, Saved, Bag] với icon và vi-nhãn 44pt theo Apple Human Interface Guidelines.'
+    problem: 'Baseline: Asymmetrical 3-item text bottom bar (CATALOG, ACCOUNT, |0|) with misplaced indicator dot overlapping text and no direct Home/Search tabs.',
+    solution: 'Enhanced: Standardized 5-tab navigation bar [Home, Menu, Search, Saved, Bag] with 44pt touch targets adhering to Apple Human Interface Guidelines.'
   },
   'menu_taxonomy': {
     id: 'menu_taxonomy',
     title: 'Functional-First Garment Taxonomy',
     author: 'Tran Thi Bao Khuong (20225027)',
     heuristic: 'Nielsen #2 (Match between System and Real World)',
-    problem: 'Bản gốc: Menu drawer bị chiếm dụng bởi 8 tên influencer cá nhân (Marianne Smyth, Sophia Geiss...) và mã collab khó hiểu (SRPLS FLWRS), giấu danh mục quần áo xuống dưới.',
-    solution: 'Bản cải tiến: Đưa danh mục thường ngày (Jackets, Coats, Blazers, Shirts...) lên vị trí ưu tiên số 1 kèm số lượng sản phẩm (142, 68...); gộp tên KOL vào thư mục con Edits.'
+    problem: 'Baseline: Drawer menu dominated by 8 influencer names (Marianne Smyth, Sophia Geiss...) and cryptic collaboration codes (SRPLS FLWRS), burying standard garment categories.',
+    solution: 'Enhanced: Functional-first apparel taxonomy (Jackets, Coats, Blazers, Shirts...) prioritized at the top with live product counts; influencer names grouped under \'Edits\'.'
   },
   'header_safe_area': {
     id: 'header_safe_area',
     title: 'Header 44pt Apple Safe Area Insets',
     author: 'Tran Thi Bao Khuong (20225027)',
     heuristic: 'Apple HIG & WCAG 2.1 (Contrast & Clipping)',
-    problem: 'Bản gốc: Chữ tiêu đề đỏ "- SECONDHAND -" va chạm trực tiếp với Dynamic Island và thanh đồng hồ pin trên iPhone.',
-    solution: 'Bản cải tiến: Thêm đệm Safe Area Inset 44pt chuẩn, chuyển nút "HIỂN THỊ 1" thành cụm icon đổi view cột trực quan.'
+    problem: 'Baseline: Red header text \'- SECONDHAND -\' directly collides with Dynamic Island and status bar icons on iPhone.',
+    solution: 'Enhanced: Standard 44pt Apple Safe Area Inset padding added, replacing cryptic \'VIEW 1\' with responsive column layout controls.'
   },
   'lookbook_metadata': {
     id: 'lookbook_metadata',
     title: 'Lookbook Transparent Metadata & Quick-Add',
     author: 'Tran Thi Bao Khuong (20225027)',
     heuristic: 'Nielsen #1 (Visibility of System Status)',
-    problem: 'Bản gốc: Lookbook duyệt ảnh "mù" (Blind browsing) - chỉ hiển thị ảnh người mẫu, không hề có tên áo, giá tiền hay màu sắc.',
-    solution: 'Bản cải tiến: Hiển thị đầy đủ tên sản phẩm, giá VND ($ quy đổi), bảng màu (swatches) và nút "+" thêm nhanh không cần mở trang chi tiết.'
+    problem: 'Baseline: Blind browsing experience - editorial photos display without product names, prices, or color availability.',
+    solution: 'Enhanced: Full metadata display with item name, localized pricing, color swatches, and a 1-tap quick add button.'
   },
   // Search & List
   'search_autocomplete': {
@@ -74,24 +74,24 @@ export const AUDIT_ANNOTATIONS = {
     title: 'Fix Overlapping Autocomplete Suggestions',
     author: 'Le Ngoc Thuy Dung (20225030)',
     heuristic: 'Nielsen #8 (Aesthetic and Minimalist Design)',
-    problem: 'Bản gốc: Khi gõ "bead", các gợi ý autocomplete bị đè chồng chéo lên nhau và đè thẳng lên cả sản phẩm bên dưới cũng như bàn phím.',
-    solution: 'Bản cải tiến: Tách bạch rõ ràng giữa thanh gợi ý từ khóa (beaded, beaded top, beaded bag...) và khu vực "You might be interested in" bên dưới có khoảng cách chuẩn.'
+    problem: 'Baseline: Typing \'bead\' causes autocomplete query suggestions to collide and overlap with product thumbnails and the keyboard.',
+    solution: 'Enhanced: Clear visual separation between autocomplete search queries and recommendation cards with proper spacing.'
   },
   'search_ranking': {
     id: 'search_ranking',
     title: 'Keyword Relevance Ranking',
     author: 'Le Ngoc Thuy Dung (20225030)',
     heuristic: 'Nielsen #2 (Match between System and Real World)',
-    problem: 'Bản gốc: Gõ "bead" nhưng sản phẩm đầu tiên hiện ra lại là "EMBROIDERED TOP..." không chứa từ khóa tìm kiếm.',
-    solution: 'Bản cải tiến: Ưu tiên xếp hạng theo Product Name Match trước (Beaded Shoulder Bag, Beaded Ribbed Top, Beaded Bandeau Dress...).'
+    problem: 'Baseline: Querying \'bead\' returns an unrelated item (\'EMBROIDERED TOP...\') as the top result due to flawed keyword ranking.',
+    solution: 'Enhanced: Algorithmic ranking prioritizes exact Product Name Matches first (Beaded Shoulder Bag, Beaded Ribbed Top, Beaded Bandeau Dress...).'
   },
   'smart_filter': {
     id: 'smart_filter',
     title: 'Collapsible Filter with Summary Chips & Result Count',
     author: 'Le Ngoc Thuy Dung (20225030)',
     heuristic: 'Nielsen #3 (User Control and Freedom) & #1 (Feedback)',
-    problem: 'Bản gốc: Bộ lọc dài vô tận, các mục mở toang phải cuộn mỏi tay, không biết đã chọn filter nào, nút "View Results" không báo có bao nhiêu kết quả.',
-    solution: 'Bản cải tiến: Đưa các filter đang chọn lên đầu dạng chip có thể xóa (✕); Các mục thu gọn dạng accordion; Nút bấm hiển thị rõ "VIEW 125 RESULTS".'
+    problem: 'Baseline: Unending permanently expanded list requiring excessive scrolling, with zero active filter chips and a blind \'VIEW RESULTS\' button.',
+    solution: 'Enhanced: Accordion collapsible sections, removable active summary chips (✕), and a live dynamic count button (\'VIEW 125 RESULTS\').'
   },
   // Product Page (PDP)
   'pdp_photo_ratio': {
@@ -99,24 +99,24 @@ export const AUDIT_ANNOTATIONS = {
     title: 'Optimized 32% Photo with Interactive Zoom Controls',
     author: 'Pham Chi Thuan (20225018)',
     heuristic: 'Nielsen #8 (Aesthetic and Minimalist Design) & #6 (Recognition)',
-    problem: 'Bản gốc: Ảnh sản phẩm chiếm tới 60% chiều cao màn hình, đẩy tên, giá, màu sắc và nút mua hàng xuống khuất màn hình.',
-    solution: 'Bản cải tiến: Thu gọn ảnh còn 32% chiều cao màn hình, thêm nút zoom +/- và cử chỉ pinch, đưa toàn bộ Tên, Giá, Màu, Size và Nút Mua lên gọn trong 1 màn hình.'
+    problem: 'Baseline: Product photo occupies 60% of vertical height, pushing product name, pricing, colorways, and purchase action off-screen.',
+    solution: 'Enhanced: Optimized 32% photo ratio with interactive +/- zoom controls and pinch gesture, fitting all crucial buy elements above the fold.'
   },
   'pdp_size_inline': {
     id: 'pdp_size_inline',
     title: 'Direct On-Page Size Selection & Model Fit Info',
     author: 'Pham Chi Thuan (20225018)',
     heuristic: 'Nielsen #7 (Flexibility and Efficiency of Use)',
-    problem: 'Bản gốc: Bấm "ADD" (viền mỏng 60px) mới hiện lên một pop-up sheet che mất màn hình để chọn size S/M/L/XL.',
-    solution: 'Bản cải tiến: Đặt 4 nút chọn size trực tiếp trên trang ngay phía trên nút "ADD TO BAG", kèm link "Size recommender" và thông số người mẫu (188 cm, Size L).'
+    problem: 'Baseline: Tapping \'ADD\' forces a disruptive bottom sheet modal just to select sizes S/M/L/XL.',
+    solution: 'Enhanced: Inline size selector buttons right above the main CTA, accompanied by a size recommender and model fit information.'
   },
   'pdp_add_cta': {
     id: 'pdp_add_cta',
     title: 'High-Affordance 88px Solid ADD TO BAG CTA',
     author: 'Pham Chi Thuan (20225018)',
     heuristic: 'WCAG 2.2 AA & Nielsen #1 (Visibility of System Status)',
-    problem: 'Bản gốc: Nút "ADD" chỉ là khung viền đen mỏng, chữ mảnh khó nhận diện là nút hành động chính (weak visual affordance).',
-    solution: 'Bản cải tiến: Nút "ADD TO BAG" màu đen đặc, full-width, chiều cao chuẩn công thái học 88px, chữ trắng đậm nổi bật.'
+    problem: 'Baseline: Fragile thin-outline \'ADD\' button with weak visual affordance, failing prominent action guidelines.',
+    solution: 'Enhanced: Ergonomic 88px full-width high-contrast solid black CTA with bold white typography.'
   },
   // Bag & Checkout
   'bag_edit_size': {
@@ -124,24 +124,24 @@ export const AUDIT_ANNOTATIONS = {
     title: '1-Tap Inline Size Selector with Inventory Warning',
     author: 'Le Khanh Linh (20225020)',
     heuristic: 'Nielsen #5 (Error Prevention) & #7 (Efficiency)',
-    problem: 'Bản gốc: Muốn đổi size áo trong giỏ hàng, người dùng phải trải qua 5 bước cực nhọc: Xóa khỏi giỏ -> Tìm lại áo -> Mở PDP -> Chọn size mới -> Thêm lại.',
-    solution: 'Bản cải tiến: Đổi size ngay tại giỏ hàng chỉ trong 1 chạm qua nút `SIZE: M ▼`, hiển thị bottom-sheet với cảnh báo rõ "SOLD OUT" và "ONLY 2 LEFT".'
+    problem: 'Baseline: Modifying size in the bag requires a tedious 5-step process: delete item -> search again -> reopen PDP -> select new size -> add to bag.',
+    solution: 'Enhanced: 1-tap inline size selector with inventory scarcity warnings (\'ONLY 2 LEFT\', \'SOLD OUT\').'
   },
   'checkout_stepper': {
     id: 'checkout_stepper',
     title: '4-Step Progress Stepper & Safe Exit',
     author: 'Le Khanh Linh (20225020)',
     heuristic: 'Nielsen #1 (Visibility of System Status) & #3 (User Freedom)',
-    problem: 'Bản gốc: Màn hình thanh toán không có nút quay lại giỏ hàng rõ ràng (dễ mất đơn), không có tiến trình các bước, phông chữ Serif lộn xộn.',
-    solution: 'Bản cải tiến: Thêm thanh tiến trình 4 bước (✓ BAG — ✓ DELIVERY — PAYMENT — DONE), nút "← Back to bag" và "Cancel and return to bag" an toàn.'
+    problem: 'Baseline: Checkout lacks step progress indication, safe exit back to bag, and suffers from cluttered typography.',
+    solution: 'Enhanced: 4-step progress stepper (✓ BAG — ✓ DELIVERY — PAYMENT — DONE) with explicit \'← Back to bag\' and \'Cancel order\' links.'
   },
   'payment_honesty': {
     id: 'payment_honesty',
     title: 'Honest System Status on Payment Failure',
     author: 'Le Khanh Linh (20225020)',
     heuristic: 'Nielsen #1 (Visibility of System Status) & #9 (Help Users Recover from Errors)',
-    problem: 'Bản gốc: Khi giao dịch bị hủy ở phía ngân hàng, app Zara vẫn hiển thị "THANK YOU FOR SHOPPING AT ZARA" gây hiểu lầm nghiêm trọng.',
-    solution: 'Bản cải tiến: Hiển thị đúng trạng thái "PAYMENT CANCELLED", giải thích rõ "Bạn chưa bị trừ tiền và giỏ hàng vẫn được lưu trữ", cung cấp nút Thử lại hoặc Đổi phương thức.'
+    problem: 'Baseline: Bank-declined transactions still display \'THANK YOU FOR SHOPPING AT ZARA\', causing severe user deception.',
+    solution: 'Enhanced: Accurate system status \'PAYMENT CANCELLED\', reassuring users that their funds are untouched, with retry options.'
   },
   // Account & Returns
   'cookie_consent': {
@@ -149,24 +149,24 @@ export const AUDIT_ANNOTATIONS = {
     title: 'Fair Cookie Consent & Granular GDPR Controls',
     author: 'Dang Trung Hieu (20225003)',
     heuristic: 'Nielsen #3 (User Control and Freedom) & GDPR Compliance',
-    problem: 'Bản gốc: Dark pattern cưỡng ép - chỉ có 1 nút "CONTINUE" duy nhất, người dùng không có lựa chọn từ chối cookie theo dõi.',
-    solution: 'Bản cải tiến: Nút "REJECT NON-ESSENTIAL" (48px) đặt bình đẳng cạnh nút "ACCEPT ALL", kèm trung tâm cài đặt chi tiết 3 cấp độ (Strictly Necessary, Functional, Analytics).'
+    problem: 'Baseline: Forced dark pattern with only a single \'CONTINUE\' button, providing zero option to decline tracking cookies.',
+    solution: 'Enhanced: Equal-weight \'REJECT NON-ESSENTIAL\' button alongside \'ACCEPT ALL\', with 3-tier granular GDPR consent settings.'
   },
   'auth_tabs': {
     id: 'auth_tabs',
     title: 'Tabbed Onboarding with Live RFC 5322 Email Validation',
     author: 'Dang Trung Hieu (20225003)',
     heuristic: 'Nielsen #5 (Error Prevention) & #1 (Feedback)',
-    problem: 'Bản gốc: Một ô nhập duy nhất "LOG IN OR REGISTER", người dùng không biết mình đang đăng nhập hay tạo mới, không có gợi ý cú pháp.',
-    solution: 'Bản cải tiến: Phân định rạch ròi 2 tab [LOG IN] và [REGISTER]; Hiển thị tick xanh tức thì khi email đúng chuẩn RFC 5322; Thanh đo độ mạnh mật khẩu 3 cấp độ.'
+    problem: 'Baseline: Ambiguous single field \'LOG IN OR REGISTER\' leaving users unaware if an account exists, with no live validation.',
+    solution: 'Enhanced: Dedicated [LOG IN] and [REGISTER] tabs, instant RFC 5322 email validation checkmark, and a 3-tier password strength meter.'
   },
   'returns_stepper': {
     id: 'returns_stepper',
     title: '4-Step Returns Wizard & 30-Day Countdown Badge',
     author: 'Dang Trung Hieu (20225003)',
     heuristic: 'Nielsen #9 (Help Users Recover) & #1 (Visibility of Status)',
-    problem: 'Bản gốc: Màn hình "THERE ARE NO ACTIVE RETURNS AT THIS TIME" là một ngõ cụt tĩnh (dead-end), không hướng dẫn hạn trả hay điểm gửi đồ.',
-    solution: 'Bản cải tiến: Wizard 4 bước trực quan (1. Items -> 2. Reason -> 3. Drop-off Store/Courier -> 4. QR Code) kèm huy hiệu đếm ngược 24 ngày còn lại và bản đồ điểm gửi.'
+    problem: 'Baseline: Static dead-end \'THERE ARE NO ACTIVE RETURNS AT THIS TIME\' offering no return window info or drop-off guidelines.',
+    solution: 'Enhanced: Guided 4-step returns wizard (Items -> Reason -> Drop-off -> QR Code) with a 24-day countdown badge and drop-off map.'
   }
 };
 

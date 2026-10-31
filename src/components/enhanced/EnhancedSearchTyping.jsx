@@ -87,7 +87,7 @@ export const EnhancedSearchTyping = () => {
                   handleRightAction('navigate', 'search_results');
                 }
               }}
-              placeholder="Gõ từ khóa tìm kiếm..."
+              placeholder="Search products, styles, collections..."
               className="bg-transparent border-none outline-none text-white text-xs w-full placeholder:text-neutral-500 font-sans"
             />
           </div>
@@ -95,12 +95,12 @@ export const EnhancedSearchTyping = () => {
             <button
               onClick={() => setSearchQuery('')}
               className="p-0.5 text-neutral-400 hover:text-white rounded-full hover:bg-neutral-800"
-              title="Xóa tìm kiếm"
+              title="Clear search"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           ) : (
-            <span className="text-[9px] text-neutral-500 font-mono">Bàn phím</span>
+            <span className="text-[9px] text-neutral-500 font-mono">Keyboard</span>
           )}
         </div>
       </div>
@@ -137,13 +137,13 @@ export const EnhancedSearchTyping = () => {
         <div className="pt-2">
           <div className="flex items-center justify-between mb-1.5">
             <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
-              GỢI Ý CHO BẠN ({selectedDepartment.toUpperCase()})
+              SUGGESTED FOR YOU ({selectedDepartment.toUpperCase()})
             </h4>
             <span
               onClick={() => handleRightAction('navigate', 'search_results')}
               className="text-[9px] text-amber-300 hover:underline cursor-pointer font-mono"
             >
-              Xem tất cả →
+              View all →
             </span>
           </div>
 
@@ -181,7 +181,7 @@ export const EnhancedSearchTyping = () => {
                       handleRightAction('addToBag', { product: p.id });
                     }}
                     className="p-1 rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors shrink-0"
-                    title="Thêm nhanh vào giỏ"
+                    title="Quick add to bag"
                   >
                     <Plus className="w-3 h-3" />
                   </button>
@@ -246,7 +246,7 @@ export const EnhancedSearchTyping = () => {
             <button
               onClick={() => handleRightAction('virtualKey', 'CLEAR')}
               className="text-[10px] bg-[#3a3a3c] hover:bg-[#48484a] active:scale-95 px-2.5 py-1.5 rounded text-neutral-300"
-              title="Xóa tất cả"
+              title="Clear all"
             >
               Clear
             </button>

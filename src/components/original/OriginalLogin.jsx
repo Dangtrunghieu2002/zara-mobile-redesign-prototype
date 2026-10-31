@@ -79,13 +79,13 @@ export const OriginalLogin = () => {
             onClick={() => handleLeftAction('navigate', 'menu')}
             className="hover:text-white transition-colors"
           >
-            DANH MỤC
+            CATALOG
           </button>
           <button
             onClick={() => handleLeftAction('navigate', 'account')}
             className="font-bold text-white transition-colors"
           >
-            TÀI KHOẢN
+            ACCOUNT
           </button>
           <button
             onClick={() => handleLeftAction('navigate', 'bag')}

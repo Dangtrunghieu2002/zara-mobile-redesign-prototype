@@ -53,7 +53,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => handleRightAction('navigate', 'lookbook')}
               className="hover:text-black hover:bg-neutral-50 p-1 rounded cursor-pointer flex justify-between"
-              title="Xem Lookbook"
+              title="View Lookbook"
             >
               <span>STUDIO COLLECTION</span>
               <span className="text-neutral-400 font-normal">NEW</span>
@@ -61,7 +61,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => handleRightAction('navigate', 'search_results')}
               className="hover:text-black hover:bg-neutral-50 p-1 rounded cursor-pointer flex justify-between"
-              title="Xem sản phẩm mới"
+              title="View new products"
             >
               <span>THE NEW</span>
             </div>
@@ -88,7 +88,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Coats & Jackets')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center text-black"
-              title="Lọc Áo khoác & Măng tô"
+              title="Filter Jackets & Outerwear"
             >
               <span>JACKETS & OUTERWEAR</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Coats & Jackets</span>
@@ -96,7 +96,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Coats & Jackets')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Lọc Áo măng tô dạ"
+              title="Filter Coats & Trench"
             >
               <span>COATS & TRENCH</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Coats & Jackets</span>
@@ -104,7 +104,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Blazers & Suits')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Lọc Blazers & Suits"
+              title="Filter Blazers & Suits"
             >
               <span>BLAZERS & SUITS</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Blazers & Suits</span>
@@ -112,7 +112,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Tops & Knitwear')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Lọc Áo sơ mi & Len"
+              title="Filter Shirts & Overshirts"
             >
               <span>SHIRTS & OVERSHIRTS</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Tops & Knitwear</span>
@@ -120,7 +120,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Trousers & Jeans')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Lọc Quần tây & Jeans"
+              title="Filter Trousers & Jeans"
             >
               <span>TROUSERS & JEANS</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Trousers & Jeans</span>
@@ -128,7 +128,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => selectCategoryAndGo('Tops & Knitwear')}
               className="hover:bg-neutral-100 p-1 rounded cursor-pointer flex justify-between items-center"
-              title="Lọc Áo dệt kim cardigan"
+              title="Filter Knitwear & Sweaters"
             >
               <span>KNITWEAR & SWEATERS</span>
               <span className="text-neutral-500 font-mono text-[11px] font-normal">Tops & Knitwear</span>
@@ -159,7 +159,7 @@ export const EnhancedMenu = () => {
             <div
               onClick={() => handleRightAction('viewProduct', 'beaded_bag')}
               className="flex justify-between items-center py-0.5 cursor-pointer hover:text-black hover:bg-neutral-50 px-1 rounded"
-              title="Xem Túi đính hạt"
+              title="View Beaded Bag"
             >
               <span>BAGS & BACKPACKS</span>
               <span className="text-neutral-400 font-mono text-[11px]">(38)</span>
@@ -171,7 +171,7 @@ export const EnhancedMenu = () => {
         <div
           onClick={() => handleRightAction('navigate', 'lookbook')}
           className="relative border border-neutral-300 p-2.5 rounded-lg bg-neutral-50 cursor-pointer hover:border-black transition-colors"
-          title="Xem các bộ sưu tập đặc biệt"
+          title="View Special Collections"
         >
           <AnnotationBadge
             id="menu_taxonomy"

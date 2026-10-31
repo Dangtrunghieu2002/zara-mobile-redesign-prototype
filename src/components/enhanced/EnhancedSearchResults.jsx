@@ -27,9 +27,9 @@ export const EnhancedSearchResults = () => {
   // Active filter chips
   const activeChips = [];
   if (filterState.selectedSort === 'price_asc') {
-    activeChips.push({ label: 'Giá: Thấp -> Cao', onRemove: () => setSortFilter('relevance') });
+    activeChips.push({ label: 'Price: Low to High', onRemove: () => setSortFilter('relevance') });
   } else if (filterState.selectedSort === 'price_desc') {
-    activeChips.push({ label: 'Giá: Cao -> Thấp', onRemove: () => setSortFilter('relevance') });
+    activeChips.push({ label: 'Price: High to Low', onRemove: () => setSortFilter('relevance') });
   }
   filterState.selectedCategories.forEach(cat => {
     activeChips.push({ label: cat, onRemove: () => toggleCategoryFilter(cat) });
@@ -38,7 +38,7 @@ export const EnhancedSearchResults = () => {
     activeChips.push({ label: col, onRemove: () => toggleColorFilter(col) });
   });
   if (filterState.onlySale) {
-    activeChips.push({ label: 'Sale %', onRemove: () => setOnlySaleFilter(false) });
+    activeChips.push({ label: 'Sale Items', onRemove: () => setOnlySaleFilter(false) });
   }
 
   return (
@@ -71,26 +71,26 @@ export const EnhancedSearchResults = () => {
           </button>
 
           {showSortMenu && (
-            <div className="absolute top-8 right-16 bg-[#1c1c1e] border border-neutral-700 rounded-lg shadow-2xl py-1 z-50 w-36 text-xs font-mono">
+            <div className="absolute top-8 right-16 bg-[#1c1c1e] border border-neutral-700 rounded-lg shadow-2xl py-1 z-50 w-44 text-xs font-mono">
               <button
                 onClick={() => { setSortFilter('relevance'); setShowSortMenu(false); }}
                 className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'relevance' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
-                <span>Phù hợp nhất</span>
+                <span>Most Relevant</span>
                 {filterState.selectedSort === 'relevance' && <Check className="w-3 h-3 text-white" />}
               </button>
               <button
                 onClick={() => { setSortFilter('price_asc'); setShowSortMenu(false); }}
                 className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_asc' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
-                <span>Giá tăng dần</span>
+                <span>Price: Low to High</span>
                 {filterState.selectedSort === 'price_asc' && <Check className="w-3 h-3 text-white" />}
               </button>
               <button
                 onClick={() => { setSortFilter('price_desc'); setShowSortMenu(false); }}
                 className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_desc' ? 'text-white font-bold' : 'text-neutral-400'}`}
               >
-                <span>Giá giảm dần</span>
+                <span>Price: High to Low</span>
                 {filterState.selectedSort === 'price_desc' && <Check className="w-3 h-3 text-white" />}
               </button>
             </div>
@@ -127,7 +127,7 @@ export const EnhancedSearchResults = () => {
             handleRightAction('navigate', 'search_typing');
           }}
           className="p-1 text-neutral-400 hover:text-white"
-          title="Chỉnh sửa tìm kiếm"
+          title="Clear search query"
         >
           <X className="w-3.5 h-3.5" />
         </button>
@@ -189,7 +189,7 @@ export const EnhancedSearchResults = () => {
       {/* Active Filter Chips Strip (if any active) */}
       {activeChips.length > 0 && (
         <div className="px-4 py-1.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar border-b border-neutral-900 bg-[#121214]">
-          <span className="text-[9px] font-mono text-neutral-500 shrink-0 uppercase">Lọc:</span>
+          <span className="text-[9px] font-mono text-neutral-500 shrink-0 uppercase">Filters:</span>
           {activeChips.map((chip, idx) => (
             <span
               key={idx}
@@ -204,7 +204,7 @@ export const EnhancedSearchResults = () => {
             onClick={clearAllFilters}
             className="text-[9px] font-mono text-emerald-400 hover:underline shrink-0 ml-1"
           >
-            Xoá hết
+            Clear all
           </button>
         </div>
       )}
@@ -212,18 +212,18 @@ export const EnhancedSearchResults = () => {
       {/* Relevant Products Grid */}
       <div className="relative flex-1 overflow-y-auto p-3 device-scroll">
         <div className="flex justify-between items-center mb-2 px-1 text-[10px] font-mono text-neutral-400">
-          <span>{items.length} SẢN PHẨM ({selectedDepartment.toUpperCase()})</span>
-          <span className="text-emerald-400 font-bold">✓ Tự động cập nhật</span>
+          <span>{items.length} PRODUCTS ({selectedDepartment.toUpperCase()})</span>
+          <span className="text-emerald-400 font-bold">✓ Live Filtered</span>
         </div>
 
         {items.length === 0 ? (
           <div className="py-12 px-4 text-center">
-            <p className="text-neutral-400 text-xs mb-3 font-mono">Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại.</p>
+            <p className="text-neutral-400 text-xs mb-3 font-mono">No products found matching the current filters.</p>
             <button
               onClick={clearAllFilters}
               className="px-4 py-2 bg-white text-black font-bold text-xs rounded uppercase tracking-wider hover:bg-neutral-200 transition-colors"
             >
-              Xoá tất cả bộ lọc
+              Reset all filters
             </button>
           </div>
         ) : (
@@ -246,7 +246,7 @@ export const EnhancedSearchResults = () => {
                     </span>
                   ) : (
                     <span className="absolute top-1 left-1 bg-black/60 backdrop-blur-sm text-neutral-300 text-[8px] px-1 py-0.5 rounded font-mono border border-white/10">
-                      {p.availableColors ? `${p.availableColors.length} màu` : '1 màu'}
+                      {p.availableColors ? `${p.availableColors.length} colors` : '1 color'}
                     </span>
                   )}
                 </div>
@@ -270,7 +270,7 @@ export const EnhancedSearchResults = () => {
                       handleRightAction('addToBag', { product: p.id });
                     }}
                     className="p-1 rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors"
-                    title="Thêm nhanh vào giỏ"
+                    title="Quick add to bag"
                   >
                     <Plus className="w-3 h-3" />
                   </button>

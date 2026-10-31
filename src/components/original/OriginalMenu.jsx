@@ -17,7 +17,7 @@ export const OriginalMenu = () => {
         <button
           onClick={() => handleLeftAction('navigate', 'home')}
           className="text-neutral-500 hover:text-black font-bold text-sm px-1"
-          title="Đóng menu"
+          title="Close menu"
         >
           ✕
         </button>
@@ -78,7 +78,7 @@ export const OriginalMenu = () => {
             onClick={() => handleLeftAction('navigate', 'menu')}
             className="flex flex-col items-center gap-1 font-bold text-black"
           >
-            <span>DANH MỤC</span>
+            <span>CATALOG</span>
             <div className="w-1 h-1 bg-black rounded-full" />
           </button>
 
@@ -86,7 +86,7 @@ export const OriginalMenu = () => {
             onClick={() => handleLeftAction('navigate', 'account')}
             className="hover:text-black transition-colors"
           >
-            TÀI KHOẢN
+            ACCOUNT
           </button>
 
           <button

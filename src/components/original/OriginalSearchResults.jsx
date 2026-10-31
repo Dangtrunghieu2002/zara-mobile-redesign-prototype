@@ -134,13 +134,13 @@ export const OriginalSearchResults = () => {
           onClick={() => handleLeftAction('navigate', 'home')}
           className="hover:text-white"
         >
-          DANH MỤC
+          CATALOG
         </button>
         <button
           onClick={() => handleLeftAction('navigate', 'account')}
           className="hover:text-white"
         >
-          TÀI KHOẢN
+          ACCOUNT
         </button>
         <button
           onClick={() => handleLeftAction('navigate', 'bag')}

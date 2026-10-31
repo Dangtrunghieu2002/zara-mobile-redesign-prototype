@@ -135,7 +135,7 @@ export const EnhancedProductDetail = () => {
                     <button
                       key={idx}
                       onClick={() => handleRightAction('selectColor', c.name)}
-                      title={`Đổi sang màu: ${c.name}`}
+                      title={`Switch to color: ${c.name}`}
                       style={{ backgroundColor: c.hex }}
                       className={`w-6 h-6 rounded-md inline-block cursor-pointer transition-all ${
                         isSelected

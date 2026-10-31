@@ -15,7 +15,7 @@ export const OriginalHome = () => {
         <span
           className="cursor-pointer font-bold font-mono text-xs text-neutral-300 hover:text-white"
           onClick={() => handleLeftAction('navigate', 'menu')}
-          title="Mở Menu"
+          title="Open Menu"
         >
           MENU ≡
         </span>
@@ -29,9 +29,9 @@ export const OriginalHome = () => {
           <span
             onClick={() => handleLeftAction('navigate', 'lookbook')}
             className="text-[11px] font-mono tracking-widest text-neutral-400 hover:text-white cursor-pointer"
-            title="Đổi hiển thị (Grid view)"
+            title="Grid view"
           >
-            HIỂN THỊ 1
+            VIEW 1
           </span>
         </div>
       </div>
@@ -41,7 +41,7 @@ export const OriginalHome = () => {
         <div
           onClick={() => handleLeftAction('navigate', 'lookbook')}
           className="absolute inset-0 z-0 cursor-pointer"
-          title="Chạm để xem Lookbook"
+          title="Tap to view Lookbook"
         >
           <img
             key={campaign.image}
@@ -104,24 +104,24 @@ export const OriginalHome = () => {
             onClick={() => handleLeftAction('navigate', 'menu')}
             className="flex flex-col items-center gap-1 hover:text-white transition-colors"
           >
-            <span>DANH MỤC</span>
+            <span>CATALOG</span>
             <div className="w-1 h-1 bg-white rounded-full" />
           </button>
 
           <button
             onClick={() => handleLeftAction('navigate', 'search_typing')}
             className="hover:text-white transition-colors flex items-center gap-1"
-            title="Tìm kiếm"
+            title="Search"
           >
             <span className="w-2.5 h-2.5 rounded-full border border-dotted border-neutral-400 inline-block" />
-            <span>TÌM KIẾM</span>
+            <span>SEARCH</span>
           </button>
 
           <button
             onClick={() => handleLeftAction('navigate', 'account')}
             className="hover:text-white transition-colors"
           >
-            TÀI KHOẢN
+            ACCOUNT
           </button>
 
           <button
