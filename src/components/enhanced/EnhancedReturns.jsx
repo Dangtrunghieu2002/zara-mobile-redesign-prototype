@@ -52,7 +52,7 @@ const RETURNABLE_ITEMS = [
     color: 'Charcoal grey',
     price: '$99.00',
     priceNum: 99,
-    image: './products/real_blazer.jpg',
+    image: './products/man_blazer.jpg',
     orderId: '#ZR-US-879102',
     deliveryDate: 'Delivered 11 days ago',
     ref: 'Ref. 2199/102/802'
