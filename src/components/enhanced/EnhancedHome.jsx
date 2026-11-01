@@ -5,7 +5,7 @@ import { DEPARTMENT_CAMPAIGNS } from '../../data/products';
 import { Home, Menu, Search, Bookmark, ShoppingBag, LayoutGrid, ArrowRight } from 'lucide-react';
 
 export const EnhancedHome = () => {
-  const { handleRightAction, selectedDepartment } = useFlow();
+  const { handleRightAction, selectedDepartment, getCartItemCount } = useFlow();
 
   const campaign = DEPARTMENT_CAMPAIGNS[selectedDepartment] || DEPARTMENT_CAMPAIGNS.woman;
 
@@ -153,7 +153,7 @@ export const EnhancedHome = () => {
               className="flex flex-col items-center gap-0.5 hover:text-white transition-colors"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span className="text-[10px] font-medium">Bag (1)</span>
+              <span className="text-[10px] font-medium">Bag{getCartItemCount() > 0 ? ` (${getCartItemCount()})` : ''}</span>
             </button>
           </div>
         </div>

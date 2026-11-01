@@ -643,6 +643,11 @@ export const FlowProvider = ({ children }) => {
     return bagState.items.reduce((sum, item) => sum + (item.priceNum || 0) * (item.quantity || 1), 0);
   };
 
+  const getCartItemCount = () => {
+    if (!bagState?.items || bagState.items.length === 0) return 0;
+    return bagState.items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  };
+
   const handleLeftAction = (actionType, payload) => {
     if (actionType === 'navigate') {
       navigateTo(payload, 'left');
@@ -664,6 +669,8 @@ export const FlowProvider = ({ children }) => {
       selectPdpColor(payload);
     } else if (actionType === 'selectDepartment') {
       selectDepartment(payload, 'left');
+    } else if (actionType === 'virtualKey') {
+      handleVirtualKeyPress(payload, 'left');
     } else if (actionType === 'back') {
       return goBack('left');
     } else if (actionType === 'home') {
@@ -764,6 +771,7 @@ export const FlowProvider = ({ children }) => {
         updateItemSize,
         quickAddToBag,
         getCartSubtotal,
+        getCartItemCount,
         liveActivity,
         triggerLiveActivity,
         handleLeftAction,

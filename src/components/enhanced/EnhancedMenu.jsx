@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { Home, Menu, Search, Bookmark, ShoppingBag, ChevronRight } from 'lucide-react';
 
 export const EnhancedMenu = () => {
-  const { handleRightAction, selectedDepartment, setFilterState } = useFlow();
+  const { handleRightAction, selectedDepartment, setFilterState, getCartItemCount } = useFlow();
   const [activeDept, setActiveDept] = React.useState(selectedDepartment.toUpperCase());
 
   const selectCategoryAndGo = (categoryName) => {
@@ -231,7 +231,7 @@ export const EnhancedMenu = () => {
             className="flex flex-col items-center gap-0.5 hover:text-white transition-colors"
           >
             <ShoppingBag className="w-4 h-4" />
-            <span className="text-[10px] font-medium">Bag (1)</span>
+            <span className="text-[10px] font-medium">Bag{getCartItemCount() > 0 ? ` (${getCartItemCount()})` : ''}</span>
           </button>
         </div>
       </div>

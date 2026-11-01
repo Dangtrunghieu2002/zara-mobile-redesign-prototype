@@ -16,6 +16,7 @@ export const EnhancedSearchResults = () => {
     setOnlySaleFilter,
     clearAllFilters,
     getFilteredProducts,
+    getCartItemCount,
   } = useFlow();
 
   const [viewCols, setViewCols] = useState(2); // 1, 2, or 3
@@ -338,7 +339,7 @@ export const EnhancedSearchResults = () => {
           className="flex flex-col items-center gap-0.5 hover:text-white"
         >
           <ShoppingBag className="w-4 h-4" />
-          <span className="text-[9px] font-mono">Bag</span>
+          <span className="text-[9px] font-mono">Bag{getCartItemCount() > 0 ? ` (${getCartItemCount()})` : ''}</span>
         </button>
       </div>
     </div>

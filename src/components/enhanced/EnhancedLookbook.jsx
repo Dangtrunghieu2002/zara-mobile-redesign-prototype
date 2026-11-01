@@ -4,7 +4,14 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { Home, Menu, Search, Bookmark, ShoppingBag, SlidersHorizontal, Plus, LayoutGrid } from 'lucide-react';
 
 export const EnhancedLookbook = () => {
-  const { handleRightAction } = useFlow();
+  const { handleRightAction, PRODUCTS, getCartItemCount } = useFlow();
+
+  const lookbookItems = [
+    PRODUCTS.lookbook_1,
+    PRODUCTS.lookbook_2,
+    PRODUCTS.lookbook_3,
+    PRODUCTS.lookbook_4,
+  ].filter(Boolean);
 
   return (
     <div className="flex flex-col h-full bg-white text-black justify-between select-none font-sans">
@@ -59,116 +66,50 @@ export const EnhancedLookbook = () => {
         />
 
         <div className="grid grid-cols-2 gap-3">
-          {/* Garment 1 */}
-          <div
-            onClick={() => handleRightAction('viewProduct', 'lookbook_1')}
-            className="flex flex-col bg-white cursor-pointer group"
-          >
-            <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
-              <img
-                src="./products/real_lookbook_1.jpg"
-                alt="Embroidered Cropped Jacket"
-                className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-              />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRightAction('addToBag', { product: 'lookbook_1' });
-                }}
-                className="absolute right-2 bottom-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-black hover:text-white transition-all"
-                title="Quick Add to Bag"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
+          {lookbookItems.map((prod) => (
+            <div
+              key={prod.id}
+              onClick={() => handleRightAction('viewProduct', prod.id)}
+              className="flex flex-col bg-white cursor-pointer group"
+            >
+              <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
+                <img
+                  src={prod.image}
+                  alt={prod.name}
+                  className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRightAction('addToBag', { product: prod.id });
+                  }}
+                  className="absolute right-2 bottom-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-black hover:text-white transition-all"
+                  title="Quick Add to Bag"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              </div>
+              <h4 className="text-[10px] font-bold uppercase tracking-tight text-neutral-900 leading-tight">
+                {prod.name}
+              </h4>
+              <div className="flex items-baseline gap-1 mt-0.5">
+                <span className="text-[11px] font-semibold text-neutral-900 font-mono">{prod.price}</span>
+              </div>
+              {/* Colorway swatches */}
+              {prod.availableColors && prod.availableColors.length > 0 && (
+                <div className="flex items-center gap-1.5 mt-1">
+                  {prod.availableColors.map((c, i) => (
+                    <div
+                      key={c.name}
+                      className={`w-2.5 h-2.5 rounded-full ${i === 0 ? 'ring-1 ring-offset-1 ring-neutral-400' : ''}`}
+                      style={{ backgroundColor: c.hex }}
+                      title={c.name}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-            <h4 className="text-[10px] font-bold uppercase tracking-tight text-neutral-900 leading-tight">
-              EMBROIDERED CROPPED JACKET
-            </h4>
-            <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$129.00</span>
-            </div>
-            {/* Colorway swatches */}
-            <div className="flex items-center gap-1.5 mt-1">
-              <div className="w-2.5 h-2.5 rounded-full bg-black ring-1 ring-offset-1 ring-neutral-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#8b4513]" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#d2b48c]" />
-            </div>
-          </div>
-
-          {/* Garment 2 */}
-          <div
-            onClick={() => handleRightAction('viewProduct', 'lookbook_2')}
-            className="flex flex-col bg-white cursor-pointer group"
-          >
-            <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
-              <img
-                src="./products/real_lookbook_2.jpg"
-                alt="Oversized Tweed Coat"
-                className="w-full h-52 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-              />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRightAction('addToBag', { product: 'lookbook_2' });
-                }}
-                className="absolute right-2 bottom-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-black hover:text-white transition-all"
-                title="Quick Add to Bag"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
-            <h4 className="text-[10px] font-bold uppercase tracking-tight text-neutral-900 leading-tight">
-              OVERSIZED TWEED COAT
-            </h4>
-            <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$149.00</span>
-            </div>
-            {/* Colorway swatches */}
-            <div className="flex items-center gap-1.5 mt-1">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2c1d11] ring-1 ring-offset-1 ring-neutral-400" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#1b2a47]" />
-            </div>
-          </div>
-
-          {/* Garment 3 */}
-          <div
-            onClick={() => handleRightAction('viewProduct', 'lookbook_3')}
-            className="flex flex-col bg-white cursor-pointer group"
-          >
-            <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
-              <img
-                src="./products/real_lookbook_3.jpg"
-                alt="Satin Halter Dress"
-                className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <h4 className="text-[10px] font-bold uppercase tracking-tight text-neutral-900 leading-tight">
-              SATIN HALTER DRESS
-            </h4>
-            <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$99.00</span>
-            </div>
-          </div>
-
-          {/* Garment 4 */}
-          <div
-            onClick={() => handleRightAction('viewProduct', 'lookbook_4')}
-            className="flex flex-col bg-white cursor-pointer group"
-          >
-            <div className="relative overflow-hidden bg-neutral-100 rounded-sm mb-1.5">
-              <img
-                src="./products/real_lookbook_4.jpg"
-                alt="Padded Silk Scarf Jacket"
-                className="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <h4 className="text-[10px] font-bold uppercase tracking-tight text-neutral-900 leading-tight">
-              PADDED SILK SCARF JACKET
-            </h4>
-            <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$139.00</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -212,7 +153,7 @@ export const EnhancedLookbook = () => {
             className="flex flex-col items-center gap-0.5 hover:text-white transition-colors"
           >
             <ShoppingBag className="w-4 h-4" />
-            <span className="text-[10px] font-medium">Bag (1)</span>
+            <span className="text-[10px] font-medium">Bag{getCartItemCount() > 0 ? ` (${getCartItemCount()})` : ''}</span>
           </button>
         </div>
       </div>
