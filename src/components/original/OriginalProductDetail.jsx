@@ -51,7 +51,7 @@ export const OriginalProductDetail = () => {
           />
 
           <img
-            src={product.image || "./products/real_wool_coat.jpg"}
+            src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
             alt={product.name}
             style={{
               filter: pdpState.colorFilterStyle || 'none',

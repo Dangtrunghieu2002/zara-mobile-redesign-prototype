@@ -386,7 +386,7 @@ export const FlowProvider = ({ children }) => {
       setPdpState(prev => ({
         ...prev,
         selectedColor: match.name,
-        colorFilterStyle: 'none', // No global filter, pure garment recolor!
+        colorFilterStyle: match.filterStyle || 'none',
         selectedImage: match.image || selectedProduct.image,
       }));
       triggerLiveActivity('Colorway Selected', match.name);
@@ -511,7 +511,7 @@ export const FlowProvider = ({ children }) => {
       selectedSize: prod.defaultSize || 'M',
       selectedColor: defaultColor,
       colorFilterStyle: defaultFilter,
-      selectedImage: prod.image,
+      selectedImage: prod.availableColors?.[0]?.image || prod.image,
       zoomLevel: 1,
     }));
     navigateTo('pdp', side);

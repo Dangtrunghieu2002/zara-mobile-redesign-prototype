@@ -83,7 +83,8 @@ export const EnhancedProductDetail = () => {
               alt={product.name}
               style={{
                 transform: `scale(${zoomLevel})`,
-                transition: 'transform 0.2s ease-out'
+                filter: (pdpState.selectedImage && pdpState.selectedImage !== product.image) ? 'none' : (pdpState.colorFilterStyle || 'none'),
+                transition: 'filter 0.3s ease-in-out, transform 0.2s ease-out'
               }}
               className="w-full h-full object-cover object-top garment-crossfade"
             />

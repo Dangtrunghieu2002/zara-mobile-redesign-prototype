@@ -20,6 +20,7 @@ export const DeviceFrame = ({
   const isOriginal = variant === 'original';
   const handleAction = isOriginal ? handleLeftAction : handleRightAction;
   const currentScreenFlow = isOriginal ? leftFlow : rightFlow;
+  const isLightScreen = ['pdp', 'bag', 'checkout', 'payment_result', 'lookbook'].includes(currentScreenFlow);
 
   const [isRecentsOpen, setIsRecentsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
@@ -108,21 +109,31 @@ export const DeviceFrame = ({
 
         {/* Screen Bezel & Screen Wrapper */}
         <div
-          className={`relative w-full h-full bg-black overflow-hidden flex flex-col select-none ${
+          className={`relative w-full h-full overflow-hidden flex flex-col select-none transition-colors duration-300 ${
+            isLightScreen ? 'bg-white' : 'bg-black'
+          } ${
             deviceType === 'iphone' ? 'rounded-[44px]' : 'rounded-[30px]'
           }`}
         >
-          {/* Status Bar */}
-          <div className="w-full shrink-0 h-11 px-6 flex items-center justify-between text-white text-[12px] font-medium z-30 pt-1">
+          {/* Status Bar: Transparent on iPhone with adaptive status text & floating Dynamic Island */}
+          <div
+            className={`w-full shrink-0 h-11 px-6 flex items-center justify-between text-[12px] font-medium z-30 pt-1 transition-colors duration-300 ${
+              isLightScreen
+                ? 'bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-100/60'
+                : 'bg-black/90 backdrop-blur-md text-white'
+            }`}
+          >
             <span className="font-semibold tracking-tight">10:41</span>
 
             {/* iPhone Dynamic Island with Apple Live Activities */}
             {deviceType === 'iphone' && (
               <div
-                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 ring-1 shadow-sm z-40 transition-all duration-300 ${
+                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 shadow-md z-40 transition-all duration-300 ${
                   variant === 'enhanced' && liveActivity
-                    ? 'w-52 bg-black/95 ring-emerald-500/60 shadow-lg animate-island-live'
-                    : 'w-28 bg-black ring-neutral-800/80'
+                    ? 'w-52 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live'
+                    : isLightScreen
+                    ? 'w-28 bg-black text-white ring-1 ring-black/10 shadow-sm'
+                    : 'w-28 bg-black text-white ring-1 ring-neutral-800/80'
                 }`}
               >
                 {variant === 'enhanced' && liveActivity ? (
@@ -156,17 +167,19 @@ export const DeviceFrame = ({
             )}
 
             {/* Status Icons */}
-            <div className="flex items-center gap-1.5 text-neutral-300">
+            <div className={`flex items-center gap-1.5 transition-colors duration-300 ${isLightScreen ? 'text-neutral-900' : 'text-neutral-300'}`}>
               <Signal className="w-3.5 h-3.5" />
               <Wifi className="w-3.5 h-3.5" />
-              <Battery className="w-4 h-4 fill-white" />
+              <Battery className={`w-4 h-4 ${isLightScreen ? 'fill-neutral-900' : 'fill-white'}`} />
             </div>
           </div>
 
           {/* Interactive Screen Body with Fluid Transition */}
           <div
             ref={scrollContainerRef}
-            className="relative flex-1 w-full overflow-y-auto overflow-x-hidden device-scroll bg-black text-neutral-100 flex flex-col"
+            className={`relative flex-1 w-full overflow-y-auto overflow-x-hidden device-scroll flex flex-col ${
+              isLightScreen ? 'bg-white text-black' : 'bg-black text-neutral-100'
+            }`}
           >
             <div key={currentScreenFlow} className="w-full h-full flex flex-col flex-1 animate-screen-fade">
               {children}

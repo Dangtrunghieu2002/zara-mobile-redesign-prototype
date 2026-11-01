@@ -64,9 +64,9 @@ export const PRODUCTS = {
     color: 'Camel Brown',
     colorHex: '#b2875b',
     availableColors: [
-      { name: 'Camel Brown', hex: '#b2875b', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.2)' },
-      { name: 'Sage Green', hex: '#879685', filterStyle: 'hue-rotate(80deg) saturate(0.7)' }
+      { name: 'Camel Brown', hex: '#b2875b', image: './products/real_trench_coat.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/trench_coat_same_model_black.jpg' },
+      { name: 'Sage Green', hex: '#879685', image: './products/trench_coat_same_model_green.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -81,15 +81,14 @@ export const PRODUCTS = {
     category: 'Blazers & Suits',
     department: 'woman',
     onSale: false,
-    price: '.00',
     price: '$119.00',
     priceNum: 119,
     image: './products/woman_blazer.jpg',
     color: 'Ecru Tailored',
     colorHex: '#e8e2d5',
     availableColors: [
-      { name: 'Ecru Tailored', hex: '#e8e2d5', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.3) saturate(0.1)' }
+      { name: 'Ecru Tailored', hex: '#e8e2d5', image: './products/woman_blazer.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/woman_blazer.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -112,8 +111,8 @@ export const PRODUCTS = {
     color: 'Black',
     colorHex: '#111111',
     availableColors: [
-      { name: 'Black', hex: '#111111', filterStyle: 'none' },
-      { name: 'Ecru Cream', hex: '#f4f0ea', filterStyle: 'invert(0.85) hue-rotate(180deg) brightness(1.2) contrast(0.9)' }
+      { name: 'Black', hex: '#111111', image: './products/real_beaded_top.jpg' },
+      { name: 'Ecru Cream', hex: '#f4f0ea', image: './products/beaded_top_ecru.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'S',
@@ -134,8 +133,8 @@ export const PRODUCTS = {
     color: 'Cream White',
     colorHex: '#f6f4ee',
     availableColors: [
-      { name: 'Cream White', hex: '#f6f4ee', filterStyle: 'none' },
-      { name: 'Mocha Brown', hex: '#4a3728', filterStyle: 'sepia(0.8) hue-rotate(330deg) brightness(0.65)' }
+      { name: 'Cream White', hex: '#f6f4ee', image: './products/real_knit_cardigan.jpg' },
+      { name: 'Mocha Brown', hex: '#4a3728', image: './products/knit_cardigan_same_model_mocha.jpg' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'S',
@@ -226,9 +225,9 @@ export const PRODUCTS = {
     color: 'Deep Navy',
     colorHex: '#1e2838',
     availableColors: [
-      { name: 'Deep Navy', hex: '#1e2838', filterStyle: 'none' },
-      { name: 'Onyx Noir', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.1)' },
-      { name: 'Bronze Olive', hex: '#595133', filterStyle: 'hue-rotate(100deg) saturate(0.8)' }
+      { name: 'Deep Navy', hex: '#1e2838', image: './products/pleated_skirt_same_model_navy.jpg' },
+      { name: 'Onyx Noir', hex: '#111111', image: './products/real_pleated_skirt.jpg' },
+      { name: 'Bronze Olive', hex: '#595133', image: './products/pleated_skirt_same_model_olive.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -317,14 +316,15 @@ export const PRODUCTS = {
     category: 'Blazers & Suits',
     department: 'man',
     onSale: false,
-    priceNum: 2799000,
+    price: '$129.00',
+    priceNum: 129,
     image: './products/man_blazer.jpg',
     color: 'Charcoal Grey',
     colorHex: '#4a4d52',
     availableColors: [
-      { name: 'Charcoal Grey', hex: '#4a4d52', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.5) contrast(1.2) saturate(0.2)' },
-      { name: 'Deep Navy', hex: '#1b2838', filterStyle: 'hue-rotate(200deg) saturate(1.2) brightness(0.85)' }
+      { name: 'Charcoal Grey', hex: '#4a4d52', image: './products/man_blazer.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/man_blazer_same_model_black.jpg' },
+      { name: 'Deep Navy', hex: '#1b2838', image: './products/man_blazer_same_model_navy.jpg' }
     ],
     sizes: ['46 (S)', '48 (M)', '50 (L)', '52 (XL)'],
     defaultSize: '48 (M)',
@@ -387,13 +387,14 @@ export const PRODUCTS = {
     category: 'Tops & Knitwear',
     department: 'man',
     onSale: false,
-    priceNum: 1199000,
+    price: '$49.00',
+    priceNum: 49,
     image: './products/man_shirt.jpg',
     color: 'Optic White',
     colorHex: '#f8f8f8',
     availableColors: [
-      { name: 'Optic White', hex: '#f8f8f8', filterStyle: 'none' },
-      { name: 'Sky Blue', hex: '#a8c5db', filterStyle: 'hue-rotate(190deg) saturate(1.4) brightness(0.95)' }
+      { name: 'Optic White', hex: '#f8f8f8', image: './products/man_shirt.jpg' },
+      { name: 'Sky Blue', hex: '#a8c5db', image: './products/man_shirt_blue.jpg' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -506,13 +507,13 @@ export const PRODUCTS = {
     onSale: false,
     price: '$59.00',
     priceNum: 59,
-    image: './products/kids_puffer.jpg',
-    color: 'Mustard Yellow',
-    colorHex: '#e0a93b',
+    image: './products/kids_puffer_same_model_red.jpg',
+    color: 'Berry Red',
+    colorHex: '#d62828',
     availableColors: [
-      { name: 'Mustard Yellow', hex: '#e0a93b', filterStyle: 'none' },
-      { name: 'Deep Navy', hex: '#1b2838', filterStyle: 'hue-rotate(190deg) saturate(1.4) brightness(0.7)' },
-      { name: 'Berry Red', hex: '#d62828', filterStyle: 'hue-rotate(325deg) saturate(1.6)' }
+      { name: 'Mustard Yellow', hex: '#e0a93b', image: './products/kids_puffer_same_model_yellow.jpg' },
+      { name: 'Deep Navy', hex: '#1b2838', image: './products/kids_puffer_same_model_navy.jpg' },
+      { name: 'Berry Red', hex: '#d62828', image: './products/kids_puffer_same_model_red.jpg' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
