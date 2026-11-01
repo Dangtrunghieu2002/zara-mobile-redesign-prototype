@@ -26,6 +26,29 @@ export const DeviceFrame = ({
   const [toastMessage, setToastMessage] = useState(null);
   const scrollContainerRef = React.useRef(null);
 
+  // Real-time Vietnam Time (Asia/Ho_Chi_Minh · UTC+7)
+  const getVietnamTime = () => {
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(new Date());
+    } catch {
+      return new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+    }
+  };
+
+  const [vietnamTime, setVietnamTime] = useState(getVietnamTime);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVietnamTime(getVietnamTime());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Auto-close Recents overlay & smoothly reset scroll position on navigation
   useEffect(() => {
     setIsRecentsOpen(false);
@@ -117,7 +140,7 @@ export const DeviceFrame = ({
         >
           {/* Status Bar: On Home screen, absolute transparent overlay for true edge-to-edge tràn viền under Dynamic Island */}
           <div
-            className={`w-full px-6 flex items-center justify-between text-[12px] font-medium z-40 pt-1.5 transition-colors duration-300 ${
+            className={`w-full px-6 flex items-center justify-between z-40 pt-1.5 transition-colors duration-300 ${
               currentScreenFlow === 'home'
                 ? 'absolute top-0 left-0 right-0 h-11 bg-transparent text-white drop-shadow pointer-events-none'
                 : isLightScreen
@@ -125,7 +148,10 @@ export const DeviceFrame = ({
                 : 'shrink-0 h-11 bg-black/90 backdrop-blur-md text-white'
             }`}
           >
-            <span className="font-semibold tracking-tight">10:41</span>
+            {/* Real-time Vietnam Clock (Apple HIG SF Pro: 14px Semibold Tabular) */}
+            <span className="text-[14px] font-semibold tracking-[-0.2px] tabular-nums select-none leading-none pl-1">
+              {vietnamTime}
+            </span>
 
             {/* iPhone Dynamic Island with Apple Live Activities */}
             {deviceType === 'iphone' && (
@@ -136,9 +162,9 @@ export const DeviceFrame = ({
                       handleRightAction('navigate', 'bag');
                     }
                   }}
-                  className={`h-7 rounded-full flex items-center justify-between px-2.5 shadow-md origin-center transition-all duration-300 ease-out select-none ${
+                  className={`h-[30px] rounded-full flex items-center justify-between px-2.5 shadow-md origin-center transition-all duration-300 ease-out select-none ${
                     variant === 'enhanced' && liveActivity
-                      ? 'w-52 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live cursor-pointer'
+                      ? 'w-56 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live cursor-pointer'
                       : isLightScreen
                       ? 'w-28 bg-black text-white ring-1 ring-black/10 shadow-sm'
                       : 'w-28 bg-black text-white ring-1 ring-white/10 shadow-md'
@@ -146,21 +172,21 @@ export const DeviceFrame = ({
                 >
                   {variant === 'enhanced' && liveActivity ? (
                     <>
-                      <div className="flex items-center gap-1.5 overflow-hidden pr-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                        <span className="text-[9px] font-bold text-white truncate font-sans">
+                      <div className="flex items-center gap-1.5 overflow-hidden pr-1.5">
+                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                        <span className="text-[11.5px] font-semibold text-white truncate tracking-tight font-sans">
                           {liveActivity.title}
                         </span>
                       </div>
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center shrink-0">
-                        <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                      <div className="w-3 h-3 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/60 flex items-center justify-center shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-950" />
                       </div>
                     </>
                   ) : (
                     <>
                       <div className="w-2.5" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center">
-                        <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                      <div className="w-3 h-3 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/60 flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-950" />
                       </div>
                     </>
                   )}
@@ -178,7 +204,7 @@ export const DeviceFrame = ({
             )}
 
             {/* Status Icons */}
-            <div className={`flex items-center gap-1.5 transition-colors duration-300 ${isLightScreen ? 'text-neutral-900' : 'text-neutral-300'}`}>
+            <div className={`flex items-center gap-1.5 transition-colors duration-300 pr-1 ${isLightScreen ? 'text-neutral-900' : 'text-neutral-300'}`}>
               <Signal className="w-3.5 h-3.5" />
               <Wifi className="w-3.5 h-3.5" />
               <Battery className={`w-4 h-4 ${isLightScreen ? 'fill-neutral-900' : 'fill-white'}`} />
