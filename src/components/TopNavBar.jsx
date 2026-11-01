@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFlow, FLOWS } from '../context/FlowContext';
-import { Smartphone, RefreshCw, Eye, EyeOff, ZoomIn, Layers, Sparkles } from 'lucide-react';
+import { Smartphone, RefreshCw, Eye, EyeOff, ZoomIn, Layers, Sparkles, Edit3, BarChart2 } from 'lucide-react';
 
 export const TopNavBar = () => {
   const {
@@ -16,14 +16,22 @@ export const TopNavBar = () => {
     setShowAnnotations,
     scale,
     setScale,
+    appViewMode,
+    setAppViewMode,
+    surveyRatings,
+    EVALUATION_ITEMS,
   } = useFlow();
 
   const currentIndex = FLOWS.findIndex(f => f.id === currentFlow);
+  const completedCount = (EVALUATION_ITEMS || []).filter(item => {
+    const r = surveyRatings?.[item.id];
+    return r && r.o && r.n && r.p;
+  }).length;
 
   return (
     <header className="w-full bg-[#111215]/95 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-50 px-4 py-2.5">
       <div className="max-w-7xl mx-auto flex flex-col gap-2.5">
-        {/* Upper Row: Title & Global Control Toggles */}
+        {/* Upper Row: Title, Mode Switcher & Global Control Toggles */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           {/* Brand & Project Info */}
           <div className="flex items-center gap-3">
@@ -44,6 +52,45 @@ export const TopNavBar = () => {
                 Interactive Dual-Screen Prototype · Original vs. Enhanced
               </p>
             </div>
+          </div>
+
+          {/* Central Mode Switcher (Clean, Distraction-Free Navigation) */}
+          <div className="flex items-center bg-neutral-900/90 rounded-xl p-1 border border-neutral-700 shadow-inner">
+            <button
+              onClick={() => setAppViewMode('prototype')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${
+                appViewMode === 'prototype'
+                  ? 'bg-white text-black shadow-md font-bold'
+                  : 'text-neutral-400 hover:text-white font-medium'
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Dual Prototype</span>
+            </button>
+
+            <button
+              onClick={() => setAppViewMode('survey')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${
+                appViewMode === 'survey'
+                  ? 'bg-emerald-500 text-black shadow-md font-bold'
+                  : 'text-neutral-400 hover:text-white font-medium'
+              }`}
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>Evaluation ({completedCount}/17)</span>
+            </button>
+
+            <button
+              onClick={() => setAppViewMode('results')}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${
+                appViewMode === 'results'
+                  ? 'bg-blue-500 text-white shadow-md font-bold'
+                  : 'text-neutral-400 hover:text-white font-medium'
+              }`}
+            >
+              <BarChart2 className="w-3.5 h-3.5" />
+              <span>Results &amp; CSV</span>
+            </button>
           </div>
 
           {/* Action Toggles */}

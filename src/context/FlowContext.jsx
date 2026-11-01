@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useRef } from 'react';
 import { PRODUCTS } from '../data/products';
+import { EVALUATION_ITEMS, EVALUATION_MAP, EVALUATION_GROUPS, SAMPLE_TESTER_RESPONSES } from '../data/evaluationQuestions';
 
 export const FLOWS = [
   // Part 1: Home & Menu (Tran Thi Bao Khuong · 20225027)
@@ -272,6 +273,202 @@ export const FlowProvider = ({ children }) => {
     selectedStore: 'ZARA VINCOM DONG KHOI',
     distance: '1.2 KM AWAY',
   });
+
+  // App View Modes: 'prototype' | 'survey' | 'results'
+  const [appViewMode, setAppViewMode] = useState('prototype');
+
+  // Survey Ratings State for Current User
+  const [surveyRatings, setSurveyRatings] = useState(() => {
+    try {
+      const saved = localStorage.getItem('zara_survey_ratings_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Tester survey pool (Sample responses + Submitted responses)
+  const [testerResponses, setTesterResponses] = useState(() => {
+    try {
+      const saved = localStorage.getItem('zara_all_tester_responses_v1');
+      return saved ? JSON.parse(saved) : SAMPLE_TESTER_RESPONSES;
+    } catch {
+      return SAMPLE_TESTER_RESPONSES;
+    }
+  });
+
+  const setFeatureRating = (featureId, field, value) => {
+    setSurveyRatings(prev => {
+      const updated = {
+        ...prev,
+        [featureId]: {
+          ...(prev[featureId] || {}),
+          [field]: value
+        }
+      };
+      try {
+        localStorage.setItem('zara_survey_ratings_v1', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
+  };
+
+  const submitCurrentUserSurvey = () => {
+    const newResponse = {
+      testerId: `tester_${Date.now().toString(36)}`,
+      overall: 5,
+      ratings: surveyRatings,
+      submittedAt: new Date().toISOString()
+    };
+    const updated = [newResponse, ...testerResponses];
+    setTesterResponses(updated);
+    try {
+      localStorage.setItem('zara_all_tester_responses_v1', JSON.stringify(updated));
+    } catch (e) {}
+    setAppViewMode('results');
+  };
+
+  const resetSurveyRatings = () => {
+    setSurveyRatings({});
+    try {
+      localStorage.removeItem('zara_survey_ratings_v1');
+    } catch (e) {}
+  };
+
+  const resetToSampleData = () => {
+    setTesterResponses(SAMPLE_TESTER_RESPONSES);
+    try {
+      localStorage.setItem('zara_all_tester_responses_v1', JSON.stringify(SAMPLE_TESTER_RESPONSES));
+    } catch (e) {}
+  };
+
+  const getEvaluationAggregates = () => {
+    const dataset = [...testerResponses];
+    const hasCurrent = Object.keys(surveyRatings).length > 0;
+    const finalSet = hasCurrent ? [{ testerId: 'current_user', ratings: surveyRatings }, ...dataset] : dataset;
+
+    const stats = {};
+    EVALUATION_ITEMS.forEach(item => {
+      stats[item.id] = {
+        totalRated: 0,
+        preferOld: 0,
+        preferSame: 0,
+        preferNew: 0,
+        oldSum: 0,
+        oldCount: 0,
+        newSum: 0,
+        newCount: 0,
+        oldGood: 0,
+        oldBad: 0,
+        newGood: 0,
+        newBad: 0,
+      };
+    });
+
+    finalSet.forEach(resp => {
+      if (!resp.ratings) return;
+      Object.entries(resp.ratings).forEach(([fid, r]) => {
+        const s = stats[fid];
+        if (!s || !r) return;
+        if (r.p) {
+          s.totalRated++;
+          if (r.p === 'old') s.preferOld++;
+          else if (r.p === 'same') s.preferSame++;
+          else if (r.p === 'new') s.preferNew++;
+        }
+        if (r.o) {
+          s.oldSum += r.o;
+          s.oldCount++;
+          if (r.o >= 4) s.oldGood++;
+          if (r.o <= 2) s.oldBad++;
+        }
+        if (r.n) {
+          s.newSum += r.n;
+          s.newCount++;
+          if (r.n >= 4) s.newGood++;
+          if (r.n <= 2) s.newBad++;
+        }
+      });
+    });
+
+    const rows = EVALUATION_ITEMS.map(item => {
+      const s = stats[item.id];
+      const cnt = s.totalRated || 1;
+      const avgOld = s.oldCount ? (s.oldSum / s.oldCount) : 0;
+      const avgNew = s.newCount ? (s.newSum / s.newCount) : 0;
+      const pctOld = Math.round((s.preferOld / cnt) * 100);
+      const pctSame = Math.round((s.preferSame / cnt) * 100);
+      const pctNew = Math.round((s.preferNew / cnt) * 100);
+      const newBadRatio = s.newCount ? (s.newBad / s.newCount) : 0;
+
+      let verdict = 'mixed';
+      let verdictLabel = 'Mixed';
+      if (s.totalRated === 0) {
+        verdict = 'none';
+        verdictLabel = 'No data';
+      } else if ((s.preferOld / cnt) >= 0.4 || (s.oldCount && s.newCount && avgOld > avgNew)) {
+        verdict = 'over';
+        verdictLabel = 'Over-changed';
+      } else if (newBadRatio >= 0.25 || (s.preferSame / cnt) >= 0.5 || (s.newCount && avgNew < 3.5)) {
+        verdict = 'weak';
+        verdictLabel = 'Not upgraded well';
+      } else if ((s.preferNew / cnt) >= 0.6 && avgNew >= 4.0 && newBadRatio < 0.2) {
+        verdict = 'success';
+        verdictLabel = 'Successful upgrade';
+      }
+
+      return {
+        item,
+        s,
+        cnt: s.totalRated,
+        avgOld,
+        avgNew,
+        pctOld,
+        pctSame,
+        pctNew,
+        verdict,
+        verdictLabel
+      };
+    });
+
+    return {
+      totalTesters: finalSet.length,
+      rows,
+      successCount: rows.filter(r => r.verdict === 'success').length,
+      overCount: rows.filter(r => r.verdict === 'over').length,
+      weakCount: rows.filter(r => r.verdict === 'weak').length,
+      mixedCount: rows.filter(r => r.verdict === 'mixed').length,
+    };
+  };
+
+  const exportCSV = () => {
+    const data = getEvaluationAggregates();
+    const headers = [
+      'Feature ID',
+      'Feature Name',
+      'Nielsen Heuristic',
+      'Total Testers',
+      'Old Score Avg (1-5)',
+      'New Score Avg (1-5)',
+      'Prefer Old (%)',
+      'Prefer Same (%)',
+      'Prefer New (%)',
+      'Verdict'
+    ];
+    const rows = data.rows.map(r => [
+      `"${r.item.id}"`,
+      `"${r.item.title}"`,
+      `"${r.item.heuristic.replace(/"/g, '""')}"`,
+      r.cnt,
+      r.avgOld.toFixed(1),
+      r.avgNew.toFixed(1),
+      `${r.pctOld}%`,
+      `${r.pctSame}%`,
+      `${r.pctNew}%`,
+      `"${r.verdictLabel}"`
+    ]);
+    return [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  };
 
   // Logical Hierarchical Back Fallback Mapping (when history stack is empty)
   const HIERARCHICAL_BACK = {
@@ -781,6 +978,20 @@ export const FlowProvider = ({ children }) => {
         goHome,
         leftHistory,
         rightHistory,
+        // Evaluation & Usability Survey System
+        appViewMode,
+        setAppViewMode,
+        surveyRatings,
+        setFeatureRating,
+        submitCurrentUserSurvey,
+        resetSurveyRatings,
+        resetToSampleData,
+        getEvaluationAggregates,
+        exportCSV,
+        EVALUATION_GROUPS,
+        EVALUATION_ITEMS,
+        EVALUATION_MAP,
+        testerResponses,
       }}
     >
       {children}

@@ -3,6 +3,8 @@ import { FlowProvider, useFlow, FLOWS } from './context/FlowContext';
 import { TopNavBar } from './components/TopNavBar';
 import { DeviceFrame } from './components/DeviceFrame';
 import { UXInspectorModal } from './components/UXInspectorModal';
+import { EvaluationSurveyView } from './components/evaluation/EvaluationSurveyView';
+import { EvaluationResultsView } from './components/evaluation/EvaluationResultsView';
 
 // Original Components
 import { OriginalCookie } from './components/original/OriginalCookie';
@@ -171,12 +173,24 @@ const PrototypeCanvas = () => {
   );
 };
 
+const MainContent = () => {
+  const { appViewMode } = useFlow();
+
+  if (appViewMode === 'survey') {
+    return <EvaluationSurveyView />;
+  }
+  if (appViewMode === 'results') {
+    return <EvaluationResultsView />;
+  }
+  return <PrototypeCanvas />;
+};
+
 export default function App() {
   return (
     <FlowProvider>
       <div className="min-h-screen bg-[#090a0c] text-neutral-100 flex flex-col font-sans">
         <TopNavBar />
-        <PrototypeCanvas />
+        <MainContent />
       </div>
     </FlowProvider>
   );
