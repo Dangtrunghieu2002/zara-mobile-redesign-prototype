@@ -5,7 +5,7 @@ import { GarmentCrossfadeImage } from '../GarmentCrossfadeImage';
 import { X, Bookmark, Share2 } from 'lucide-react';
 
 export const OriginalProductDetail = () => {
-  const { handleLeftAction, selectedProduct, PRODUCTS, pdpState } = useFlow();
+  const { handleLeftAction, selectedProduct, PRODUCTS, pdpState, showAnnotations } = useFlow();
   const product = selectedProduct || PRODUCTS.wool_coat;
   const [showSizeSheet, setShowSizeSheet] = useState(false);
 
@@ -123,9 +123,11 @@ export const OriginalProductDetail = () => {
             >
               ADD
             </button>
-            <p className="text-[9px] text-center text-red-600 mt-1 font-mono">
-              ⚠ Sizes hidden inside popup sheet after tapping ADD
-            </p>
+            {showAnnotations && (
+              <p className="text-[9px] text-center text-red-600 mt-1 font-mono">
+                ⚠ Sizes hidden inside popup sheet after tapping ADD
+              </p>
+            )}
           </div>
 
           {/* Bottom Thumbnails */}

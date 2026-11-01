@@ -3,7 +3,7 @@ import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 
 export const OriginalLookbook = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, showAnnotations } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-white text-black justify-between select-none font-sans">
@@ -43,10 +43,12 @@ export const OriginalLookbook = () => {
           variant="red"
         />
 
-        <div className="border border-red-400 p-2 mb-2 bg-red-50/30 rounded">
-          <div className="text-[10px] font-mono text-red-600 font-bold mb-1 uppercase text-center">
-            ⚠ BLIND BROWSING: NO NAMES, NO PRICES, NO COLOURS
-          </div>
+        <div className={`mb-2 ${showAnnotations ? 'border border-red-400 p-2 bg-red-50/30 rounded' : ''}`}>
+          {showAnnotations && (
+            <div className="text-[10px] font-mono text-red-600 font-bold mb-1 uppercase text-center">
+              ⚠ BLIND BROWSING: NO NAMES, NO PRICES, NO COLOURS
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-2 mt-2">
             <div

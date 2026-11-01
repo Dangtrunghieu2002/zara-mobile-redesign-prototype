@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { Home, Menu, Search, Bookmark, ShoppingBag, ChevronRight } from 'lucide-react';
 
 export const EnhancedMenu = () => {
-  const { handleRightAction, selectedDepartment, setFilterState, getCartItemCount } = useFlow();
+  const { handleRightAction, selectedDepartment, setFilterState, getCartItemCount, showAnnotations } = useFlow();
   const [activeDept, setActiveDept] = React.useState(selectedDepartment.toUpperCase());
 
   const selectCategoryAndGo = (categoryName) => {
@@ -69,7 +69,7 @@ export const EnhancedMenu = () => {
         </div>
 
         {/* Section 02: Clothing (Primary Functional-First Taxonomy) */}
-        <div className="relative mb-4 border border-emerald-500/70 p-3 bg-emerald-50/50 rounded-lg">
+        <div className={`relative mb-4 ${showAnnotations ? 'border border-emerald-500/70 p-3 bg-emerald-50/50 rounded-lg' : 'p-1'}`}>
           <AnnotationBadge
             id="menu_taxonomy"
             number="1"
@@ -77,11 +77,13 @@ export const EnhancedMenu = () => {
             variant="emerald"
           />
 
-          <div className="text-[10px] font-mono text-emerald-700 font-bold mb-1.5 uppercase tracking-wider flex justify-between items-center">
+          <div className="text-[10px] font-mono text-neutral-800 font-bold mb-1.5 uppercase tracking-wider flex justify-between items-center">
             <span>[02] CLOTHING</span>
-            <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono">
-              PRIMARY TAXONOMY
-            </span>
+            {showAnnotations && (
+              <span className="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono">
+                PRIMARY TAXONOMY
+              </span>
+            )}
           </div>
 
           <div className="space-y-2 text-xs font-bold tracking-wider uppercase text-neutral-900">

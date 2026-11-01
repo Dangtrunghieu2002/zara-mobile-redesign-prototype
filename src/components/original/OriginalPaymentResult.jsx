@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { X } from 'lucide-react';
 
 export const OriginalPaymentResult = () => {
-  const { handleLeftAction, bagState } = useFlow();
+  const { handleLeftAction, bagState, showAnnotations } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
     price: '$119.00',
@@ -29,7 +29,7 @@ export const OriginalPaymentResult = () => {
       {/* Main Payment Result Body */}
       <div className="relative flex-1 overflow-y-auto px-5 py-4 device-scroll space-y-4">
         {/* Misleading Thank You Header Flaw */}
-        <div className="relative border-2 border-dashed border-red-500 p-3 bg-red-50/50 rounded text-center">
+        <div className={`relative ${showAnnotations ? 'border-2 border-dashed border-red-500 p-3 bg-red-50/50 rounded text-center' : 'text-center py-2'}`}>
           <AnnotationBadge
             id="payment_honesty"
             number="1"
@@ -37,12 +37,14 @@ export const OriginalPaymentResult = () => {
             variant="red"
           />
 
-          <h2 className="text-xs font-mono uppercase tracking-widest font-black text-red-700 mb-1">
+          <h2 className={`text-xs font-mono uppercase tracking-widest font-black mb-1 ${showAnnotations ? 'text-red-700' : 'text-black'}`}>
             THANK YOU FOR SHOPPING AT ZARA
           </h2>
-          <p className="text-[10px] text-red-600 font-mono">
-            ⚠ Bank page reported: "Customer Cancellation", but app says "Thank you" and gives order number! Users cannot tell if they paid or not.
-          </p>
+          {showAnnotations && (
+            <p className="text-[10px] text-red-600 font-mono">
+              ⚠ Bank page reported: "Customer Cancellation", but app says "Thank you" and gives order number! Users cannot tell if they paid or not.
+            </p>
+          )}
         </div>
 
         <div>

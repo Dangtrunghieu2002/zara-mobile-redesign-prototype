@@ -10,6 +10,7 @@ export const OriginalSearchResults = () => {
     searchQuery,
     selectedDepartment,
     getFilteredProducts,
+    showAnnotations,
   } = useFlow();
 
   let deptItems = getFilteredProducts();
@@ -84,7 +85,7 @@ export const OriginalSearchResults = () => {
               key={p.id}
               onClick={() => handleLeftAction('viewProduct', p.id)}
               className={`flex flex-col cursor-pointer p-1 rounded transition-colors ${
-                index === 0
+                index === 0 && showAnnotations
                   ? 'border border-red-500/80 bg-red-950/20'
                   : 'bg-neutral-950 hover:bg-neutral-900/50'
               }`}
@@ -95,7 +96,7 @@ export const OriginalSearchResults = () => {
                   alt={p.name}
                   className="w-full h-full object-cover object-top"
                 />
-                {index === 0 && (
+                {index === 0 && showAnnotations && (
                   <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] px-1 font-mono font-bold">
                     UNRANKED MATCH
                   </span>

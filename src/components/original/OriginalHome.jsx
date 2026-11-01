@@ -5,7 +5,7 @@ import { DEPARTMENT_CAMPAIGNS } from '../../data/products';
 import { VolumeX } from 'lucide-react';
 
 export const OriginalHome = () => {
-  const { handleLeftAction, selectedDepartment } = useFlow();
+  const { handleLeftAction, selectedDepartment, showAnnotations } = useFlow();
   const campaign = DEPARTMENT_CAMPAIGNS[selectedDepartment] || DEPARTMENT_CAMPAIGNS.woman;
 
   return (
@@ -66,7 +66,11 @@ export const OriginalHome = () => {
 
           <div
             onClick={() => handleLeftAction('navigate', 'lookbook')}
-            className="border border-red-500/80 p-3 bg-red-950/40 backdrop-blur-sm rounded cursor-pointer hover:bg-red-950/60 transition-colors"
+            className={`p-3 backdrop-blur-sm rounded cursor-pointer transition-colors ${
+              showAnnotations
+                ? 'border border-red-500/80 bg-red-950/40 hover:bg-red-950/60'
+                : 'bg-black/30 hover:bg-black/40'
+            }`}
           >
             <h1 className="zara-logo text-3xl font-black tracking-tight leading-none text-white uppercase mb-1">
               {campaign.heroTitle}

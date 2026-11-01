@@ -8,10 +8,11 @@ export const UXInspectorModal = () => {
     setActiveAnnotationId,
     surveyRatings,
     setFeatureRating,
-    setAppViewMode
+    setAppViewMode,
+    showAnnotations
   } = useFlow();
 
-  if (!activeAnnotation) return null;
+  if (!activeAnnotation || !showAnnotations) return null;
 
   const rating = surveyRatings[activeAnnotation.id] || {
     oldScore: 0,

@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { ArrowLeft } from 'lucide-react';
 
 export const OriginalReturns = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, showAnnotations } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative font-mono text-xs">
@@ -30,23 +30,29 @@ export const OriginalReturns = () => {
           variant="red"
         />
 
-        <div className="border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg text-center space-y-2 mb-6">
-          <div className="text-[10px] text-red-400 font-bold uppercase">
-            ✕ STATIC DEAD-END (NO TIMELINE, NO STEPPER, NO STORE MAP)
-          </div>
+        <div className={`text-center space-y-2 mb-6 ${showAnnotations ? 'border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg' : 'py-6'}`}>
+          {showAnnotations && (
+            <div className="text-[10px] text-red-400 font-bold uppercase">
+              ✕ STATIC DEAD-END (NO TIMELINE, NO STEPPER, NO STORE MAP)
+            </div>
+          )}
           <p className="text-xs text-neutral-300 font-bold uppercase tracking-wider py-4 border-y border-neutral-800">
             THERE ARE NO ACTIVE RETURNS AT THIS TIME.
           </p>
-          <p className="text-[10px] text-neutral-500 font-sans">
-            User is stranded with no deadline guidance or drop-off location.
-          </p>
+          {showAnnotations && (
+            <p className="text-[10px] text-neutral-500 font-sans">
+              User is stranded with no deadline guidance or drop-off location.
+            </p>
+          )}
         </div>
 
         {/* Cramped Account Menu Flaw (< 32px touch target) */}
         <div className="border-t border-neutral-800 pt-4 space-y-2 text-[11px] text-neutral-400">
-          <div className="text-[9px] text-red-500 uppercase font-bold">
-            ⚠ Rows &lt; 32px cause mis-taps:
-          </div>
+          {showAnnotations && (
+            <div className="text-[9px] text-red-500 uppercase font-bold">
+              ⚠ Rows &lt; 32px cause mis-taps:
+            </div>
+          )}
           <div onClick={() => handleLeftAction('navigate', 'bag')} className="py-1 hover:text-white cursor-pointer">|01| PURCHASES</div>
           <div className="py-1 text-white font-bold cursor-pointer">|02| RETURNS</div>
           <div onClick={() => handleLeftAction('navigate', 'lookbook')} className="py-1 hover:text-white cursor-pointer">|03| FAVOURITES</div>

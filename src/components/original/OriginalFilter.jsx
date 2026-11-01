@@ -11,7 +11,8 @@ export const OriginalFilter = () => {
     setSortFilter,
     toggleCategoryFilter,
     toggleColorFilter,
-    clearAllFilters
+    clearAllFilters,
+    showAnnotations,
   } = useFlow();
 
   return (
@@ -36,14 +37,16 @@ export const OriginalFilter = () => {
           variant="red"
         />
 
-        <div className="border border-red-500/80 p-2.5 bg-red-950/20 rounded">
-          <div className="text-[10px] text-red-400 font-bold mb-1">
-            ⚠ ALL SECTIONS PERMANENTLY EXPANDED (LONG SCROLL)
+        {showAnnotations && (
+          <div className="border border-red-500/80 p-2.5 bg-red-950/20 rounded">
+            <div className="text-[10px] text-red-400 font-bold mb-1">
+              ⚠ ALL SECTIONS PERMANENTLY EXPANDED (LONG SCROLL)
+            </div>
+            <p className="text-[10px] text-neutral-400">
+              No active summary chips. Selected options only indicated by subtle bold text.
+            </p>
           </div>
-          <p className="text-[10px] text-neutral-400">
-            No active summary chips. Selected options only indicated by subtle bold text.
-          </p>
-        </div>
+        )}
 
         {/* Section 01: Sort By */}
         <div>

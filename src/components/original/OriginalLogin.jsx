@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { RefreshCw } from 'lucide-react';
 
 export const OriginalLogin = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, showAnnotations } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative font-sans text-xs">
@@ -30,7 +30,7 @@ export const OriginalLogin = () => {
         </div>
 
         {/* Ambiguous Single Field (Problem #22, 23) */}
-        <div className="relative border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg mb-6">
+        <div className={`relative mb-6 ${showAnnotations ? 'border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg' : ''}`}>
           <AnnotationBadge
             id="auth_tabs"
             number="1"
@@ -38,7 +38,7 @@ export const OriginalLogin = () => {
             variant="red"
           />
 
-          <div className="text-[10px] text-red-400 font-mono font-bold mb-2 uppercase">
+          <div className={`text-[10px] font-mono font-bold mb-2 uppercase ${showAnnotations ? 'text-red-400' : 'text-neutral-300'}`}>
             LOG IN OR REGISTER
           </div>
 
@@ -46,9 +46,11 @@ export const OriginalLogin = () => {
             <span className="text-neutral-500 font-mono text-[11px]">EMAIL</span>
           </div>
 
-          <p className="text-[10px] text-red-500 font-mono">
-            ✕ Am I logging in or registering? No hints, no syntax validation checkmark!
-          </p>
+          {showAnnotations && (
+            <p className="text-[10px] text-red-500 font-mono">
+              ✕ Am I logging in or registering? No hints, no syntax validation checkmark!
+            </p>
+          )}
 
           <button
             onClick={() => handleLeftAction('navigate', 'returns')}

@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { ArrowLeft, ChevronRight } from 'lucide-react';
 
 export const OriginalCheckout = () => {
-  const { handleLeftAction, bagState } = useFlow();
+  const { handleLeftAction, bagState, showAnnotations } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
     price: '$119.00',
@@ -35,9 +35,11 @@ export const OriginalCheckout = () => {
           variant="red"
         />
 
-        <div className="border border-red-500/70 p-2.5 bg-red-50/50 rounded text-[10px] text-red-600 font-mono">
-          ⚠ No progress stepper, bare unlabelled back arrow, mixed serif/sans fonts.
-        </div>
+        {showAnnotations && (
+          <div className="border border-red-500/70 p-2.5 bg-red-50/50 rounded text-[10px] text-red-600 font-mono">
+            ⚠ No progress stepper, bare unlabelled back arrow, mixed serif/sans fonts.
+          </div>
+        )}
 
         <div>
           <h2 className="text-xs font-mono uppercase tracking-wider font-bold">

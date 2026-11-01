@@ -3,7 +3,7 @@ import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 
 export const OriginalMenu = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, showAnnotations } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-white text-black justify-between">
@@ -25,20 +25,20 @@ export const OriginalMenu = () => {
 
       {/* Main Content: Influencer lists and cryptic codes */}
       <div className="relative flex-1 overflow-y-auto px-5 py-4 device-scroll">
-        <div className="relative mb-5 border border-red-500/70 p-3 bg-red-50/50 rounded">
+        <div className={`relative mb-5 ${showAnnotations ? 'border border-red-500/70 p-3 bg-red-50/50 rounded' : 'pb-2'}`}>
           <AnnotationBadge
             id="menu_taxonomy"
             number="1"
             className="-top-2 right-2"
             variant="red"
           />
-          <div className="text-[10px] font-mono text-red-600 font-bold mb-1 uppercase tracking-wider">
+          <div className={`text-[10px] font-mono font-bold mb-1 uppercase tracking-wider ${showAnnotations ? 'text-red-600' : 'text-neutral-500'}`}>
             [07] SPECIAL EDITION · Re:form Zara
           </div>
           <div className="space-y-2.5 text-xs font-mono uppercase tracking-wider text-neutral-800">
             <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer">HALLOWEEN</div>
             <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer">THE ITEM</div>
-            <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer font-semibold text-red-700">BAISI GUADAGNINO X ZARA</div>
+            <div onClick={() => handleLeftAction('navigate', 'search_results')} className={`hover:text-black cursor-pointer ${showAnnotations ? 'font-semibold text-red-700' : ''}`}>BAISI GUADAGNINO X ZARA</div>
             <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer">FRUIT OF THE LOOM™ X ZARA</div>
             <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer">0FR. PARIS AND ZARA</div>
             <div onClick={() => handleLeftAction('navigate', 'search_results')} className="hover:text-black cursor-pointer">SCARVES EDIT</div>
@@ -48,14 +48,14 @@ export const OriginalMenu = () => {
           </div>
         </div>
 
-        <div className="relative border border-red-500/70 p-3 bg-red-50/50 rounded">
+        <div className={`relative ${showAnnotations ? 'border border-red-500/70 p-3 bg-red-50/50 rounded' : 'pb-2'}`}>
           <AnnotationBadge
             id="menu_taxonomy"
             number="2"
             className="-top-2 right-2"
             variant="red"
           />
-          <div className="text-[10px] font-mono text-red-600 font-bold mb-1 uppercase tracking-wider">
+          <div className={`text-[10px] font-mono font-bold mb-1 uppercase tracking-wider ${showAnnotations ? 'text-red-600' : 'text-neutral-500'}`}>
             [08] THE FOLD-ER
           </div>
           <div className="space-y-2.5 text-xs font-mono uppercase tracking-wider text-neutral-700">

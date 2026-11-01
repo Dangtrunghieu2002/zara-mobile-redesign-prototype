@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { X, MessageSquare, Bookmark } from 'lucide-react';
 
 export const OriginalBag = () => {
-  const { handleLeftAction, bagState, PRODUCTS, getCartSubtotal } = useFlow();
+  const { handleLeftAction, bagState, PRODUCTS, getCartSubtotal, showAnnotations } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
     price: '$119.00',
@@ -66,9 +66,11 @@ export const OriginalBag = () => {
               </p>
             </div>
 
-            <div className="border border-red-500/70 p-1.5 bg-red-50/50 rounded text-[9px] font-mono text-red-600">
-              ⚠ Cannot edit size here! (Requires 5 steps: Delete → Search → PDP → Pick Size → Re-add)
-            </div>
+            {showAnnotations && (
+              <div className="border border-red-500/70 p-1.5 bg-red-50/50 rounded text-[9px] font-mono text-red-600">
+                ⚠ Cannot edit size here! (Requires 5 steps: Delete → Search → PDP → Pick Size → Re-add)
+              </div>
+            )}
 
             <div className="flex items-center justify-between pt-2">
               <div className="flex items-center gap-3 font-mono text-xs">

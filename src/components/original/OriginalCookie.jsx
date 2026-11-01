@@ -3,7 +3,7 @@ import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
 
 export const OriginalCookie = () => {
-  const { handleLeftAction } = useFlow();
+  const { handleLeftAction, showAnnotations } = useFlow();
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative p-6 font-mono text-xs select-none">
@@ -20,7 +20,7 @@ export const OriginalCookie = () => {
       </div>
 
       {/* Forced Dark Pattern: Only 1 Continue button (Problem #21) */}
-      <div className="relative border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg">
+      <div className={`relative ${showAnnotations ? 'border-2 border-dashed border-red-500 p-4 bg-red-950/20 rounded-lg' : 'pt-2'}`}>
         <AnnotationBadge
           id="cookie_consent"
           number="1"
@@ -28,9 +28,11 @@ export const OriginalCookie = () => {
           variant="red"
         />
 
-        <div className="text-[10px] text-red-400 font-bold mb-2 uppercase text-center">
-          ✕ ONLY 1 BUTTON ("CONTINUE") — NO WAY TO REJECT!
-        </div>
+        {showAnnotations && (
+          <div className="text-[10px] text-red-400 font-bold mb-2 uppercase text-center">
+            ✕ ONLY 1 BUTTON ("CONTINUE") — NO WAY TO REJECT!
+          </div>
+        )}
 
         <button
           onClick={() => handleLeftAction('navigate', 'home')}

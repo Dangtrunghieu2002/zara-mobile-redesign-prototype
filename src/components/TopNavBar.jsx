@@ -14,6 +14,7 @@ export const TopNavBar = () => {
     setMirrorMode,
     showAnnotations,
     setShowAnnotations,
+    setActiveAnnotationId,
     scale,
     setScale,
     appViewMode,
@@ -137,7 +138,12 @@ export const TopNavBar = () => {
 
             {/* Audit Hotspots Toggle */}
             <button
-              onClick={() => setShowAnnotations(!showAnnotations)}
+              onClick={() => {
+                if (showAnnotations) {
+                  setActiveAnnotationId(null);
+                }
+                setShowAnnotations(!showAnnotations);
+              }}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border font-medium transition-all ${
                 showAnnotations
                   ? 'bg-emerald-950/60 text-emerald-300 border-emerald-700/80'

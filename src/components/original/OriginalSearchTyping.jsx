@@ -10,6 +10,7 @@ export const OriginalSearchTyping = () => {
     searchQuery,
     setSearchQuery,
     selectedDepartment,
+    showAnnotations,
   } = useFlow();
 
   const deptProducts = getProductsByDepartment(selectedDepartment).slice(0, 2);
@@ -88,10 +89,12 @@ export const OriginalSearchTyping = () => {
         />
 
         {/* Awkwardly spaced / overlapping text elements mimicking image21.jpeg */}
-        <div className="border border-red-500/80 p-2 bg-red-950/20 rounded relative">
-          <div className="text-[10px] text-red-400 font-mono font-bold mb-1">
-            ⚠ OVERLAPPING AUTOCOMPLETE COLLISION
-          </div>
+        <div className={`relative ${showAnnotations ? 'border border-red-500/80 p-2 bg-red-950/20 rounded' : 'p-1'}`}>
+          {showAnnotations && (
+            <div className="text-[10px] text-red-400 font-mono font-bold mb-1">
+              ⚠ OVERLAPPING AUTOCOMPLETE COLLISION
+            </div>
+          )}
 
           <div
             onClick={() => handleLeftAction('navigate', 'search_results')}
