@@ -256,11 +256,11 @@ export const EnhancedSearchResults = () => {
                 <div className="flex justify-between items-center mt-1">
                   <div>
                     <span className="text-[10px] font-mono text-white font-bold block">
-                      {p.priceForeign || p.priceVnd}
+                      {p.price}
                     </span>
                     {p.onSale && (
                       <span className="text-[9px] font-mono text-neutral-500 line-through">
-                        {p.originalPriceForeign || p.originalPriceVnd}
+                        {p.originalPrice}
                       </span>
                     )}
                   </div>

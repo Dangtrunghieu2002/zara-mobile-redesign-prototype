@@ -85,8 +85,7 @@ export const EnhancedLookbook = () => {
               EMBROIDERED CROPPED JACKET
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">2,990,000 VND</span>
-              <span className="text-[10px] text-neutral-400 font-mono">($129)</span>
+              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$129.00</span>
             </div>
             {/* Colorway swatches */}
             <div className="flex items-center gap-1.5 mt-1">
@@ -122,8 +121,7 @@ export const EnhancedLookbook = () => {
               OVERSIZED TWEED COAT
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">3,490,000 VND</span>
-              <span className="text-[10px] text-neutral-400 font-mono">($149)</span>
+              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$149.00</span>
             </div>
             {/* Colorway swatches */}
             <div className="flex items-center gap-1.5 mt-1">
@@ -148,8 +146,7 @@ export const EnhancedLookbook = () => {
               SATIN HALTER DRESS
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">2,290,000 VND</span>
-              <span className="text-[10px] text-neutral-400 font-mono">($99)</span>
+              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$99.00</span>
             </div>
           </div>
 
@@ -169,8 +166,7 @@ export const EnhancedLookbook = () => {
               PADDED SILK SCARF JACKET
             </h4>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-[11px] font-semibold text-neutral-900">3,190,000 VND</span>
-              <span className="text-[10px] text-neutral-400 font-mono">($139)</span>
+              <span className="text-[11px] font-semibold text-neutral-900 font-mono">$139.00</span>
             </div>
           </div>
         </div>

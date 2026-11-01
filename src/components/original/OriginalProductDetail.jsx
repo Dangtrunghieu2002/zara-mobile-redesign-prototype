@@ -79,7 +79,7 @@ export const OriginalProductDetail = () => {
                 {product.name}
               </h2>
               <p className="text-sm font-bold text-neutral-900 mt-1 font-mono">
-                {product.priceForeign || product.priceVnd}
+                {product.price}
               </p>
               <p className="text-[10px] text-neutral-500 font-mono mt-0.5 uppercase">
                 Color: {pdpState.selectedColor || product.color}

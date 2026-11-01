@@ -7,7 +7,7 @@ export const OriginalBag = () => {
   const { handleLeftAction, bagState, PRODUCTS } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
-    price: '2,599,000 VND',
+    price: '$119.00',
     size: 'M',
     color: 'BLACK',
     image: './products/real_leather_jacket.jpg',
@@ -62,7 +62,7 @@ export const OriginalBag = () => {
                 {currentItem.size || 'M'} | {currentItem.color || 'BLACK'}
               </div>
               <p className="text-xs font-bold font-mono text-neutral-900 mt-1">
-                {currentItem.price || '2,599,000 VND'}
+                {currentItem.price || '$119.00'}
               </p>
             </div>
 
@@ -92,9 +92,9 @@ export const OriginalBag = () => {
           </h4>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: 'trench_coat', name: 'Faux Trench', price: '1,999,000 VND', img: './products/real_trench_coat.jpg' },
-              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '999,000 VND', img: './products/real_knit_cardigan.jpg' },
-              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '1,299,000 VND', img: './products/real_pleated_skirt.jpg' },
+              { id: 'trench_coat', name: 'Faux Trench', price: '$89.00', img: './products/real_trench_coat.jpg' },
+              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '$59.00', img: './products/real_knit_cardigan.jpg' },
+              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '$69.00', img: './products/real_pleated_skirt.jpg' },
             ].map((item) => (
               <div
                 key={item.id}
@@ -123,7 +123,7 @@ export const OriginalBag = () => {
         <div className="flex justify-between items-baseline mb-3 font-mono">
           <span className="text-xs font-bold uppercase tracking-wider">TOTAL</span>
           <div className="text-right">
-            <span className="text-xs font-bold">{currentItem.price || '2,599,000 VND'}</span>
+            <span className="text-xs font-bold">{currentItem.price || '$119.00'}</span>
             <span className="block text-[9px] text-neutral-500">* VAT included</span>
           </div>
         </div>

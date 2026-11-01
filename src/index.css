@@ -46,19 +46,55 @@
   display: inline-block;
 }
 
-/* Fluid UI Screen Transitions */
-@keyframes screenFadeIn {
+/* Apple iOS UIKit Fluid Screen & Navigation Transitions */
+@keyframes iosScreenEnter {
   0% {
-    opacity: 0.4;
-    transform: translateY(4px) scale(0.996);
+    opacity: 0;
+    transform: scale(0.985) translateY(5px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 .animate-screen-fade {
-  animation: screenFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: iosScreenEnter 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards;
   will-change: opacity, transform;
 }
+
+/* Apple Tactile Micro-Interactions */
+.apple-press {
+  transition: transform 0.16s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.16s ease;
+  user-select: none;
+}
+.apple-press:active {
+  transform: scale(0.965);
+  opacity: 0.9;
+}
+
+/* Dynamic Island Live Activity Expansion Animation */
+@keyframes islandExpand {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    transform: scale(1.06);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.animate-island-live {
+  animation: islandExpand 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Garment Smooth Image Cross-fade */
+.garment-crossfade {
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1), transform 0.2s ease-out;
+}
+

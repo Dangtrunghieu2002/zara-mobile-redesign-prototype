@@ -7,7 +7,7 @@ export const EnhancedCheckout = () => {
   const { handleRightAction, bagState } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
-    price: '2,599,000 VND',
+    price: '$119.00',
     size: 'M',
     color: 'BLACK',
     image: './products/real_leather_jacket.jpg',
@@ -114,7 +114,7 @@ export const EnhancedCheckout = () => {
           </div>
           <p className="text-[11px] text-neutral-900 font-mono font-bold mt-0.5">THURSDAY 29</p>
           <p className="text-[9px] text-neutral-500 mt-0.5">
-            Free shipping for orders over 1,299,000 VND
+            Free shipping on orders over $50.00
           </p>
         </div>
 
@@ -126,7 +126,7 @@ export const EnhancedCheckout = () => {
               Edit
             </span>
           </div>
-          <p className="text-[11px] text-neutral-600 mt-0.5">OnlineBanking · Vietcombank</p>
+          <p className="text-[11px] text-neutral-600 mt-0.5">Apple Pay · Visa ****4092</p>
         </div>
 
         {/* Cancel and return to bag (Problem #4) */}
@@ -140,7 +140,7 @@ export const EnhancedCheckout = () => {
 
           <button
             onClick={() => handleRightAction('navigate', 'bag')}
-            className="text-[11px] font-mono uppercase tracking-wider underline text-neutral-600 hover:text-black"
+            className="text-[11px] font-mono uppercase tracking-wider underline text-neutral-600 hover:text-black apple-press"
           >
             CANCEL AND RETURN TO BAG
           </button>
@@ -152,14 +152,14 @@ export const EnhancedCheckout = () => {
         <div className="flex justify-between items-baseline mb-3 font-mono">
           <span className="text-xs font-bold uppercase tracking-wider">TOTAL</span>
           <div className="text-right">
-            <span className="text-xs font-bold">{currentItem.price || '2,599,000 VND'}</span>
+            <span className="text-xs font-bold">{currentItem.price || '$119.00'}</span>
             <span className="block text-[9px] text-neutral-500">* VAT included</span>
           </div>
         </div>
 
         <button
           onClick={() => handleRightAction('navigate', 'payment_result')}
-          className="w-full py-3 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest rounded shadow-md hover:bg-neutral-800 transition-colors"
+          className="w-full py-3 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest rounded shadow-md hover:bg-neutral-800 apple-press transition-colors"
         >
           AUTHORISE PAYMENT
         </button>

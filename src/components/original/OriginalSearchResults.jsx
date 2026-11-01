@@ -111,7 +111,7 @@ export const OriginalSearchResults = () => {
               </p>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-[10px] font-mono text-neutral-400">
-                  {p.priceForeign || p.priceVnd}
+                  {p.price}
                 </span>
                 <button
                   onClick={(e) => {

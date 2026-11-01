@@ -7,7 +7,7 @@ export const EnhancedBag = () => {
   const { handleRightAction, bagState, PRODUCTS } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
-    price: '2,599,000 VND',
+    price: '$119.00',
     size: 'M',
     color: 'BLACK',
     image: './products/real_leather_jacket.jpg',
@@ -88,7 +88,7 @@ export const EnhancedBag = () => {
               </div>
 
               <p className="text-xs font-bold font-mono text-neutral-900 mt-2">
-                {currentItem.price || '2,599,000 VND'}
+                {currentItem.price || '$119.00'}
               </p>
             </div>
 
@@ -114,14 +114,14 @@ export const EnhancedBag = () => {
           </h4>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: 'trench_coat', name: 'Faux Trench', price: '1,999,000 VND', img: './products/real_trench_coat.jpg' },
-              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '999,000 VND', img: './products/real_knit_cardigan.jpg' },
-              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '1,299,000 VND', img: './products/real_pleated_skirt.jpg' },
+              { id: 'trench_coat', name: 'Faux Trench', price: '$89.00', img: './products/real_trench_coat.jpg' },
+              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '$59.00', img: './products/real_knit_cardigan.jpg' },
+              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '$69.00', img: './products/real_pleated_skirt.jpg' },
             ].map((item) => (
               <div
                 key={item.id}
                 onClick={() => handleRightAction('viewProduct', item.id)}
-                className="flex flex-col bg-neutral-50 p-1.5 border border-neutral-200 rounded group hover:border-black transition-colors cursor-pointer"
+                className="flex flex-col bg-neutral-50 p-1.5 border border-neutral-200 rounded group hover:border-black transition-colors cursor-pointer apple-press"
                 title="View product details"
               >
                 <div className="h-20 bg-white mb-1.5 rounded-sm overflow-hidden flex items-center justify-center border border-neutral-100">
@@ -145,14 +145,14 @@ export const EnhancedBag = () => {
         <div className="flex justify-between items-baseline mb-3 font-mono">
           <span className="text-xs font-bold uppercase tracking-wider">TOTAL</span>
           <div className="text-right">
-            <span className="text-xs font-bold">{currentItem.price || '2,599,000 VND'}</span>
+            <span className="text-xs font-bold">{currentItem.price || '$119.00'}</span>
             <span className="block text-[9px] text-neutral-500">* VAT included</span>
           </div>
         </div>
 
         <button
           onClick={() => handleRightAction('navigate', 'checkout')}
-          className="w-full py-3 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest rounded shadow-md hover:bg-neutral-800 transition-colors"
+          className="w-full py-3 bg-black text-white text-xs font-mono font-bold uppercase tracking-widest rounded shadow-md hover:bg-neutral-800 apple-press transition-colors"
         >
           CONTINUE ({bagState?.items?.length || 1})
         </button>

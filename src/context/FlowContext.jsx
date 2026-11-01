@@ -209,14 +209,20 @@ export const FlowProvider = ({ children }) => {
         name: 'LEATHER EFFECT JACKET',
         color: 'BLACK',
         size: 'M',
-        price: '2,599,000 VND',
-        priceGbp: '79.99 GBP',
-        priceNum: 2599000,
+        price: '$119.00',
+        priceNum: 119,
         image: './products/real_leather_jacket.jpg',
         stock: 'available',
       }
     ]
   });
+
+  // Apple Dynamic Island Live Activity state
+  const [liveActivity, setLiveActivity] = useState(null);
+  const triggerLiveActivity = (title, subtitle = '') => {
+    setLiveActivity({ title, subtitle });
+    setTimeout(() => setLiveActivity(null), 3200);
+  };
 
   const [searchState, setSearchState] = useState({
     query: 'bead',
@@ -380,9 +386,10 @@ export const FlowProvider = ({ children }) => {
       setPdpState(prev => ({
         ...prev,
         selectedColor: match.name,
-        colorFilterStyle: match.filterStyle || 'none',
-        selectedImage: selectedProduct.image, // SAME model image!
+        colorFilterStyle: 'none', // No global filter, pure garment recolor!
+        selectedImage: match.image || selectedProduct.image,
       }));
+      triggerLiveActivity('Colorway Selected', match.name);
     }
   };
 
@@ -522,9 +529,8 @@ export const FlowProvider = ({ children }) => {
         name: chosenProduct.name,
         color: chosenColor,
         size: chosenSize,
-        price: chosenProduct.priceVnd,
-        priceGbp: chosenProduct.priceForeign,
-        priceNum: chosenProduct.priceNum || 2599000,
+        price: chosenProduct.price || '$129.00',
+        priceNum: chosenProduct.priceNum || 129,
         image: chosenImage,
         stock: 'available',
       };
@@ -535,6 +541,7 @@ export const FlowProvider = ({ children }) => {
         items: [newItem, ...prev.items.filter(i => i.productId !== chosenProduct.id)]
       };
     });
+    triggerLiveActivity('Added to Bag', `${chosenProduct.name} · ${chosenSize}`);
     navigateTo('bag', side);
   };
 
@@ -632,6 +639,8 @@ export const FlowProvider = ({ children }) => {
         setAuthState,
         returnsState,
         setReturnsState,
+        liveActivity,
+        triggerLiveActivity,
         handleLeftAction,
         handleRightAction,
         goBack,

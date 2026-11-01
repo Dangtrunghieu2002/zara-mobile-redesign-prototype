@@ -137,7 +137,7 @@ export const OriginalSearchTyping = () => {
                 <img src={p.image} alt={p.name} className="w-full h-full object-cover object-top" />
               </div>
               <div className="text-[10px] font-bold uppercase text-neutral-200 mt-1 truncate">{p.name}</div>
-              <div className="text-[9px] text-neutral-400 font-mono">{p.priceForeign || p.priceVnd}</div>
+              <div className="text-[9px] text-neutral-400 font-mono">{p.price}</div>
             </div>
           ))}
         </div>

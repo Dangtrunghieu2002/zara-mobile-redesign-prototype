@@ -26,11 +26,10 @@ const RETURNABLE_ITEMS = [
     name: 'RELAXED FIT HIGH NECK COAT',
     size: 'Size M',
     color: 'Taupe grey',
-    priceVnd: '3,299,000 VND',
-    priceForeign: '99.99 GBP',
-    priceNum: 3299000,
+    price: '$129.00',
+    priceNum: 129,
     image: './products/real_wool_coat.jpg',
-    orderId: '#ZR-VN-884920',
+    orderId: '#ZR-US-884920',
     deliveryDate: 'Delivered 6 days ago',
     ref: 'Ref. 8281/300/807'
   },
@@ -39,11 +38,10 @@ const RETURNABLE_ITEMS = [
     name: 'LEATHER EFFECT JACKET',
     size: 'Size M',
     color: 'Black',
-    priceVnd: '2,599,000 VND',
-    priceForeign: '79.99 GBP',
-    priceNum: 2599000,
+    price: '$119.00',
+    priceNum: 119,
     image: './products/real_leather_jacket.jpg',
-    orderId: '#ZR-VN-884920',
+    orderId: '#ZR-US-884920',
     deliveryDate: 'Delivered 6 days ago',
     ref: 'Ref. 3427/410/800'
   },
@@ -52,11 +50,10 @@ const RETURNABLE_ITEMS = [
     name: 'OVERSIZED DOUBLE-BREASTED BLAZER',
     size: 'Size L',
     color: 'Charcoal grey',
-    priceVnd: '2,999,000 VND',
-    priceForeign: '89.99 GBP',
-    priceNum: 2999000,
+    price: '$99.00',
+    priceNum: 99,
     image: './products/real_blazer.jpg',
-    orderId: '#ZR-VN-879102',
+    orderId: '#ZR-US-879102',
     deliveryDate: 'Delivered 11 days ago',
     ref: 'Ref. 2199/102/802'
   }
@@ -162,8 +159,7 @@ export const EnhancedReturns = () => {
 
   // Calculations
   const selectedItems = RETURNABLE_ITEMS.filter(item => selectedItemIds.includes(item.id));
-  const totalRefundVnd = selectedItems.reduce((acc, curr) => acc + curr.priceNum, 0);
-  const totalRefundForeign = (selectedItems.length * 99.99).toFixed(2);
+  const totalRefund = selectedItems.reduce((acc, curr) => acc + curr.priceNum, 0);
   const selectedLocation = HCMC_LOCATIONS.find(loc => loc.id === selectedLocationId) || HCMC_LOCATIONS[0];
   const selectedReason = RETURN_REASONS.find(r => r.id === selectedReasonId) || RETURN_REASONS[0];
 
@@ -333,11 +329,8 @@ export const EnhancedReturns = () => {
                     </div>
 
                     <div className="text-right shrink-0">
-                      <span className="text-[10px] font-mono text-white font-bold block">
-                        {item.priceForeign}
-                      </span>
-                      <span className="text-[9px] font-mono text-neutral-400">
-                        {item.priceVnd}
+                      <span className="text-[11px] font-mono text-white font-bold block">
+                        {item.price}
                       </span>
                     </div>
                   </div>
@@ -356,7 +349,7 @@ export const EnhancedReturns = () => {
               <div className="text-right">
                 <span className="text-[10px] font-mono text-neutral-400 block">ESTIMATED REFUND</span>
                 <span className="text-xs font-mono font-bold text-emerald-400">
-                  {totalRefundVnd.toLocaleString()} VND (${totalRefundForeign})
+                  ${totalRefund.toFixed(2)}
                 </span>
               </div>
             </div>
@@ -637,7 +630,7 @@ export const EnhancedReturns = () => {
                 </div>
                 <div className="flex justify-between items-center text-neutral-400 font-mono text-[9px]">
                   <span>REFUND ESTIMATE:</span>
-                  <span className="text-emerald-400 font-bold">{totalRefundVnd.toLocaleString()} VND</span>
+                  <span className="text-emerald-400 font-bold">${totalRefund.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-neutral-400 font-mono text-[9px]">
                   <span>REFUND METHOD:</span>
@@ -682,7 +675,7 @@ export const EnhancedReturns = () => {
               </p>
             </div>
             <span className="text-[10px] text-neutral-300 font-mono font-bold shrink-0">
-              {totalRefundVnd.toLocaleString()} VND
+              ${totalRefund.toFixed(2)}
             </span>
           </div>
         )}

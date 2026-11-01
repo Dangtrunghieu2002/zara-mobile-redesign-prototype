@@ -79,14 +79,13 @@ export const EnhancedProductDetail = () => {
           {/* 32% Height Photo with Zoom Controls */}
           <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200">
             <img
-              src={product.image || "./products/real_wool_coat.jpg"}
+              src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
               alt={product.name}
               style={{
                 transform: `scale(${zoomLevel})`,
-                filter: pdpState.colorFilterStyle || 'none',
-                transition: 'filter 0.4s ease-in-out, transform 0.2s ease-out'
+                transition: 'transform 0.2s ease-out'
               }}
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover object-top garment-crossfade"
             />
 
             {/* Pinch to zoom pill */}
@@ -119,9 +118,21 @@ export const EnhancedProductDetail = () => {
               <h1 className="text-xs font-black uppercase tracking-tight text-neutral-900 leading-snug">
                 {product.name}
               </h1>
-              <p className="text-base font-black text-black tracking-tight mt-1 font-mono">
-                {product.priceForeign || product.priceVnd}
-              </p>
+              <div className="flex items-baseline gap-1.5 mt-1 font-mono">
+                <span className="text-base font-black text-black tracking-tight">
+                  {product.price}
+                </span>
+                {product.originalPrice && (
+                  <span className="text-xs text-neutral-400 line-through">
+                    {product.originalPrice}
+                  </span>
+                )}
+                {product.onSale && (
+                  <span className="text-[9px] bg-red-100 text-red-700 font-bold px-1.5 py-0.5 rounded uppercase font-sans">
+                    -{product.discountPercent}%
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="space-y-1.5">
@@ -137,7 +148,7 @@ export const EnhancedProductDetail = () => {
                       onClick={() => handleRightAction('selectColor', c.name)}
                       title={`Switch to color: ${c.name}`}
                       style={{ backgroundColor: c.hex }}
-                      className={`w-6 h-6 rounded-md inline-block cursor-pointer transition-all ${
+                      className={`w-6 h-6 rounded-md inline-block cursor-pointer apple-press transition-all ${
                         isSelected
                           ? 'ring-2 ring-black ring-offset-2 scale-110 shadow-md'
                           : 'border border-neutral-300 opacity-75 hover:opacity-100 hover:scale-105'
@@ -174,7 +185,7 @@ export const EnhancedProductDetail = () => {
               <button
                 key={s}
                 onClick={() => setSelectedSize(s)}
-                className={`py-2 text-center text-xs font-bold rounded border transition-all ${
+                className={`py-2 text-center text-xs font-bold rounded border apple-press transition-all ${
                   selectedSize === s
                     ? 'bg-black text-white border-black shadow-sm'
                     : 'bg-white text-neutral-800 border-neutral-300 hover:border-black'
@@ -197,7 +208,7 @@ export const EnhancedProductDetail = () => {
 
           <button
             onClick={() => handleRightAction('addToBag', { product, size: selectedSize, color: pdpState.selectedColor })}
-            className="w-full h-12 bg-black text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg hover:bg-neutral-800 transition-all flex items-center justify-center gap-2"
+            className="w-full h-12 bg-black text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-lg hover:bg-neutral-800 apple-press transition-all flex items-center justify-center gap-2"
           >
             <span>ADD TO BAG · {selectedSize}</span>
           </button>
@@ -294,7 +305,7 @@ export const EnhancedProductDetail = () => {
                       <img src={item.image} alt={item.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform" />
                     </div>
                     <span className="text-[9px] font-bold truncate">{item.name}</span>
-                    <span className="text-[8px] text-neutral-500 font-mono">{item.priceVnd}</span>
+                    <span className="text-[8px] text-neutral-500 font-mono">{item.price}</span>
                   </div>
                 ))}
               </div>

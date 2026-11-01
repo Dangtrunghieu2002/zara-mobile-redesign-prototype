@@ -14,6 +14,7 @@ export const DeviceFrame = ({
     rightFlow,
     handleLeftAction,
     handleRightAction,
+    liveActivity,
   } = useFlow();
 
   const isOriginal = variant === 'original';
@@ -22,10 +23,14 @@ export const DeviceFrame = ({
 
   const [isRecentsOpen, setIsRecentsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
+  const scrollContainerRef = React.useRef(null);
 
-  // Auto-close Recents overlay if screen changes from external navigation
+  // Auto-close Recents overlay & smoothly reset scroll position on navigation
   useEffect(() => {
     setIsRecentsOpen(false);
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }, [currentScreenFlow]);
 
   const showToast = (msg) => {
@@ -111,12 +116,35 @@ export const DeviceFrame = ({
           <div className="w-full shrink-0 h-11 px-6 flex items-center justify-between text-white text-[12px] font-medium z-30 pt-1">
             <span className="font-semibold tracking-tight">10:41</span>
 
-            {/* iPhone Dynamic Island */}
+            {/* iPhone Dynamic Island with Apple Live Activities */}
             {deviceType === 'iphone' && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-2 h-7 w-28 bg-black rounded-full flex items-center justify-end pr-2.5 ring-1 ring-neutral-800/80 shadow-sm z-40">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center">
-                  <div className="w-1 h-1 rounded-full bg-blue-950/80" />
-                </div>
+              <div
+                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 ring-1 shadow-sm z-40 transition-all duration-300 ${
+                  variant === 'enhanced' && liveActivity
+                    ? 'w-52 bg-black/95 ring-emerald-500/60 shadow-lg animate-island-live'
+                    : 'w-28 bg-black ring-neutral-800/80'
+                }`}
+              >
+                {variant === 'enhanced' && liveActivity ? (
+                  <>
+                    <div className="flex items-center gap-1.5 overflow-hidden pr-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                      <span className="text-[9px] font-bold text-white truncate font-sans">
+                        {liveActivity.title}
+                      </span>
+                    </div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center shrink-0">
+                      <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-2.5" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center">
+                      <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
@@ -136,7 +164,10 @@ export const DeviceFrame = ({
           </div>
 
           {/* Interactive Screen Body with Fluid Transition */}
-          <div className="relative flex-1 w-full overflow-y-auto overflow-x-hidden device-scroll bg-black text-neutral-100 flex flex-col">
+          <div
+            ref={scrollContainerRef}
+            className="relative flex-1 w-full overflow-y-auto overflow-x-hidden device-scroll bg-black text-neutral-100 flex flex-col"
+          >
             <div key={currentScreenFlow} className="w-full h-full flex flex-col flex-1 animate-screen-fade">
               {children}
             </div>

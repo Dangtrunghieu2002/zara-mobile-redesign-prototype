@@ -7,7 +7,7 @@ export const OriginalCheckout = () => {
   const { handleLeftAction, bagState } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
-    price: '2,599,000 VND',
+    price: '$119.00',
     size: 'M',
     color: 'BLACK',
     image: './products/real_leather_jacket.jpg',
@@ -82,7 +82,7 @@ export const OriginalCheckout = () => {
           </div>
           <p className="text-[11px] text-neutral-800 font-mono mt-0.5">THURSDAY 29</p>
           <p className="text-[9px] text-neutral-400 mt-0.5">
-            Free shipping for orders over 1,299,000 VND applies only for full price items
+            Free shipping for orders over $50.00 applies only for full price items
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export const OriginalCheckout = () => {
         <div className="flex justify-between items-baseline mb-3 font-mono">
           <span className="text-xs font-bold uppercase tracking-wider">TOTAL</span>
           <div className="text-right">
-            <span className="text-xs font-bold">{currentItem.price || '2,599,000 VND'}</span>
+            <span className="text-xs font-bold">{currentItem.price || '$119.00'}</span>
             <span className="block text-[9px] text-neutral-500">* VAT included</span>
           </div>
         </div>

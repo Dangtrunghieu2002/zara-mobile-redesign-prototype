@@ -7,7 +7,7 @@ export const EnhancedPaymentResult = () => {
   const { handleRightAction, bagState } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
-    price: '2,599,000 VND',
+    price: '$119.00',
     size: 'M',
     color: 'BLACK',
     image: './products/real_leather_jacket.jpg',
@@ -71,7 +71,7 @@ export const EnhancedPaymentResult = () => {
                 <h4 className="text-[11px] font-bold uppercase tracking-tight">
                   {currentItem.name}
                 </h4>
-                <p className="text-[10px] text-neutral-500 font-mono uppercase">{currentItem.price || '2,599,000 VND'}</p>
+                <p className="text-[10px] text-neutral-500 font-mono uppercase">{currentItem.price || '$119.00'}</p>
               </div>
             </div>
 
