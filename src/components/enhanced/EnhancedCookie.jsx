@@ -48,14 +48,14 @@ export const EnhancedCookie = () => {
               onClick={() => handleRightAction('navigate', 'home')}
               className="w-full h-12 bg-white text-black font-bold uppercase tracking-widest text-xs rounded hover:bg-neutral-200 transition-colors shadow-md"
             >
-              ACCEPT ALL (48PX)
+              ACCEPT ALL
             </button>
 
             <button
               onClick={() => handleRightAction('navigate', 'home')}
               className="w-full h-12 border-2 border-white text-white font-bold uppercase tracking-widest text-xs rounded hover:bg-white/10 transition-colors"
             >
-              REJECT NON-ESSENTIAL (48PX)
+              REJECT NON-ESSENTIAL
             </button>
 
             <div className="text-center pt-2">
@@ -147,13 +147,13 @@ export const EnhancedCookie = () => {
               onClick={() => handleRightAction('navigate', 'home')}
               className="w-full h-12 bg-white text-black font-bold uppercase tracking-widest text-xs rounded hover:bg-neutral-200 transition-colors shadow-md"
             >
-              SAVE MY PREFERENCES (48PX)
+              SAVE MY PREFERENCES
             </button>
             <button
               onClick={() => handleRightAction('navigate', 'home')}
               className="w-full h-12 border border-neutral-600 text-neutral-300 font-bold uppercase tracking-widest text-xs rounded hover:border-white hover:text-white transition-colors"
             >
-              REJECT ALL OPTIONAL (48PX)
+              REJECT ALL OPTIONAL
             </button>
           </div>
         </>

@@ -243,7 +243,7 @@ export const EnhancedLogin = () => {
                 onClick={() => handleRightAction('navigate', 'returns')}
                 className="w-full h-12 bg-white text-black font-bold uppercase tracking-widest text-xs rounded hover:bg-neutral-200 transition-colors shadow-md"
               >
-                VERIFY & SIGN IN (48PX)
+                VERIFY & SIGN IN
               </button>
 
               <button
