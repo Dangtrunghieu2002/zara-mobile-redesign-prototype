@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useRef } from 'react';
 import { PRODUCTS } from '../data/products';
 
 export const FLOWS = [
@@ -222,9 +222,16 @@ export const FlowProvider = ({ children }) => {
 
   // Apple Dynamic Island Live Activity state
   const [liveActivity, setLiveActivity] = useState(null);
+  const liveActivityTimerRef = useRef(null);
   const triggerLiveActivity = (title, subtitle = '') => {
+    if (liveActivityTimerRef.current) {
+      clearTimeout(liveActivityTimerRef.current);
+    }
     setLiveActivity({ title, subtitle });
-    setTimeout(() => setLiveActivity(null), 3200);
+    liveActivityTimerRef.current = setTimeout(() => {
+      setLiveActivity(null);
+      liveActivityTimerRef.current = null;
+    }, 3200);
   };
 
   const [searchState, setSearchState] = useState({
@@ -392,7 +399,6 @@ export const FlowProvider = ({ children }) => {
         colorFilterStyle: match.filterStyle || 'none',
         selectedImage: match.image || selectedProduct.image,
       }));
-      triggerLiveActivity('Colorway Selected', match.name);
     }
   };
 
@@ -575,7 +581,6 @@ export const FlowProvider = ({ children }) => {
         items: updated
       };
     });
-    triggerLiveActivity('Cart Updated', delta > 0 ? '+1 Quantity' : '-1 Quantity');
   };
 
   const removeFromBag = (itemId) => {
@@ -583,7 +588,6 @@ export const FlowProvider = ({ children }) => {
       ...prev,
       items: prev.items.filter(item => item.id !== itemId && item.productId !== itemId)
     }));
-    triggerLiveActivity('Item Removed', 'Updated bag total');
   };
 
   const updateItemSize = (itemId, newSize) => {
@@ -594,7 +598,6 @@ export const FlowProvider = ({ children }) => {
         item.id === itemId || item.productId === itemId ? { ...item, size: newSize } : item
       )
     }));
-    triggerLiveActivity('Size Updated', `Size ${newSize}`);
   };
 
   const quickAddToBag = (productOrId) => {
@@ -632,9 +635,7 @@ export const FlowProvider = ({ children }) => {
   const toggleWishlist = (productId) => {
     setWishlist(prev => {
       const exists = prev.includes(productId);
-      const next = exists ? prev.filter(id => id !== productId) : [...prev, productId];
-      triggerLiveActivity(exists ? 'Removed from Wishlist' : 'Saved to Wishlist', PRODUCTS[productId]?.name || '');
-      return next;
+      return exists ? prev.filter(id => id !== productId) : [...prev, productId];
     });
   };
 

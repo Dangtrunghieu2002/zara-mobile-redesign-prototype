@@ -129,42 +129,51 @@ export const DeviceFrame = ({
 
             {/* iPhone Dynamic Island with Apple Live Activities */}
             {deviceType === 'iphone' && (
-              <div
-                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 shadow-md pointer-events-auto transition-all duration-300 ${
-                  variant === 'enhanced' && liveActivity
-                    ? 'w-52 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live'
-                    : isLightScreen
-                    ? 'w-28 bg-black text-white ring-1 ring-black/10 shadow-sm'
-                    : 'w-28 bg-black text-white ring-1 ring-white/10 shadow-md'
-                }`}
-              >
-                {variant === 'enhanced' && liveActivity ? (
-                  <>
-                    <div className="flex items-center gap-1.5 overflow-hidden pr-1">
-                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                      <span className="text-[9px] font-bold text-white truncate font-sans">
-                        {liveActivity.title}
-                      </span>
-                    </div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center shrink-0">
-                      <div className="w-1 h-1 rounded-full bg-blue-950/80" />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-2.5" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center">
-                      <div className="w-1 h-1 rounded-full bg-blue-950/80" />
-                    </div>
-                  </>
-                )}
+              <div className="absolute left-1/2 -translate-x-1/2 top-2 z-50 pointer-events-auto flex items-center justify-center">
+                <div
+                  onClick={() => {
+                    if (variant === 'enhanced' && liveActivity) {
+                      handleRightAction('navigate', 'bag');
+                    }
+                  }}
+                  className={`h-7 rounded-full flex items-center justify-between px-2.5 shadow-md origin-center transition-all duration-300 ease-out select-none ${
+                    variant === 'enhanced' && liveActivity
+                      ? 'w-52 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live cursor-pointer'
+                      : isLightScreen
+                      ? 'w-28 bg-black text-white ring-1 ring-black/10 shadow-sm'
+                      : 'w-28 bg-black text-white ring-1 ring-white/10 shadow-md'
+                  }`}
+                >
+                  {variant === 'enhanced' && liveActivity ? (
+                    <>
+                      <div className="flex items-center gap-1.5 overflow-hidden pr-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                        <span className="text-[9px] font-bold text-white truncate font-sans">
+                          {liveActivity.title}
+                        </span>
+                      </div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center shrink-0">
+                        <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="w-2.5" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#0a0f1d] ring-1 ring-neutral-700/50 flex items-center justify-center">
+                        <div className="w-1 h-1 rounded-full bg-blue-950/80" />
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             )}
 
             {/* Android Punch Hole Camera */}
             {deviceType === 'android' && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-2 w-3.5 h-3.5 bg-black rounded-full ring-1 ring-neutral-700 flex items-center justify-center z-40">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#121c2e]" />
+              <div className="absolute left-1/2 -translate-x-1/2 top-2 z-40 pointer-events-none flex items-center justify-center">
+                <div className="w-3.5 h-3.5 bg-black rounded-full ring-1 ring-neutral-700 flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#121c2e]" />
+                </div>
               </div>
             )}
 

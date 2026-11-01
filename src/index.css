@@ -73,15 +73,15 @@
   opacity: 0.9;
 }
 
-/* Dynamic Island Live Activity Expansion Animation */
+/* Dynamic Island Live Activity Expansion Animation (Centered Apple HIG Spring) */
 @keyframes islandExpand {
   0% {
     transform: scale(1);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   }
   40% {
-    transform: scale(1.06);
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+    transform: scale(1.03);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
   }
   100% {
     transform: scale(1);
@@ -90,7 +90,8 @@
 }
 
 .animate-island-live {
-  animation: islandExpand 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: islandExpand 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, box-shadow;
 }
 
 /* Garment Smooth Image Cross-fade */
