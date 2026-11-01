@@ -134,7 +134,7 @@ export const EvaluationResultsView = () => {
         <div className="bg-emerald-950/15 border border-emerald-800/40 rounded-xl p-3.5">
           <div className="flex items-center gap-1.5 text-emerald-400 font-bold mb-1">
             <Award className="w-3.5 h-3.5" />
-            <span>Successful Upgrade (Cải tiến thành công)</span>
+            <span>Successful Upgrade</span>
           </div>
           <p className="text-neutral-400 text-[11px] leading-relaxed">
             ≥ 60% testers prefer the new redesign, average new score ≥ 4.0/5, and fewer than 20% rate it poor (1–2).
@@ -144,7 +144,7 @@ export const EvaluationResultsView = () => {
         <div className="bg-red-950/15 border border-red-800/40 rounded-xl p-3.5">
           <div className="flex items-center gap-1.5 text-red-400 font-bold mb-1">
             <AlertTriangle className="w-3.5 h-3.5" />
-            <span>Over-changed (Đổi quá đà)</span>
+            <span>Over-changed</span>
           </div>
           <p className="text-neutral-400 text-[11px] leading-relaxed">
             ≥ 40% prefer the old way, OR baseline scores higher than redesign (risk of alienating core luxury identity).
@@ -154,7 +154,7 @@ export const EvaluationResultsView = () => {
         <div className="bg-amber-950/15 border border-amber-800/40 rounded-xl p-3.5">
           <div className="flex items-center gap-1.5 text-amber-400 font-bold mb-1">
             <TrendingUp className="w-3.5 h-3.5" />
-            <span>Not Upgraded Well (Chưa đạt)</span>
+            <span>Not Upgraded Well</span>
           </div>
           <p className="text-neutral-400 text-[11px] leading-relaxed">
             ≥ 25% rate new design 1–2, OR ≥ 50% see no difference, OR redesign average score remains below 3.5.

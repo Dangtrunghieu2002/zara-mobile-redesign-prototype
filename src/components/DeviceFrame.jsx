@@ -138,7 +138,7 @@ export const DeviceFrame = ({
             deviceType === 'iphone' ? 'rounded-[44px]' : 'rounded-[30px]'
           }`}
         >
-          {/* Status Bar: On Home screen, absolute transparent overlay for true edge-to-edge tràn viền under Dynamic Island */}
+          {/* Status Bar: On Home screen, absolute transparent overlay for true edge-to-edge layout under Dynamic Island */}
           <div
             className={`w-full px-6 flex items-center justify-between z-40 pt-1.5 transition-colors duration-300 ${
               currentScreenFlow === 'home'
