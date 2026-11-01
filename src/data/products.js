@@ -196,11 +196,10 @@ export const PRODUCTS = {
     price: '$89.00',
     priceNum: 89,
     image: './products/real_beaded_dress.jpg',
-    color: 'Champagne gold',
-    colorHex: '#d8c29d',
+    color: 'Classic Black',
+    colorHex: '#111111',
     availableColors: [
-      { name: 'Champagne gold', hex: '#d8c29d', image: './products/real_beaded_dress.jpg' },
-      { name: 'Classic black', hex: '#111111', image: './products/beaded_dress_same_model_black.jpg' },
+      { name: 'Classic Black', hex: '#111111', image: './products/real_beaded_dress.jpg' },
       { name: 'Ruby Wine', hex: '#8b1c28', image: './products/beaded_dress_same_model_wine.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
@@ -717,8 +716,7 @@ export const PRODUCTS = {
     color: 'Onyx Noir',
     colorHex: '#141414',
     availableColors: [
-      { name: 'Onyx Noir', hex: '#141414', image: './products/real_lookbook_4.jpg' },
-      { name: 'Dark Cognac', hex: '#4a2c1b', image: './products/real_lookbook_4_same_model_cognac.jpg' }
+      { name: 'Onyx Noir', hex: '#141414', image: './products/real_lookbook_4.jpg' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'M',
