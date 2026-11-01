@@ -112,7 +112,7 @@ export const PRODUCTS = {
     colorHex: '#111111',
     availableColors: [
       { name: 'Black', hex: '#111111', image: './products/real_beaded_top.jpg' },
-      { name: 'Ecru Cream', hex: '#f4f0ea', image: './products/beaded_top_ecru.jpg' }
+      { name: 'Ecru Cream', hex: '#f4f0ea', image: './products/beaded_top_same_model_ecru.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'S',

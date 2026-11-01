@@ -4,7 +4,7 @@ import { AnnotationBadge } from '../AnnotationBadge';
 import { X, MessageSquare, Bookmark } from 'lucide-react';
 
 export const OriginalBag = () => {
-  const { handleLeftAction, bagState, PRODUCTS } = useFlow();
+  const { handleLeftAction, bagState, PRODUCTS, getCartSubtotal } = useFlow();
   const currentItem = (bagState?.items && bagState.items.length > 0) ? bagState.items[0] : {
     name: 'LEATHER EFFECT JACKET',
     price: '$119.00',
@@ -92,9 +92,9 @@ export const OriginalBag = () => {
           </h4>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { id: 'trench_coat', name: 'Faux Trench', price: '$89.00', img: './products/real_trench_coat.jpg' },
-              { id: 'knit_cardigan', name: 'Knit Cardigan', price: '$59.00', img: './products/real_knit_cardigan.jpg' },
-              { id: 'pleated_skirt', name: 'Pleated Skirt', price: '$69.00', img: './products/real_pleated_skirt.jpg' },
+              { id: 'trench_coat', name: 'Faux Trench', price: PRODUCTS.trench_coat?.price || '$129.00', img: './products/real_trench_coat.jpg' },
+              { id: 'knit_cardigan', name: 'Knit Cardigan', price: PRODUCTS.knit_cardigan?.price || '$59.00', img: './products/real_knit_cardigan.jpg' },
+              { id: 'pleated_skirt', name: 'Pleated Skirt', price: PRODUCTS.pleated_skirt?.price || '$89.00', img: './products/real_pleated_skirt.jpg' },
             ].map((item) => (
               <div
                 key={item.id}
@@ -123,7 +123,7 @@ export const OriginalBag = () => {
         <div className="flex justify-between items-baseline mb-3 font-mono">
           <span className="text-xs font-bold uppercase tracking-wider">TOTAL</span>
           <div className="text-right">
-            <span className="text-xs font-bold">{currentItem.price || '$119.00'}</span>
+            <span className="text-xs font-bold">${getCartSubtotal().toFixed(2)}</span>
             <span className="block text-[9px] text-neutral-500">* VAT included</span>
           </div>
         </div>

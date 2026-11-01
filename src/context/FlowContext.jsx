@@ -211,11 +211,14 @@ export const FlowProvider = ({ children }) => {
         size: 'M',
         price: '$119.00',
         priceNum: 119,
+        quantity: 1,
         image: './products/real_leather_jacket.jpg',
         stock: 'available',
       }
     ]
   });
+
+  const [wishlist, setWishlist] = useState(['wool_coat']);
 
   // Apple Dynamic Island Live Activity state
   const [liveActivity, setLiveActivity] = useState(null);
@@ -523,26 +526,121 @@ export const FlowProvider = ({ children }) => {
     const chosenColor = color || pdpState.selectedColor || chosenProduct.color;
     const chosenImage = pdpState.selectedImage || chosenProduct.image;
     setBagState(prev => {
-      const newItem = {
-        id: `${chosenProduct.id}_${Date.now()}`,
-        productId: chosenProduct.id,
-        name: chosenProduct.name,
-        color: chosenColor,
-        size: chosenSize,
-        price: chosenProduct.price || '$129.00',
-        priceNum: chosenProduct.priceNum || 129,
-        image: chosenImage,
-        stock: 'available',
-      };
+      const existingIdx = prev.items.findIndex(
+        i => i.productId === chosenProduct.id && i.size === chosenSize && i.color === chosenColor
+      );
+      let newItems;
+      if (existingIdx >= 0) {
+        newItems = prev.items.map((it, idx) =>
+          idx === existingIdx ? { ...it, quantity: (it.quantity || 1) + 1 } : it
+        );
+      } else {
+        const newItem = {
+          id: `${chosenProduct.id}_${Date.now()}`,
+          productId: chosenProduct.id,
+          name: chosenProduct.name,
+          color: chosenColor,
+          size: chosenSize,
+          price: chosenProduct.price || '$129.00',
+          priceNum: chosenProduct.priceNum || 129,
+          image: chosenImage,
+          quantity: 1,
+          stock: 'available',
+        };
+        newItems = [newItem, ...prev.items];
+      }
       return {
         ...prev,
         selectedSize: chosenSize,
-        quantity: 1,
-        items: [newItem, ...prev.items.filter(i => i.productId !== chosenProduct.id)]
+        items: newItems
       };
     });
     triggerLiveActivity('Added to Bag', `${chosenProduct.name} · ${chosenSize}`);
     navigateTo('bag', side);
+  };
+
+  const updateBagQuantity = (itemId, delta) => {
+    setBagState(prev => {
+      const updated = prev.items
+        .map(item => {
+          if (item.id === itemId || item.productId === itemId) {
+            const nextQty = (item.quantity || 1) + delta;
+            return nextQty > 0 ? { ...item, quantity: nextQty } : null;
+          }
+          return item;
+        })
+        .filter(Boolean);
+      return {
+        ...prev,
+        items: updated
+      };
+    });
+    triggerLiveActivity('Cart Updated', delta > 0 ? '+1 Quantity' : '-1 Quantity');
+  };
+
+  const removeFromBag = (itemId) => {
+    setBagState(prev => ({
+      ...prev,
+      items: prev.items.filter(item => item.id !== itemId && item.productId !== itemId)
+    }));
+    triggerLiveActivity('Item Removed', 'Updated bag total');
+  };
+
+  const updateItemSize = (itemId, newSize) => {
+    setBagState(prev => ({
+      ...prev,
+      selectedSize: newSize,
+      items: prev.items.map(item =>
+        item.id === itemId || item.productId === itemId ? { ...item, size: newSize } : item
+      )
+    }));
+    triggerLiveActivity('Size Updated', `Size ${newSize}`);
+  };
+
+  const quickAddToBag = (productOrId) => {
+    const prod = typeof productOrId === 'string' ? (PRODUCTS[productOrId] || PRODUCTS.wool_coat) : productOrId;
+    setBagState(prev => {
+      const existing = prev.items.find(i => i.productId === prod.id);
+      if (existing) {
+        return {
+          ...prev,
+          items: prev.items.map(i =>
+            i.productId === prod.id ? { ...i, quantity: (i.quantity || 1) + 1 } : i
+          )
+        };
+      }
+      const newItem = {
+        id: `${prod.id}_${Date.now()}`,
+        productId: prod.id,
+        name: prod.name,
+        color: prod.color || 'Default',
+        size: prod.defaultSize || 'M',
+        price: prod.price || '$129.00',
+        priceNum: prod.priceNum || 129,
+        image: prod.image,
+        quantity: 1,
+        stock: 'available',
+      };
+      return {
+        ...prev,
+        items: [newItem, ...prev.items]
+      };
+    });
+    triggerLiveActivity('Added to Bag', `${prod.name}`);
+  };
+
+  const toggleWishlist = (productId) => {
+    setWishlist(prev => {
+      const exists = prev.includes(productId);
+      const next = exists ? prev.filter(id => id !== productId) : [...prev, productId];
+      triggerLiveActivity(exists ? 'Removed from Wishlist' : 'Saved to Wishlist', PRODUCTS[productId]?.name || '');
+      return next;
+    });
+  };
+
+  const getCartSubtotal = () => {
+    if (!bagState?.items || bagState.items.length === 0) return 0;
+    return bagState.items.reduce((sum, item) => sum + (item.priceNum || 0) * (item.quantity || 1), 0);
   };
 
   const handleLeftAction = (actionType, payload) => {
@@ -552,6 +650,16 @@ export const FlowProvider = ({ children }) => {
       viewProduct(payload, 'left');
     } else if (actionType === 'addToBag') {
       addToBag(payload?.product || payload, payload?.size, payload?.color, 'left');
+    } else if (actionType === 'updateQuantity') {
+      updateBagQuantity(payload.id || payload, payload.delta || 1);
+    } else if (actionType === 'removeFromBag') {
+      removeFromBag(payload);
+    } else if (actionType === 'updateSize') {
+      updateItemSize(payload.id, payload.size);
+    } else if (actionType === 'quickAddToBag') {
+      quickAddToBag(payload);
+    } else if (actionType === 'toggleWishlist') {
+      toggleWishlist(payload);
     } else if (actionType === 'selectColor') {
       selectPdpColor(payload);
     } else if (actionType === 'selectDepartment') {
@@ -570,6 +678,16 @@ export const FlowProvider = ({ children }) => {
       viewProduct(payload, 'right');
     } else if (actionType === 'addToBag') {
       addToBag(payload?.product || payload, payload?.size, payload?.color, 'right');
+    } else if (actionType === 'updateQuantity') {
+      updateBagQuantity(payload.id || payload, payload.delta || 1);
+    } else if (actionType === 'removeFromBag') {
+      removeFromBag(payload);
+    } else if (actionType === 'updateSize') {
+      updateItemSize(payload.id, payload.size);
+    } else if (actionType === 'quickAddToBag') {
+      quickAddToBag(payload);
+    } else if (actionType === 'toggleWishlist') {
+      toggleWishlist(payload);
     } else if (actionType === 'selectColor') {
       selectPdpColor(payload);
     } else if (actionType === 'selectDepartment') {
@@ -639,6 +757,13 @@ export const FlowProvider = ({ children }) => {
         setAuthState,
         returnsState,
         setReturnsState,
+        wishlist,
+        toggleWishlist,
+        updateBagQuantity,
+        removeFromBag,
+        updateItemSize,
+        quickAddToBag,
+        getCartSubtotal,
         liveActivity,
         triggerLiveActivity,
         handleLeftAction,

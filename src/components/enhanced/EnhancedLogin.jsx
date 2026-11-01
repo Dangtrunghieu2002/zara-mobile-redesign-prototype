@@ -8,9 +8,34 @@ export const EnhancedLogin = () => {
   const [activeTab, setActiveTab] = useState('login'); // 'login' | 'register'
   const [emailInput, setEmailInput] = useState('d.trunghieu@gmail.com');
   const [step, setStep] = useState(1); // 1: Email, 2: Password & OTP
+  const [passwordInput, setPasswordInput] = useState('secretPass@123');
+  const [showPassword, setShowPassword] = useState(false);
+  const [toastMsg, setToastMsg] = useState(null);
+
+  const calculateStrength = (pass) => {
+    let score = 0;
+    if (pass.length >= 8) score++;
+    if (/[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+    return score;
+  };
+  const strength = calculateStrength(passwordInput);
+
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(null), 2500);
+  };
 
   return (
     <div className="flex flex-col h-full bg-black text-white justify-between relative font-sans text-xs">
+      {/* Toast Notification */}
+      {toastMsg && (
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-emerald-500 text-black px-3.5 py-1.5 rounded-full font-mono text-[10px] font-bold shadow-xl animate-bounce flex items-center gap-1.5">
+          <Check className="w-3.5 h-3.5" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
+
       {/* Top Header */}
       <div className="bg-[#1c1c1e] px-4 py-2 flex items-center justify-between text-neutral-400 text-[11px] border-b border-neutral-800">
         <button
@@ -108,11 +133,23 @@ export const EnhancedLogin = () => {
               <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 text-center mb-2">
                 OR ACCESS WITH
               </div>
-              <button className="w-full py-2.5 border border-neutral-700 rounded text-neutral-300 text-xs font-semibold hover:border-white">
-                 CONTINUE WITH APPLE
+              <button
+                onClick={() => {
+                  showToast('Authenticated via Apple ID (d.trunghieu@icloud.com)');
+                  setTimeout(() => handleRightAction('navigate', 'home'), 1200);
+                }}
+                className="w-full py-2.5 border border-neutral-700 rounded text-neutral-200 text-xs font-semibold hover:border-white hover:bg-neutral-900 transition-colors flex items-center justify-center gap-2"
+              >
+                <span> CONTINUE WITH APPLE</span>
               </button>
-              <button className="w-full py-2.5 border border-neutral-700 rounded text-neutral-300 text-xs font-semibold hover:border-white">
-                G CONTINUE WITH GOOGLE
+              <button
+                onClick={() => {
+                  showToast('Authenticated via Google (d.trunghieu@gmail.com)');
+                  setTimeout(() => handleRightAction('navigate', 'home'), 1200);
+                }}
+                className="w-full py-2.5 border border-neutral-700 rounded text-neutral-200 text-xs font-semibold hover:border-white hover:bg-neutral-900 transition-colors flex items-center justify-center gap-2"
+              >
+                <span>G CONTINUE WITH GOOGLE</span>
               </button>
             </div>
           </div>
@@ -136,24 +173,40 @@ export const EnhancedLogin = () => {
               />
 
               <div className="flex justify-between items-center">
-                <span className="text-[11px] font-bold uppercase">1 · CREATE PASSWORD</span>
-                <span className="text-[10px] text-neutral-400 cursor-pointer">HIDE</span>
+                <span className="text-[11px] font-bold uppercase">1 · {activeTab === 'login' ? 'ENTER PASSWORD' : 'CREATE PASSWORD'}</span>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(prev => !prev)}
+                  className="text-[10px] text-neutral-400 hover:text-white cursor-pointer font-mono"
+                >
+                  {showPassword ? 'HIDE' : 'SHOW'}
+                </button>
               </div>
 
               <input
-                type="password"
-                defaultValue="secretPass@123"
-                className="w-full bg-neutral-800 border border-neutral-700 rounded px-2.5 py-1.5 text-xs text-white"
+                type={showPassword ? 'text' : 'password'}
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                placeholder="Enter password"
+                className="w-full bg-neutral-800 border border-neutral-700 rounded px-2.5 py-1.5 text-xs text-white focus:border-white focus:outline-none"
               />
 
-              {/* 3-Tier Strength Bar */}
+              {/* 3-Tier Dynamic Strength Bar */}
               <div className="grid grid-cols-3 gap-1 pt-1">
-                <div className="h-1 bg-emerald-500 rounded" />
-                <div className="h-1 bg-emerald-500 rounded" />
-                <div className="h-1 bg-emerald-500 rounded" />
+                <div className={`h-1 rounded transition-colors ${strength >= 1 ? (strength === 1 ? 'bg-amber-500' : 'bg-emerald-500') : 'bg-neutral-700'}`} />
+                <div className={`h-1 rounded transition-colors ${strength >= 2 ? (strength === 2 ? 'bg-amber-400' : 'bg-emerald-500') : 'bg-neutral-700'}`} />
+                <div className={`h-1 rounded transition-colors ${strength >= 3 ? 'bg-emerald-500' : 'bg-neutral-700'}`} />
               </div>
-              <div className="text-[9px] text-emerald-400 font-mono">
-                Strength: <strong>Strong (Tier 3/3)</strong> · ✓ 8+ chars · ✓ 1 number · ✓ 1 symbol
+              <div className="text-[9px] font-mono">
+                {strength === 3 ? (
+                  <span className="text-emerald-400">Strength: <strong>Strong (Tier 3/3)</strong> · ✓ 8+ chars · ✓ 1 number · ✓ 1 symbol</span>
+                ) : strength === 2 ? (
+                  <span className="text-amber-400">Strength: <strong>Medium (Tier 2/3)</strong> · Add symbols or numbers to strengthen</span>
+                ) : strength === 1 ? (
+                  <span className="text-amber-500">Strength: <strong>Fair (Tier 1/3)</strong> · Minimum 8 characters required</span>
+                ) : (
+                  <span className="text-red-400">Strength: <strong>Weak (Tier 0/3)</strong> · Please enter a secure password</span>
+                )}
               </div>
             </div>
 

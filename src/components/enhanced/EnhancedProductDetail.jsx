@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
-import { X, Bookmark, Share2, ShoppingBag, Plus, Minus, ChevronDown, ChevronUp, MessageSquare } from 'lucide-react';
+import { X, Bookmark, Share2, ShoppingBag, Plus, Minus, ChevronDown, ChevronUp, MessageSquare, Check, HelpCircle } from 'lucide-react';
 
 export const EnhancedProductDetail = () => {
-  const { handleRightAction, selectedProduct, PRODUCTS, pdpState } = useFlow();
+  const { handleRightAction, selectedProduct, PRODUCTS, pdpState, wishlist, toggleWishlist, bagState } = useFlow();
   const product = selectedProduct || PRODUCTS.wool_coat;
   const [zoomLevel, setZoomLevel] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product.defaultSize || 'M');
   const [openSection, setOpenSection] = useState('description');
+  const [showShareToast, setShowShareToast] = useState(false);
+  const [showSizeModal, setShowSizeModal] = useState(false);
+
+  const isSaved = wishlist?.includes(product?.id);
+  const totalBagItems = (bagState?.items || []).reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+  const handleShare = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+    }
+    setShowShareToast(true);
+    setTimeout(() => setShowShareToast(false), 2500);
+  };
 
   React.useEffect(() => {
     if (product?.defaultSize) {
@@ -26,6 +39,14 @@ export const EnhancedProductDetail = () => {
 
   return (
     <div className="flex flex-col h-full bg-white text-black justify-between relative overflow-hidden font-sans select-none">
+      {/* Toast Notification */}
+      {showShareToast && (
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-3 py-1.5 rounded-full font-mono text-[10px] font-bold shadow-xl animate-bounce border border-neutral-700 flex items-center gap-1.5">
+          <Check className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Product link copied to clipboard</span>
+        </div>
+      )}
+
       {/* Top Header with Explicit Labels & 44dp Touch Area (Problem #13) */}
       <div className="relative px-4 pt-2 pb-1.5 flex items-center justify-between border-b border-neutral-100 z-10">
         <AnnotationBadge
@@ -44,11 +65,19 @@ export const EnhancedProductDetail = () => {
         </button>
 
         <div className="flex items-center gap-3 text-neutral-800">
-          <button className="flex flex-col items-center p-1.5 hover:text-black transition-colors min-w-[44px]">
-            <Bookmark className="w-4 h-4" />
-            <span className="text-[9px] font-medium tracking-tight">Save</span>
+          <button
+            onClick={() => toggleWishlist(product.id)}
+            className="flex flex-col items-center p-1.5 hover:text-black transition-colors min-w-[44px]"
+            title={isSaved ? "Remove from wishlist" : "Save to wishlist"}
+          >
+            <Bookmark className={`w-4 h-4 transition-colors ${isSaved ? 'fill-black text-black' : 'text-neutral-800'}`} />
+            <span className="text-[9px] font-medium tracking-tight">{isSaved ? 'Saved' : 'Save'}</span>
           </button>
-          <button className="flex flex-col items-center p-1.5 hover:text-black transition-colors min-w-[44px]">
+          <button
+            onClick={handleShare}
+            className="flex flex-col items-center p-1.5 hover:text-black transition-colors min-w-[44px]"
+            title="Share product"
+          >
             <Share2 className="w-4 h-4" />
             <span className="text-[9px] font-medium tracking-tight">Share</span>
           </button>
@@ -58,7 +87,11 @@ export const EnhancedProductDetail = () => {
           >
             <div className="relative">
               <ShoppingBag className="w-4 h-4" />
-              <span className="absolute -top-1 -right-1 bg-black text-white text-[8px] w-3 h-3 rounded-full flex items-center justify-center font-bold">1</span>
+              {totalBagItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-black text-white text-[8px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">
+                  {totalBagItems}
+                </span>
+              )}
             </div>
             <span className="text-[9px] font-medium tracking-tight">Bag</span>
           </button>
@@ -176,9 +209,12 @@ export const EnhancedProductDetail = () => {
 
           <div className="flex justify-between items-center mb-1.5">
             <span className="text-xs font-bold uppercase tracking-wider">SIZE</span>
-            <span className="text-[10px] text-neutral-600 underline cursor-pointer hover:text-black">
-              Size recommender
-            </span>
+            <button
+              onClick={() => setShowSizeModal(true)}
+              className="text-[10px] text-neutral-600 underline cursor-pointer hover:text-black font-medium"
+            >
+              Size recommender & chart
+            </button>
           </div>
 
           <div className="grid grid-cols-4 gap-2">
@@ -323,6 +359,74 @@ export const EnhancedProductDetail = () => {
         <MessageSquare className="w-3.5 h-3.5 text-amber-300" />
         <span>Help chat</span>
       </button>
+
+      {/* Zara Official Sizing Guide Modal */}
+      {showSizeModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-screen-fade">
+          <div className="bg-white text-black w-full max-w-sm rounded-t-2xl sm:rounded-2xl p-5 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
+            <div className="flex justify-between items-center border-b border-neutral-100 pb-3">
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-wider font-mono">ZARA OFFICIAL SIZE GUIDE</h3>
+                <p className="text-[10px] text-neutral-500 font-sans mt-0.5">International standard body measurements (cm)</p>
+              </div>
+              <button
+                onClick={() => setShowSizeModal(false)}
+                className="p-1 rounded-full hover:bg-neutral-100 text-neutral-600 hover:text-black transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="border border-neutral-200 rounded-lg overflow-hidden text-[10px]">
+              <table className="w-full text-left">
+                <thead className="bg-neutral-50 border-b border-neutral-200 font-mono text-[9px] uppercase text-neutral-500">
+                  <tr>
+                    <th className="py-2 px-2.5">SIZE</th>
+                    <th className="py-2 px-2.5">CHEST</th>
+                    <th className="py-2 px-2.5">WAIST</th>
+                    <th className="py-2 px-2.5">HIPS</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-100 font-mono">
+                  {[
+                    { size: 'S', chest: '88 - 92 cm', waist: '76 - 80 cm', hips: '92 - 96 cm' },
+                    { size: 'M', chest: '96 - 100 cm', waist: '84 - 88 cm', hips: '100 - 104 cm' },
+                    { size: 'L', chest: '104 - 108 cm', waist: '92 - 96 cm', hips: '108 - 112 cm' },
+                    { size: 'XL', chest: '112 - 116 cm', waist: '100 - 104 cm', hips: '116 - 120 cm' },
+                  ].map((row) => (
+                    <tr
+                      key={row.size}
+                      className={selectedSize === row.size ? 'bg-neutral-100 font-bold text-black' : 'text-neutral-700 hover:bg-neutral-50'}
+                    >
+                      <td className="py-2 px-2.5 font-bold flex items-center gap-1">
+                        <span>{row.size}</span>
+                        {selectedSize === row.size && <span className="text-[8px] bg-black text-white px-1 rounded">Current</span>}
+                      </td>
+                      <td className="py-2 px-2.5">{row.chest}</td>
+                      <td className="py-2 px-2.5">{row.waist}</td>
+                      <td className="py-2 px-2.5">{row.hips}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="bg-neutral-50 p-2.5 rounded-lg border border-neutral-200 text-[10px] text-neutral-600 space-y-1 font-sans">
+              <p className="font-bold text-neutral-900">How to measure yourself:</p>
+              <p>• <strong>Chest:</strong> Measure across the fullest part of your chest, keeping the tape horizontal.</p>
+              <p>• <strong>Waist:</strong> Measure around the narrowest part (typically where your body bends).</p>
+              <p>• <strong>Hips:</strong> Measure around the fullest part of your hips with feet together.</p>
+            </div>
+
+            <button
+              onClick={() => setShowSizeModal(false)}
+              className="w-full py-2.5 bg-black text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-neutral-800 transition-colors"
+            >
+              Close Size Guide
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

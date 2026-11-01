@@ -71,29 +71,35 @@ export const EnhancedSearchResults = () => {
           </button>
 
           {showSortMenu && (
-            <div className="absolute top-8 right-16 bg-[#1c1c1e] border border-neutral-700 rounded-lg shadow-2xl py-1 z-50 w-44 text-xs font-mono">
-              <button
-                onClick={() => { setSortFilter('relevance'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'relevance' ? 'text-white font-bold' : 'text-neutral-400'}`}
-              >
-                <span>Most Relevant</span>
-                {filterState.selectedSort === 'relevance' && <Check className="w-3 h-3 text-white" />}
-              </button>
-              <button
-                onClick={() => { setSortFilter('price_asc'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_asc' ? 'text-white font-bold' : 'text-neutral-400'}`}
-              >
-                <span>Price: Low to High</span>
-                {filterState.selectedSort === 'price_asc' && <Check className="w-3 h-3 text-white" />}
-              </button>
-              <button
-                onClick={() => { setSortFilter('price_desc'); setShowSortMenu(false); }}
-                className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_desc' ? 'text-white font-bold' : 'text-neutral-400'}`}
-              >
-                <span>Price: High to Low</span>
-                {filterState.selectedSort === 'price_desc' && <Check className="w-3 h-3 text-white" />}
-              </button>
-            </div>
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowSortMenu(false)}
+              />
+              <div className="absolute top-8 right-16 bg-[#1c1c1e] border border-neutral-700 rounded-lg shadow-2xl py-1 z-50 w-44 text-xs font-mono">
+                <button
+                  onClick={() => { setSortFilter('relevance'); setShowSortMenu(false); }}
+                  className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'relevance' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                >
+                  <span>Most Relevant</span>
+                  {filterState.selectedSort === 'relevance' && <Check className="w-3 h-3 text-white" />}
+                </button>
+                <button
+                  onClick={() => { setSortFilter('price_asc'); setShowSortMenu(false); }}
+                  className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_asc' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                >
+                  <span>Price: Low to High</span>
+                  {filterState.selectedSort === 'price_asc' && <Check className="w-3 h-3 text-white" />}
+                </button>
+                <button
+                  onClick={() => { setSortFilter('price_desc'); setShowSortMenu(false); }}
+                  className={`w-full px-3 py-1.5 text-left flex justify-between items-center hover:bg-neutral-800 ${filterState.selectedSort === 'price_desc' ? 'text-white font-bold' : 'text-neutral-400'}`}
+                >
+                  <span>Price: High to Low</span>
+                  {filterState.selectedSort === 'price_desc' && <Check className="w-3 h-3 text-white" />}
+                </button>
+              </div>
+            </>
           )}
 
           <button
@@ -227,39 +233,53 @@ export const EnhancedSearchResults = () => {
             </button>
           </div>
         ) : (
-          <div className={`grid gap-2.5 ${viewCols === 1 ? 'grid-cols-1' : viewCols === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div className={`grid ${viewCols === 1 ? 'grid-cols-1 gap-3' : viewCols === 3 ? 'grid-cols-3 gap-1.5' : 'grid-cols-2 gap-2.5'}`}>
             {items.map((p) => (
               <div
                 key={p.id}
                 onClick={() => handleRightAction('viewProduct', p.id)}
-                className="flex flex-col cursor-pointer bg-[#141416] p-1.5 rounded-lg border border-neutral-800 hover:border-neutral-600 transition-all group"
+                className={`flex flex-col cursor-pointer bg-[#141416] rounded-lg border border-neutral-800 hover:border-neutral-600 transition-all group ${
+                  viewCols === 3 ? 'p-1' : 'p-1.5'
+                }`}
               >
-                <div className={`relative bg-neutral-900 overflow-hidden mb-1.5 rounded ${viewCols === 1 ? 'h-64' : viewCols === 3 ? 'h-32' : 'h-44'}`}>
+                <div className={`relative bg-neutral-900 overflow-hidden mb-1.5 rounded ${
+                  viewCols === 1 ? 'h-64' : viewCols === 3 ? 'h-28' : 'h-44'
+                }`}>
                   <img
                     src={p.image}
                     alt={p.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
                   {p.onSale ? (
-                    <span className="absolute top-1 left-1 bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded font-mono shadow-md">
+                    <span className={`absolute top-1 left-1 bg-red-600 text-white font-black rounded font-mono shadow-md ${
+                      viewCols === 3 ? 'text-[7px] px-1 py-0.2' : 'text-[8px] px-1.5 py-0.5'
+                    }`}>
                       -{p.discountPercent}%
                     </span>
                   ) : (
-                    <span className="absolute top-1 left-1 bg-black/60 backdrop-blur-sm text-neutral-300 text-[8px] px-1 py-0.5 rounded font-mono border border-white/10">
-                      {p.availableColors ? `${p.availableColors.length} colors` : '1 color'}
+                    <span className={`absolute top-1 left-1 bg-black/60 backdrop-blur-sm text-neutral-300 rounded font-mono border border-white/10 ${
+                      viewCols === 3 ? 'text-[7px] px-1 py-0.2' : 'text-[8px] px-1 py-0.5'
+                    }`}>
+                      {p.availableColors ? `${p.availableColors.length} col` : '1 col'}
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] font-bold uppercase tracking-tight text-neutral-200 leading-tight truncate">
+                <p className={`font-bold uppercase tracking-tight text-neutral-200 leading-tight truncate ${
+                  viewCols === 3 ? 'text-[8.5px]' : 'text-[10px]'
+                }`}>
                   {p.name}
                 </p>
                 <div className="flex justify-between items-center mt-1">
                   <div>
-                    <span className="text-[10px] font-mono text-white font-bold block">
+                    <span className={`font-mono text-white font-bold block ${
+                      viewCols === 3 ? 'text-[8.5px]' : 'text-[10px]'
+                    }`}>
                       {p.price}
                     </span>
                     {p.onSale && (
-                      <span className="text-[9px] font-mono text-neutral-500 line-through">
+                      <span className={`font-mono text-neutral-500 line-through ${
+                        viewCols === 3 ? 'text-[7.5px]' : 'text-[9px]'
+                      }`}>
                         {p.originalPrice}
                       </span>
                     )}
@@ -269,10 +289,12 @@ export const EnhancedSearchResults = () => {
                       e.stopPropagation();
                       handleRightAction('addToBag', { product: p.id });
                     }}
-                    className="p-1 rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors"
+                    className={`rounded bg-neutral-800 hover:bg-white hover:text-black transition-colors ${
+                      viewCols === 3 ? 'p-0.5' : 'p-1'
+                    }`}
                     title="Quick add to bag"
                   >
-                    <Plus className="w-3 h-3" />
+                    <Plus className={viewCols === 3 ? 'w-2.5 h-2.5' : 'w-3 h-3'} />
                   </button>
                 </div>
               </div>
