@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
+import { GarmentCrossfadeImage } from '../GarmentCrossfadeImage';
 import { X, Bookmark, Share2 } from 'lucide-react';
 
 export const OriginalProductDetail = () => {
@@ -50,14 +51,10 @@ export const OriginalProductDetail = () => {
             variant="red"
           />
 
-          <img
+          <GarmentCrossfadeImage
             src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
             alt={product.name}
-            style={{
-              filter: pdpState.colorFilterStyle || 'none',
-              transition: 'filter 0.4s ease-in-out'
-            }}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full"
           />
 
           {/* Dotted unlabelled expand icon flaw */}

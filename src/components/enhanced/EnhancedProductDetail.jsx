@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useFlow } from '../../context/FlowContext';
 import { AnnotationBadge } from '../AnnotationBadge';
+import { GarmentCrossfadeImage } from '../GarmentCrossfadeImage';
 import { X, Bookmark, Share2, ShoppingBag, Plus, Minus, ChevronDown, ChevronUp, MessageSquare, Check, HelpCircle } from 'lucide-react';
 
 export const EnhancedProductDetail = () => {
@@ -110,20 +111,16 @@ export const EnhancedProductDetail = () => {
           />
 
           {/* 32% Height Photo with Zoom Controls */}
-          <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200">
-            <img
+          <div className="relative w-44 h-52 bg-neutral-100 rounded-lg overflow-hidden shrink-0 border border-neutral-200 shadow-sm">
+            <GarmentCrossfadeImage
               src={pdpState.selectedImage || product.image || "./products/real_wool_coat.jpg"}
               alt={product.name}
-              style={{
-                transform: `scale(${zoomLevel})`,
-                filter: (pdpState.selectedImage && pdpState.selectedImage !== product.image) ? 'none' : (pdpState.colorFilterStyle || 'none'),
-                transition: 'filter 0.3s ease-in-out, transform 0.2s ease-out'
-              }}
-              className="w-full h-full object-cover object-top garment-crossfade"
+              zoomLevel={zoomLevel}
+              className="w-full h-full"
             />
 
             {/* Pinch to zoom pill */}
-            <span className="absolute top-2 left-2 bg-black/70 backdrop-blur-sm text-white text-[8px] px-2 py-0.5 rounded-full font-medium">
+            <span className="absolute top-2 left-2 bg-black/70 backdrop-blur-sm text-white text-[8px] px-2 py-0.5 rounded-full font-medium pointer-events-none">
               Pinch to zoom
             </span>
 
@@ -170,8 +167,11 @@ export const EnhancedProductDetail = () => {
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono text-neutral-500 uppercase">
-                COLOR: <strong className="text-black">{pdpState.selectedColor || product.color}</strong>
+              <span className="text-[10px] font-mono text-neutral-500 uppercase flex items-center gap-1">
+                COLOR:{' '}
+                <strong key={pdpState.selectedColor || product.color} className="text-black animate-color-text">
+                  {pdpState.selectedColor || product.color}
+                </strong>
               </span>
               <div className="flex items-center gap-2">
                 {(product.availableColors || [{ name: product.color, hex: product.colorHex || '#111', image: product.image }]).map((c, idx) => {
@@ -184,7 +184,7 @@ export const EnhancedProductDetail = () => {
                       style={{ backgroundColor: c.hex }}
                       className={`w-6 h-6 rounded-md inline-block cursor-pointer apple-press transition-all ${
                         isSelected
-                          ? 'ring-2 ring-black ring-offset-2 scale-110 shadow-md'
+                          ? 'ring-2 ring-black ring-offset-2 scale-110 shadow-md animate-swatch-select'
                           : 'border border-neutral-300 opacity-75 hover:opacity-100 hover:scale-105'
                       }`}
                     />
