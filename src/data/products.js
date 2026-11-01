@@ -87,7 +87,7 @@ export const PRODUCTS = {
     color: 'Ecru Tailored',
     colorHex: '#e8e2d5',
     availableColors: [
-      { name: 'Ecru Tailored', hex: '#e8e2d5', image: './products/woman_blazer.jpg' },
+      { name: 'Ecru Tailored', hex: '#e8e2d5', image: './products/woman_blazer_same_model_ecru.jpg' },
       { name: 'Onyx Black', hex: '#111111', image: './products/woman_blazer.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
@@ -155,8 +155,8 @@ export const PRODUCTS = {
     color: 'White / Multicolour',
     colorHex: '#ffffff',
     availableColors: [
-      { name: 'White / Multi', hex: '#ffffff', filterStyle: 'none' },
-      { name: 'Sky Tint', hex: '#c5d8e8', filterStyle: 'hue-rotate(185deg) saturate(1.2)' }
+      { name: 'White / Multi', hex: '#ffffff', image: './products/real_embroidered_top.jpg' },
+      { name: 'Sky Tint', hex: '#c5d8e8', image: './products/embroidered_top_same_model_sky.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -171,15 +171,14 @@ export const PRODUCTS = {
     category: 'Tops & Knitwear',
     department: 'woman',
     onSale: false,
-    price: '.00',
     price: '$49.00',
     priceNum: 49,
     image: './products/woman_shirt.jpg',
     color: 'Crisp White',
     colorHex: '#ffffff',
     availableColors: [
-      { name: 'Crisp White', hex: '#ffffff', filterStyle: 'none' },
-      { name: 'Stripe Blue', hex: '#9ab3c9', filterStyle: 'hue-rotate(190deg) saturate(1.3) brightness(0.95)' }
+      { name: 'Crisp White', hex: '#ffffff', image: './products/woman_shirt.jpg' },
+      { name: 'Stripe Blue', hex: '#9ab3c9', image: './products/woman_shirt_same_model_blue.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'M',
@@ -200,9 +199,9 @@ export const PRODUCTS = {
     color: 'Champagne gold',
     colorHex: '#d8c29d',
     availableColors: [
-      { name: 'Champagne gold', hex: '#d8c29d', filterStyle: 'none' },
-      { name: 'Classic black', hex: '#111111', filterStyle: 'brightness(0.38) contrast(1.3) grayscale(0.9)' },
-      { name: 'Ruby Wine', hex: '#8b1c28', filterStyle: 'hue-rotate(315deg) saturate(1.6) brightness(0.85)' }
+      { name: 'Champagne gold', hex: '#d8c29d', image: './products/real_beaded_dress.jpg' },
+      { name: 'Classic black', hex: '#111111', image: './products/beaded_dress_same_model_black.jpg' },
+      { name: 'Ruby Wine', hex: '#8b1c28', image: './products/beaded_dress_same_model_wine.jpg' }
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     defaultSize: 'S',
@@ -250,8 +249,8 @@ export const PRODUCTS = {
     color: 'Vintage Mid Blue',
     colorHex: '#5d7f9e',
     availableColors: [
-      { name: 'Vintage Mid Blue', hex: '#5d7f9e', filterStyle: 'none' },
-      { name: 'Washed Black', hex: '#222222', filterStyle: 'brightness(0.4) contrast(1.2) grayscale(0.9)' }
+      { name: 'Vintage Mid Blue', hex: '#5d7f9e', image: './products/woman_jeans.jpg' },
+      { name: 'Washed Black', hex: '#222222', image: './products/woman_jeans_same_model_black.jpg' }
     ],
     sizes: ['34 (XS)', '36 (S)', '38 (M)', '40 (L)'],
     defaultSize: '36 (S)',
@@ -272,8 +271,8 @@ export const PRODUCTS = {
     color: 'Pearl white',
     colorHex: '#e5e5e0',
     availableColors: [
-      { name: 'Pearl white', hex: '#f0ede6', filterStyle: 'none' },
-      { name: 'Onyx black', hex: '#151515', filterStyle: 'brightness(0.35) contrast(1.4) grayscale(0.8)' }
+      { name: 'Pearl white', hex: '#f0ede6', image: './products/real_beaded_bag.jpg' },
+      { name: 'Onyx black', hex: '#151515', image: './products/beaded_bag_same_model_black.jpg' }
     ],
     sizes: ['ONE SIZE'],
     defaultSize: 'ONE SIZE',
@@ -296,8 +295,8 @@ export const PRODUCTS = {
     color: 'Black Leather',
     colorHex: '#111111',
     availableColors: [
-      { name: 'Black Leather', hex: '#111111', filterStyle: 'none' },
-      { name: 'Burgundy Red', hex: '#5b1e28', filterStyle: 'sepia(0.6) hue-rotate(300deg) brightness(0.8)' }
+      { name: 'Black Leather', hex: '#111111', image: './products/woman_boots.jpg' },
+      { name: 'Burgundy Red', hex: '#5b1e28', image: './products/woman_boots_same_model_burgundy.jpg' }
     ],
     sizes: ['36', '37', '38', '39', '40'],
     defaultSize: '38',
@@ -347,8 +346,8 @@ export const PRODUCTS = {
     color: 'Camel Brown',
     colorHex: '#997352',
     availableColors: [
-      { name: 'Camel Brown', hex: '#997352', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.45) contrast(1.3) saturate(0.2)' }
+      { name: 'Camel Brown', hex: '#997352', image: './products/man_overcoat.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/man_overcoat_same_model_black.jpg' }
     ],
     sizes: ['48 (M)', '50 (L)', '52 (XL)'],
     defaultSize: '50 (L)',
@@ -371,8 +370,8 @@ export const PRODUCTS = {
     color: 'Dark Chocolate',
     colorHex: '#2c1e18',
     availableColors: [
-      { name: 'Dark Chocolate', hex: '#2c1e18', filterStyle: 'none' },
-      { name: 'Washed Black', hex: '#1c1c1c', filterStyle: 'brightness(0.6) saturate(0.1)' }
+      { name: 'Dark Chocolate', hex: '#2c1e18', image: './products/man_bomber.jpg' },
+      { name: 'Washed Black', hex: '#1c1c1c', image: './products/man_bomber_same_model_black.jpg' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'L',
@@ -415,8 +414,8 @@ export const PRODUCTS = {
     color: 'Ecru Off-White',
     colorHex: '#f2eee6',
     availableColors: [
-      { name: 'Ecru Off-White', hex: '#f2eee6', filterStyle: 'none' },
-      { name: 'Charcoal Black', hex: '#222222', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.8)' }
+      { name: 'Ecru Off-White', hex: '#f2eee6', image: './products/man_sweater.jpg' },
+      { name: 'Charcoal Black', hex: '#222222', image: './products/man_sweater_same_model_black.jpg' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'L',
@@ -439,8 +438,8 @@ export const PRODUCTS = {
     color: 'Olive Khaki',
     colorHex: '#5e6848',
     availableColors: [
-      { name: 'Olive Khaki', hex: '#5e6848', filterStyle: 'none' },
-      { name: 'Onyx Noir', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.1)' }
+      { name: 'Olive Khaki', hex: '#5e6848', image: './products/man_polo.jpg' },
+      { name: 'Onyx Noir', hex: '#111111', image: './products/man_polo_same_model_noir.jpg' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -463,8 +462,8 @@ export const PRODUCTS = {
     color: 'Camel Beige',
     colorHex: '#c2a688',
     availableColors: [
-      { name: 'Camel Beige', hex: '#c2a688', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.2)' }
+      { name: 'Camel Beige', hex: '#c2a688', image: './products/man_trousers.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/man_trousers_same_model_black.jpg' }
     ],
     sizes: ['38', '40', '42', '44'],
     defaultSize: '40',
@@ -485,8 +484,8 @@ export const PRODUCTS = {
     color: 'Tobacco Suede',
     colorHex: '#845738',
     availableColors: [
-      { name: 'Tobacco Suede', hex: '#845738', filterStyle: 'none' },
-      { name: 'Black Leather', hex: '#111111', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.9)' }
+      { name: 'Tobacco Suede', hex: '#845738', image: './products/man_chelsea.jpg' },
+      { name: 'Black Leather', hex: '#111111', image: './products/man_chelsea_same_model_black.jpg' }
     ],
     sizes: ['40', '41', '42', '43', '44'],
     defaultSize: '42',
@@ -536,8 +535,8 @@ export const PRODUCTS = {
     color: 'Cream Ecru',
     colorHex: '#f5f0e6',
     availableColors: [
-      { name: 'Cream Ecru', hex: '#f5f0e6', filterStyle: 'none' },
-      { name: 'Sage Green', hex: '#73867b', filterStyle: 'hue-rotate(90deg) saturate(0.8)' }
+      { name: 'Cream Ecru', hex: '#f5f0e6', image: './products/kids_sweatshirt.jpg' },
+      { name: 'Sage Green', hex: '#73867b', image: './products/kids_sweatshirt_same_model_sage.jpg' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -558,8 +557,8 @@ export const PRODUCTS = {
     color: 'Oatmeal Heather',
     colorHex: '#dcd3c3',
     availableColors: [
-      { name: 'Oatmeal Heather', hex: '#dcd3c3', filterStyle: 'none' },
-      { name: 'Navy Nordic', hex: '#21334a', filterStyle: 'hue-rotate(200deg) saturate(1.3) brightness(0.7)' }
+      { name: 'Oatmeal Heather', hex: '#dcd3c3', image: './products/kids_cardigan.jpg' },
+      { name: 'Navy Nordic', hex: '#21334a', image: './products/kids_cardigan_same_model_navy.jpg' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS'],
     defaultSize: '8-9 YRS',
@@ -582,8 +581,8 @@ export const PRODUCTS = {
     color: 'Dusty Rose Pink',
     colorHex: '#d8a4a6',
     availableColors: [
-      { name: 'Dusty Rose Pink', hex: '#d8a4a6', filterStyle: 'none' },
-      { name: 'Ivory Cloud', hex: '#fffaf0', filterStyle: 'brightness(1.2) saturate(0.3)' }
+      { name: 'Dusty Rose Pink', hex: '#d8a4a6', image: './products/kids_dress.jpg' },
+      { name: 'Ivory Cloud', hex: '#fffaf0', image: './products/kids_dress_same_model_ivory.jpg' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -604,8 +603,8 @@ export const PRODUCTS = {
     color: 'Light Vintage Blue',
     colorHex: '#8ba9c4',
     availableColors: [
-      { name: 'Light Vintage Blue', hex: '#8ba9c4', filterStyle: 'none' },
-      { name: 'Washed Grey', hex: '#636569', filterStyle: 'grayscale(0.8) brightness(0.8)' }
+      { name: 'Light Vintage Blue', hex: '#8ba9c4', image: './products/kids_denim.jpg' },
+      { name: 'Washed Grey', hex: '#636569', image: './products/kids_denim_same_model_grey.jpg' }
     ],
     sizes: ['6-7 YRS', '8-9 YRS', '10-11 YRS', '12-14 YRS'],
     defaultSize: '8-9 YRS',
@@ -628,8 +627,8 @@ export const PRODUCTS = {
     color: 'Cognac Amber',
     colorHex: '#9e623a',
     availableColors: [
-      { name: 'Cognac Amber', hex: '#9e623a', filterStyle: 'none' },
-      { name: 'Midnight Black', hex: '#111111', filterStyle: 'brightness(0.35) grayscale(0.9)' }
+      { name: 'Cognac Amber', hex: '#9e623a', image: './products/kids_boots.jpg' },
+      { name: 'Midnight Black', hex: '#111111', image: './products/kids_boots_same_model_black.jpg' }
     ],
     sizes: ['30', '31', '32', '33', '34', '35'],
     defaultSize: '32',
@@ -654,8 +653,8 @@ export const PRODUCTS = {
     color: 'Stone Grey',
     colorHex: '#9e9e9e',
     availableColors: [
-      { name: 'Stone Grey', hex: '#9e9e9e', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.4) contrast(1.2) saturate(0.1)' }
+      { name: 'Stone Grey', hex: '#9e9e9e', image: './products/real_lookbook_1.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/real_lookbook_1_same_model_black.jpg' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'M',
@@ -678,8 +677,8 @@ export const PRODUCTS = {
     color: 'Ivory Cream',
     colorHex: '#fdfbf7',
     availableColors: [
-      { name: 'Ivory Cream', hex: '#fdfbf7', filterStyle: 'none' },
-      { name: 'Midnight Noir', hex: '#111111', filterStyle: 'brightness(0.35) contrast(1.3) grayscale(0.9)' }
+      { name: 'Ivory Cream', hex: '#fdfbf7', image: './products/real_lookbook_2.jpg' },
+      { name: 'Midnight Noir', hex: '#111111', image: './products/real_lookbook_2_same_model_noir.jpg' }
     ],
     sizes: ['XS', 'S', 'M'],
     defaultSize: 'S',
@@ -700,8 +699,8 @@ export const PRODUCTS = {
     color: 'Camel Warm',
     colorHex: '#a07855',
     availableColors: [
-      { name: 'Camel Warm', hex: '#a07855', filterStyle: 'none' },
-      { name: 'Onyx Black', hex: '#111111', filterStyle: 'brightness(0.45) contrast(1.2) saturate(0.2)' }
+      { name: 'Camel Warm', hex: '#a07855', image: './products/real_lookbook_3.jpg' },
+      { name: 'Onyx Black', hex: '#111111', image: './products/real_lookbook_3_same_model_black.jpg' }
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     defaultSize: 'M',
@@ -724,8 +723,8 @@ export const PRODUCTS = {
     color: 'Onyx Noir',
     colorHex: '#141414',
     availableColors: [
-      { name: 'Onyx Noir', hex: '#141414', filterStyle: 'none' },
-      { name: 'Dark Cognac', hex: '#4a2c1b', filterStyle: 'sepia(0.7) hue-rotate(330deg) brightness(0.9)' }
+      { name: 'Onyx Noir', hex: '#141414', image: './products/real_lookbook_4.jpg' },
+      { name: 'Dark Cognac', hex: '#4a2c1b', image: './products/real_lookbook_4_same_model_cognac.jpg' }
     ],
     sizes: ['S', 'M', 'L'],
     defaultSize: 'M',

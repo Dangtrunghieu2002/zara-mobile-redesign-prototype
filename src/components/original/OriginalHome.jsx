@@ -10,8 +10,19 @@ export const OriginalHome = () => {
 
   return (
     <div className="relative flex flex-col h-full bg-black text-white justify-between select-none">
-      {/* Top Header */}
-      <div className="px-5 pt-2 flex items-center justify-between text-xs tracking-wider z-20">
+      {/* Dynamic Editorial Campaign Background Spanning 100% Screen */}
+      <div className="absolute inset-0 z-0">
+        <img
+          key={campaign.image}
+          src={campaign.image}
+          alt={campaign.collection}
+          className="w-full h-full object-cover object-center brightness-90"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
+      </div>
+
+      {/* Top Header (Apple HIG Safe Area Inset) */}
+      <div className="relative px-5 pt-12 flex items-center justify-between text-xs tracking-wider z-20">
         <span
           className="cursor-pointer font-bold font-mono text-xs text-neutral-300 hover:text-white"
           onClick={() => handleLeftAction('navigate', 'menu')}
@@ -37,20 +48,7 @@ export const OriginalHome = () => {
       </div>
 
       {/* Main Editorial Hero: Clean Campaign Photo without any phone frame */}
-      <div className="relative flex-1 flex flex-col justify-end px-5 pb-5 overflow-hidden">
-        <div
-          onClick={() => handleLeftAction('navigate', 'lookbook')}
-          className="absolute inset-0 z-0 cursor-pointer"
-          title="Tap to view Lookbook"
-        >
-          <img
-            key={campaign.image}
-            src={campaign.image}
-            alt={campaign.collection}
-            className="w-full h-full object-cover object-center brightness-90 hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/30" />
-        </div>
+      <div className="relative flex-1 flex flex-col justify-end px-5 pb-5 overflow-hidden z-10">
 
         {/* Video mute icon */}
         <div className="absolute left-5 bottom-28 z-20">

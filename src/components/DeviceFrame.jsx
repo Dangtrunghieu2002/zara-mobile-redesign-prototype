@@ -115,12 +115,14 @@ export const DeviceFrame = ({
             deviceType === 'iphone' ? 'rounded-[44px]' : 'rounded-[30px]'
           }`}
         >
-          {/* Status Bar: Transparent on iPhone with adaptive status text & floating Dynamic Island */}
+          {/* Status Bar: On Home screen, absolute transparent overlay for true edge-to-edge tràn viền under Dynamic Island */}
           <div
-            className={`w-full shrink-0 h-11 px-6 flex items-center justify-between text-[12px] font-medium z-30 pt-1 transition-colors duration-300 ${
-              isLightScreen
-                ? 'bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-100/60'
-                : 'bg-black/90 backdrop-blur-md text-white'
+            className={`w-full px-6 flex items-center justify-between text-[12px] font-medium z-40 pt-1.5 transition-colors duration-300 ${
+              currentScreenFlow === 'home'
+                ? 'absolute top-0 left-0 right-0 h-11 bg-transparent text-white drop-shadow pointer-events-none'
+                : isLightScreen
+                ? 'shrink-0 h-11 bg-white/95 backdrop-blur-md text-neutral-900 border-b border-neutral-100/60'
+                : 'shrink-0 h-11 bg-black/90 backdrop-blur-md text-white'
             }`}
           >
             <span className="font-semibold tracking-tight">10:41</span>
@@ -128,12 +130,12 @@ export const DeviceFrame = ({
             {/* iPhone Dynamic Island with Apple Live Activities */}
             {deviceType === 'iphone' && (
               <div
-                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 shadow-md z-40 transition-all duration-300 ${
+                className={`absolute left-1/2 -translate-x-1/2 top-2 h-7 rounded-full flex items-center justify-between px-2.5 shadow-md pointer-events-auto transition-all duration-300 ${
                   variant === 'enhanced' && liveActivity
                     ? 'w-52 bg-black text-white ring-1 ring-emerald-500/60 shadow-lg animate-island-live'
                     : isLightScreen
                     ? 'w-28 bg-black text-white ring-1 ring-black/10 shadow-sm'
-                    : 'w-28 bg-black text-white ring-1 ring-neutral-800/80'
+                    : 'w-28 bg-black text-white ring-1 ring-white/10 shadow-md'
                 }`}
               >
                 {variant === 'enhanced' && liveActivity ? (
@@ -294,12 +296,26 @@ export const DeviceFrame = ({
           {/* Bottom Bar: iPhone Home Indicator OR Android 3-Button Nav */}
           {deviceType === 'iphone' ? (
             <div
-              className="w-full shrink-0 h-6 flex items-center justify-center bg-black/90 backdrop-blur-sm z-30 cursor-pointer group"
+              className={`w-full flex items-center justify-center z-30 cursor-pointer group transition-colors duration-300 ${
+                currentScreenFlow === 'home'
+                  ? 'absolute bottom-0 left-0 right-0 h-6 bg-transparent pointer-events-auto'
+                  : isLightScreen
+                  ? 'shrink-0 h-6 bg-white'
+                  : 'shrink-0 h-6 bg-black/90 backdrop-blur-sm'
+              }`}
               onClick={handleHomeClick}
               title="iPhone Home Bar - Tap to return Home"
               aria-label="Home"
             >
-              <div className="w-32 h-1 bg-white/70 group-hover:bg-white group-active:scale-95 transition-all rounded-full" />
+              <div
+                className={`w-32 h-1 group-hover:scale-105 group-active:scale-95 transition-all rounded-full ${
+                  currentScreenFlow === 'home'
+                    ? 'bg-white/75 group-hover:bg-white drop-shadow'
+                    : isLightScreen
+                    ? 'bg-neutral-800/60 group-hover:bg-neutral-900'
+                    : 'bg-white/70 group-hover:bg-white'
+                }`}
+              />
             </div>
           ) : (
             <div className="w-full shrink-0 h-9 flex items-center justify-around bg-black text-neutral-400 z-30 border-t border-neutral-900/50 px-6">

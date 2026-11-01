@@ -31,9 +31,9 @@ export const EnhancedHome = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/50" />
       </div>
 
-      {/* Top Header with Zara Brand Wordmark & Grid Switcher */}
-      <div className="relative px-5 pt-2 flex items-center justify-between z-20">
-        <span className="zara-logo text-3xl font-black tracking-tighter text-white">
+      {/* Top Header with Zara Brand Wordmark & Grid Switcher (Apple HIG 44pt Safe Area Inset) */}
+      <div className="relative px-5 pt-12 flex items-center justify-between z-20">
+        <span className="zara-logo text-3xl font-black tracking-tighter text-white drop-shadow">
           ZARA
         </span>
         <button
